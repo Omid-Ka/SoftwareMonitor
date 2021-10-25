@@ -1,0 +1,28 @@
+﻿using Core.Interfaces;
+using Core.Services;
+using Data.Repository;
+using Domain.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace IoC
+{
+    public class DependencyContainer
+    {
+        public static void RegisterServices(IServiceCollection service)
+        {
+            service.AddScoped<IProjectService, ProjectServices>();
+            service.AddScoped<IProjectRepository, ProjectRepository>();
+
+
+            service.AddScoped<ILookupService, LookupServices>();
+            service.AddScoped<ILookupRepository, LookupRepository>();
+
+
+            service.AddScoped<IUsersService, UsersServices>();
+            service.AddScoped<IUsersRepository, UsersRepository>();
+        }
+    }
+}

@@ -1,0 +1,113 @@
+﻿@model Core.ViewModels.LoginVM
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Login 10</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/Login/css/Loginstyle.css">
+
+</head>
+<body class="img js-fullheight" style="background-image: url(/Login/images/bg.jpg);">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">SQCA</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap p-0">
+                        <h3 class="mb-4 text-center">ورود به سامانه</h3>
+                        <form asp-controller="Login" asp-action="Login" class="signin-form">
+                            <div class="form-group">
+                                <input asp-for="UserName" type="text" class="form-control" placeholder="نام کاربری" required>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Password" id="password-field" type="password" class="form-control" placeholder="کلمه عبور" required>
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="g-recaptcha" data-sitekey="6LfxrN0cAAAAAEpvph24gd1TznZlxaLceKUZeVeu"></div>
+                                <span class="text-danger">@ViewBag.Message</span>
+                            </div>
+                            <div class="form-group d-md-flex">
+                                <div class="w-50">
+                                    <label class="checkbox-wrap checkbox-primary">
+                                        مرا به خاطر بسپار
+                                        <input asp-for="RememberMe" type="checkbox" checked>
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary submit px-3">
+                                    @*<a asp-controller="Admin" asp-action="Index" style="color: black;">ورود</a>*@
+                                    ورود
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="text-md-center">
+                                    <a href="#" style="color: aqua">فراموشی کلمه عبور</a>
+                                </div>
+                            </div>
+                        </form>
+                        @*<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+                            <div class="social d-flex text-center">
+                                <a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+                                <a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/Login/js/jquery.min.js"></script>
+    <script src="/Login/js/popper.js"></script>
+    <script src="/Login/js/bootstrap.min.js"></script>
+<script src="/Login/js/main.js"></script>
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+
+    <script>
+
+    $(document).ready(function() {
+        var success = '@TempData["Success"]';
+        var warning = '@TempData["Warning"]';
+        var info = '@TempData["Info"]';
+        var error = '@TempData["Error"]';
+
+        if (success.length > 0) {
+            toastr["success"](success);
+        } else if (warning.length > 0) {
+            toastr["warning"](warning);
+        } else if (info.length > 0) {
+            toastr["info"](info);
+        } else if (error.length > 0) {
+            toastr["error"](error);
+        }
+    });
+    </script>
+
+    <script src="/bootstrap-toastr/toastr.js"></script>
+    <script src="/bootstrap-toastr/toastr.min.js"></script>
+
+</body>
+</html>
+
+
