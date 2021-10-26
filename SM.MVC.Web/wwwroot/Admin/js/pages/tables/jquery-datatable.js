@@ -1,6 +1,17 @@
 $(function () {
     $('.js-basic-example').DataTable({
-        responsive: true
+        responsive: true,
+        ajax: {
+            url: '/Account/GetAccountList'
+        },
+        columns: [
+            { data: "Name" },
+            { data: "Family" },
+            { data: "NationalCode" },
+            { data: "Gender" },
+            { data: "Email" },
+            { data: "UserName" }
+        ]
     });
 
     //Exportable table

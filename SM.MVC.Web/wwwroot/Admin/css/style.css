@@ -3823,7 +3823,7 @@ section.content {
 
     .card .header {
         color: #555;
-        padding: 20px;
+        padding: 10px;
         position: relative;
         border-bottom: 1px solid rgba(204, 204, 204, 0.35);
     }

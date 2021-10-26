@@ -9,5 +9,7 @@ namespace Domain.Interfaces
     public interface IUsersRepository
     {
         Users GetUserForLogin(string Username, string Password);
+
+        IEnumerable<Users> GetAllUsers();
     }
 }
