@@ -23,7 +23,6 @@ namespace Domain.Models
         [Display(Name = "تاریخ ثبت")]
         public DateTime? DateModified { get; set; }
 
-
         public string IpAddress { get; set; }
     }
 }
