@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Models.BaseInformation;
 
 namespace Domain.Interfaces
 {
     public interface ILookupRepository
     {
-
+        Lookup GetByPk(int id);
     }
 }

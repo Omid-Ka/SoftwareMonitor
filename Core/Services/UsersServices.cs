@@ -13,12 +13,13 @@ namespace Core.Services
     public class UsersServices : IUsersService
     {
         private IUsersRepository _usersRepository;
+        private ILookupRepository _lookupRepository;
 
-        public UsersServices(IUsersRepository usersRepository)
+        public UsersServices(IUsersRepository usersRepository, ILookupRepository lookupRepository)
         {
-            this._usersRepository = usersRepository;
+            _usersRepository = usersRepository;
+            _lookupRepository = lookupRepository;
         }
-
         public IEnumerable<UserVM> GetAllUsers()
         {
             return _usersRepository.GetAllUsers().Select(x => new UserVM()
@@ -26,12 +27,13 @@ namespace Core.Services
                 Id = x.Id,
                 Email = x.Email,
                 Family = x.Family,
-                //Gender = x.Gender.Description,
+                Gender = _lookupRepository.GetByPk(x.GenderId).Description,
                 Name = x.Name,
                 NationalCode = x.NationalCode,
                 Password = x.Password,
                 PersonnelCode = x.PersonnelCode,
-                UserName = x.UserName
+                UserName = x.UserName,
+                IsActive = x.IsActive
             });
         }
 

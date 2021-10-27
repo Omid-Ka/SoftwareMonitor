@@ -15,6 +15,7 @@ namespace Core.ViewModels
         public string Family { get; set; }
         public string NationalCode { get; set; }
         public string Gender { get; set; }
+        public bool IsActive { get; set; }
 
     }
 }

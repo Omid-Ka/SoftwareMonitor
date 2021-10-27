@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Core.ViewModels.UserVM>
 @{
     ViewData["Title"] = "لیست کاربران";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -41,6 +41,9 @@
         </h2>
     </div>
     <div class="body">
+        <a asp-controller="Account" asp-action="CreateUser" class="btn bg-green waves-effect">ثبت کاربر جدید</a>
+        <br/>
+        <br/>
 
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -49,26 +52,42 @@
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                 <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Family</th>
-                                        <th>NationalCode</th>
-                                        <th>Gender</th>
-                                        <th>Email</th>
-                                        <th>UserName</th>
-                                    </tr>
+                                <tr>
+                                    <th class="align-right">نام</th>
+                                    <th class="align-right">نام خانوادگی</th>
+                                    <th class="align-right">کد ملی</th>
+                                    <th class="align-right">جنسیت</th>
+                                    <th class="align-right">پست الکترونیکی</th>
+                                    <th class="align-right">نام کاربری</th>
+                                    <th class="align-right">عملیات</th>
+                                </tr>
                                 </thead>
                                 <tfoot>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Family</th>
-                                        <th>NationalCode</th>
-                                        <th>Gender</th>
-                                        <th>Email</th>
-                                        <th>UserName</th>
-                                    </tr>
+                                <tr>
+                                    <th class="align-right">نام</th>
+                                    <th class="align-right">نام خانوادگی</th>
+                                    <th class="align-right">کد ملی</th>
+                                    <th class="align-right">جنسیت</th>
+                                    <th class="align-right">پست الکترونیکی</th>
+                                    <th class="align-right">نام کاربری</th>
+                                    <th class="align-right">عملیات</th>
+                                </tr>
                                 </tfoot>
-                                
+                                <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <th class="align-right">@item.Name </th>
+                                    <th class="align-right">@item.Family</th>
+                                    <th class="align-right">@item.NationalCode</th>
+                                    <th class="align-right">@item.Gender</th>
+                                    <th class="align-right">@item.Email</th>
+                                    <th class="align-right">@item.UserName</th>
+                                    <th class="align-right">
+                                        <a class="btn bg-amber waves-effect" onclick="DeleteUser(@item.Id)"> حذف کاربر </a>
+                                        <a class="btn bg-light-green waves-effect" onclick="ٍEditUser(@item.Id)"> ویرایش کاربر </a>
+                                    </th>
+                                }
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -79,63 +98,72 @@
     </div>
 </div>
 
-@*@section Scripts
-    {*@
-@*<script>
-        $(document).ready(function () {
+    @*@section Scripts
+        {*@
+    @*<script>
+            $(document).ready(function () {
 
-            $('.js-basic-example').DataTable({
-                responsive: true,
-                ajax: {
-                    url: '/Account/GetAccountList',
-                    type: 'GET'
-                },
+                $('.js-basic-example').DataTable({
+                    responsive: true,
+                    ajax: {
+                        url: '/Account/GetAccountList',
+                        type: 'GET'
+                    },
 
-                "lengthMenu": [
-                    [10, 25, 50, -1], [10, 25, 50, "All"]
-                ],
+                    "lengthMenu": [
+                        [10, 25, 50, -1], [10, 25, 50, "All"]
+                    ],
 
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search records",
-                    sProcessing: "<img src='image/loader.gif'>"
-                },
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search records",
+                        sProcessing: "<img src='image/loader.gif'>"
+                    },
 
-                columns: [
-                    { data: "Name" },
-                    { data: "Family" },
-                    { data: "NationalCode" },
-                    { data: "Gender" },
-                    { data: "Email" },
-                    { data: "UserName" },
-                ]
+                    columns: [
+                        { data: "Name" },
+                        { data: "Family" },
+                        { data: "NationalCode" },
+                        { data: "Gender" },
+                        { data: "Email" },
+                        { data: "UserName" },
+                    ]
+                });
             });
-        });
-    </script>*@
+        </script>*@
 
-@section Scripts
+    @section Scripts
 {
 
+        <script>
+            function DeleteUser(id) {
 
-    <script src="Admin/plugins/jquery/jquery.min.js"></script>
+            }
 
+            function EditUser(id) {
 
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="Admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="Admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="Admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="Admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="Admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="Admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="Admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="Admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="Admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+            }
+        </script>
 
-    <!-- Custom Js -->
-    <script src="Admin/js/admin.js"></script>
-    <script src="Admin/js/pages/tables/jquery-datatable.js"></script>
-    
-}
+        <script src="Admin/plugins/jquery/jquery.min.js"></script>
 
 
-@*  *@}
+        <!-- Jquery DataTable Plugin Js -->
+        <script src="Admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
+        <script src="Admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+        <script src="Admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+        <script src="Admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+        <script src="Admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+        <script src="Admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+        <script src="Admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+        <script src="Admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+        <script src="Admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+        <!-- Custom Js -->
+        <script src="Admin/js/admin.js"></script>
+        <script src="Admin/js/pages/tables/jquery-datatable.js"></script>
+
+    }
+
+
+    @*  *@}

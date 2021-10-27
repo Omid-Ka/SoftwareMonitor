@@ -24,5 +24,7 @@ namespace Domain.Models
         public DateTime? DateModified { get; set; }
 
         public string IpAddress { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
