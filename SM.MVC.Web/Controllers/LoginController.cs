@@ -91,12 +91,14 @@ namespace SM.MVC.Web.Controllers
                 return View("Index");
             }
 
+            var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier,User.Id.ToString()),
                 new Claim(ClaimTypes.Name,User.Name.ToString()+" " + User.Family.ToString()),
-                new Claim(ClaimTypes.Email,User.Email.ToString())
+                new Claim(ClaimTypes.Email,User.Email.ToString()),
+                new Claim("IpAddress",IpAddress),
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

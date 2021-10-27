@@ -6,6 +6,7 @@ using Domain.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 
 namespace Core.Services
@@ -40,6 +41,40 @@ namespace Core.Services
         public Users GetUserForLogin(string Username, string Password)
         {
             return _usersRepository.GetUserForLogin(Username, Password);
+        }
+
+        public bool HasUserWithUserName(string userName)
+        {
+            return _usersRepository.HasUserWithUserName(userName);
+        }
+        public bool HasUserWithNationalcode(string nationalCode)
+        {
+            return _usersRepository.HasUserWithNationalcode(nationalCode);
+        }
+
+        public bool HasUserWithPersonnelCode(int? personnelCode)
+        {
+            return _usersRepository.HasUserWithPersonnelCode(personnelCode);
+        }
+
+        public void AddUser(Users model,ClaimsPrincipal user)
+        {
+            _usersRepository.AddUser(model,user);
+        }
+
+        public void DeleteUser(int userId, ClaimsPrincipal user)
+        {
+            _usersRepository.DeleteUser(userId, user);
+        }
+
+        public Users GetUserById(int userId)
+        {
+            return  _usersRepository.GetUserById(userId);
+        }
+
+        public void EditUser(Users model, ClaimsPrincipal user)
+        {
+            _usersRepository.EditUser(model, user);
         }
     }
 }

@@ -1,0 +1,58 @@
+﻿@model Domain.Models.Project
+@{
+    ViewData["Title"] = "ویرایش پروژه";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles
+{
+    <style>
+        .SubmitBtn {
+            float: left;
+            margin-left: 50px;
+        }
+    </style>
+}
+
+<div class="card">
+    <div class="header bg-red">
+        <h2>
+            ویرایش پروژه
+        </h2>
+    </div>
+    <div class="body">
+
+        <form asp-action="EditProject">
+            @Html.HiddenFor(x=>x.Id)
+            @Html.HiddenFor(x=>x.DateInserted)
+            <div class="row clearfix">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="ProjectName" class="control-label"></label>
+                            <input asp-for="ProjectName" class="form-control"/>
+                            <span asp-validation-for="ProjectName" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="ProjectDescription" class="control-label"></label>
+                            <input asp-for="ProjectDescription" class="form-control"/>
+                            <span asp-validation-for="ProjectDescription" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row clearfix">
+                <div class="form-group">
+                    <input type="submit" value="ویرایش پروژه" class="btn bg-green waves-effect SubmitBtn"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
