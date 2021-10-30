@@ -16,6 +16,9 @@ namespace Core.ViewModels
         public string NationalCode { get; set; }
         public string Gender { get; set; }
         public bool IsActive { get; set; }
+        public string Post { get; set; }
+        public int? LocalTel { get; set; }
+        public string MobileNo { get; set; }
 
     }
 }

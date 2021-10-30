@@ -43,6 +43,9 @@
                                             <th class="align-right">جنسیت</th>
                                             <th class="align-right">پست الکترونیکی</th>
                                             <th class="align-right">نام کاربری</th>
+                                            <th class="align-right">پست سازمانی</th>
+                                            <th class="align-right">شماره تماس</th>
+                                            <th class="align-right">داخلی</th>
                                             <th class="align-right">عملیات</th>
                                         </tr>
                                     </thead>
@@ -54,24 +57,30 @@
                                             <th class="align-right">جنسیت</th>
                                             <th class="align-right">پست الکترونیکی</th>
                                             <th class="align-right">نام کاربری</th>
+                                            <th class="align-right">پست سازمانی</th>
+                                            <th class="align-right">شماره تماس</th>
+                                            <th class="align-right">داخلی</th>
                                             <th class="align-right">عملیات</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            <tr>
-                                                <th class="align-right">@item.Name </th>
-                                                <th class="align-right">@item.Family</th>
-                                                <th class="align-right">@item.NationalCode</th>
-                                                <th class="align-right">@item.Gender</th>
-                                                <th class="align-right">@item.Email</th>
-                                                <th class="align-right">@item.UserName</th>
-                                                <th class="align-right">
-                                                    <a class="btn bg-amber waves-effect" onclick="DeleteUser(@item.Id)"> حذف کاربر </a>
-                                                    <a class="btn bg-light-green waves-effect" onclick="EditUser(@item.Id)"> ویرایش کاربر </a>
-                                                </th>
-                                            </tr>
+                                        <tr>
+                                            <th class="align-right">@item.Name </th>
+                                            <th class="align-right">@item.Family</th>
+                                            <th class="align-right">@item.NationalCode</th>
+                                            <th class="align-right">@item.Gender</th>
+                                            <th class="align-right">@item.Email</th>
+                                            <th class="align-right">@item.UserName</th>
+                                            <th class="align-right">@item.Post</th>
+                                            <th class="align-right">@item.MobileNo</th>
+                                            <th class="align-right">@item.LocalTel</th>
+                                            <th class="align-right">
+                                                <a class="btn bg-amber waves-effect" onclick="DeleteUser(@item.Id)"> حذف کاربر </a>
+                                                <a class="btn bg-light-green waves-effect" onclick="EditUser(@item.Id)"> ویرایش کاربر </a>
+                                            </th>
+                                        </tr>
                                         }
                                     </tbody>
                                 </table>
@@ -85,39 +94,6 @@
     </div>
 </div>
 
-@*@section Scripts
-    {*@
-@*<script>
-        $(document).ready(function () {
-
-            $('.js-basic-example').DataTable({
-                responsive: true,
-                ajax: {
-                    url: '/Account/GetAccountList',
-                    type: 'GET'
-                },
-
-                "lengthMenu": [
-                    [10, 25, 50, -1], [10, 25, 50, "All"]
-                ],
-
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search records",
-                    sProcessing: "<img src='image/loader.gif'>"
-                },
-
-                columns: [
-                    { data: "Name" },
-                    { data: "Family" },
-                    { data: "NationalCode" },
-                    { data: "Gender" },
-                    { data: "Email" },
-                    { data: "UserName" },
-                ]
-            });
-        });
-    </script>*@
 
 @section Scripts
 {

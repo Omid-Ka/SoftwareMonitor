@@ -30,8 +30,16 @@ namespace Domain.Models.Account
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string NationalCode { get; set; }
         [Display(Name = "جنسیت")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int GenderId { get; set; }
         public virtual Lookup Gender { get; set; }
-        
+        [Display(Name = "پست سازمانی")]
+        public int? PostId { get; set; }
+        public virtual Lookup Post { get; set; }
+        [Display(Name = "تلفن داخلی")]
+        public int? LocalTel { get; set; }
+        [Display(Name = "شماره تماس")]
+        public string MobileNo { get; set; }
+
     }
 }

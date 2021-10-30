@@ -116,8 +116,6 @@ namespace SM.MVC.Web.Controllers
         }
 
 
-
-
         public IActionResult Logout()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -34,7 +34,10 @@ namespace Core.Services
                 Password = x.Password,
                 PersonnelCode = x.PersonnelCode,
                 UserName = x.UserName,
-                IsActive = x.IsActive
+                IsActive = x.IsActive,
+                LocalTel = x.LocalTel,
+                MobileNo = x.MobileNo,
+                Post = x.PostId.HasValue ? _lookupRepository.GetByPk(x.PostId.Value).Description : ""
             });
         }
 
