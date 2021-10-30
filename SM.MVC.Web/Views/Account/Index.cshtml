@@ -88,7 +88,7 @@
 
     </div>
 </div>
-<button type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#largeModal"></button>
+<button id="ModalSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#largeModal"></button>
 
 <!-- Large Size -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
@@ -134,7 +134,7 @@
                 type: "POST",
                 success: function (result) {
                     $("#ShowModal").html(result);
-
+                    $("#ModalSubmit").click();
                 }
             });
         }
