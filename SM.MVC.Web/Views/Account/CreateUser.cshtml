@@ -123,7 +123,9 @@
                     <div class="form-group">
                         <div class="form-line">
                             <label asp-for="GenderId" class="control-label"></label>
-                            <input asp-for="GenderId" class="form-control" />
+                            <select id="Gender" class="form-control show-tick" asp-for="GenderId" asp-items="@(ViewBag.Gender)">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
                             <span asp-validation-for="GenderId" class="text-danger"></span>
                         </div>
                     </div>
@@ -132,12 +134,14 @@
                     <div class="form-group">
                         <div class="form-line">
                             <label asp-for="PostId" class="control-label"></label>
-                            <input asp-for="PostId" class="form-control" />
+                            <select id="Post" class="form-control show-tick" asp-for="PostId" asp-items="@(ViewBag.Post)">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
                             <span asp-validation-for="PostId" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
-                
+
 
             </div>
             <div class="row clearfix">

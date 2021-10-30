@@ -25,8 +25,8 @@
 
         <form asp-action="EditUser">
             <div class="row clearfix">
-                @Html.HiddenFor(x=>x.Id)
-                @Html.HiddenFor(x=>x.DateInserted)
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.DateInserted)
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="form-line">
@@ -89,7 +89,24 @@
 
             </div>
             <div class="row clearfix">
-
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="MobileNo" class="control-label"></label>
+                            <input asp-for="MobileNo" class="form-control" />
+                            <span asp-validation-for="MobileNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="LocalTel" class="control-label"></label>
+                            <input asp-for="LocalTel" class="form-control" />
+                            <span asp-validation-for="LocalTel" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="form-line">
@@ -99,15 +116,33 @@
                         </div>
                     </div>
                 </div>
+
+            </div>
+
+            <div class="row clearfix">
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="form-line">
                             <label asp-for="GenderId" class="control-label"></label>
-                            <input asp-for="GenderId" class="form-control" />
+                            <select id="Gender" class="form-control show-tick" asp-for="GenderId" asp-items="@(ViewBag.Gender)">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
                             <span asp-validation-for="GenderId" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="PostId" class="control-label"></label>
+                            <select id="Post" class="form-control show-tick" asp-for="PostId" asp-items="@(ViewBag.Post)">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
+                            <span asp-validation-for="PostId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
 
             </div>
             <div class="row clearfix">

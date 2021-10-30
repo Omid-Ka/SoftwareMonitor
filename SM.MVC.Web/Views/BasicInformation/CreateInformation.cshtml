@@ -1,0 +1,82 @@
+﻿@using Domain.Models.Enum
+@model Domain.Models.BaseInformation.Lookup
+@{
+    ViewData["Title"] = "ثبت اطلاعات";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles
+{
+    <style>
+        .SubmitBtn {
+            float: left;
+            margin-left: 50px;
+        }
+    </style>
+}
+
+<div class="card">
+    <div class="header bg-red">
+        <h2>
+            ثبت اطلاعات
+        </h2>
+    </div>
+    <div class="body">
+
+        <form asp-action="CreateInformation">
+            <div class="row clearfix">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="Category" class="control-label"></label>
+                            <select id="Gender" class="form-control show-tick" asp-for="Category" asp-items="Html.GetEnumSelectList<LookupCategory>()">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="Description" class="control-label"></label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="Information" class="control-label"></label>
+                            <input asp-for="Information" class="form-control" />
+                            <span asp-validation-for="Information" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="ReferenceID" class="control-label"></label>
+                            <input asp-for="ReferenceID" class="form-control" />
+                            <span asp-validation-for="ReferenceID" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="form-group">
+                    <input type="submit" value="ثبت اطلاعات" class="btn bg-green waves-effect SubmitBtn" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

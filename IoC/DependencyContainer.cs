@@ -23,6 +23,22 @@ namespace IoC
 
             service.AddScoped<IUsersService, UsersServices>();
             service.AddScoped<IUsersRepository, UsersRepository>();
+
+
+            service.AddScoped<IPartnersService, PartnersService>();
+            service.AddScoped<IPartnersRepository, PartnersRepository>();
+
+
+            service.AddScoped<IUserLogService, UserLogServices>();
+            service.AddScoped<IUserLogRepository, UserLogRepository>();
+
+
+            service.AddScoped<ITeamService, TeamService>();
+            service.AddScoped<ITeamRepository, TeamRepository>();
+
+
+            service.AddScoped<ITeamDetailService, TeamDetailService>();
+            service.AddScoped<ITeamDetailRepository, TeamDetailRepository>();
         }
     }
 }

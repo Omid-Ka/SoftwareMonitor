@@ -4,8 +4,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Core.ViewModels;
 using Domain.Models.Account;
+using Domain.Models.Enum;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
 
 namespace SM.MVC.Web.Controllers
@@ -13,10 +16,12 @@ namespace SM.MVC.Web.Controllers
     public class AccountController : BaseController
     {
         private IUsersService _usersService;
+        private ILookupService _lookupService;
 
-        public AccountController(IUsersService usersService)
+        public AccountController(IUsersService usersService, ILookupService lookupService)
         {
             _usersService = usersService;
+            _lookupService = lookupService;
         }
 
         public IActionResult Index()
@@ -27,12 +32,20 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult CreateUser()
         {
+            ViewBag.Gender = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Gender), "Id",
+                "Description","");
+            ViewBag.Post = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Post), "Id",
+                "Description","");
             return View();
         }
 
         [HttpPost]
         public IActionResult CreateUser(Users model)
         {
+            ViewBag.Gender = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Gender), "Id",
+                "Description", "");
+            ViewBag.Post = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Post), "Id",
+                "Description", "");
 
             if (!ModelState.IsValid)
             {
@@ -88,6 +101,11 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult EditUser(int UserId)
         {
+            ViewBag.Gender = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Gender), "Id",
+                "Description", "");
+            ViewBag.Post = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Post), "Id",
+                "Description", "");
+
             var model = _usersService.GetUserById(UserId);
             return View(model);
         }
@@ -95,6 +113,10 @@ namespace SM.MVC.Web.Controllers
         [HttpPost]
         public IActionResult EditUser(Users model)
         {
+            ViewBag.Gender = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Gender), "Id",
+                "Description", "");
+            ViewBag.Post = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Post), "Id",
+                "Description", "");
 
             if (!ModelState.IsValid)
             {
@@ -125,6 +147,14 @@ namespace SM.MVC.Web.Controllers
 
             NotifyError("با موفقیت ویرایش شد");
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ShowModal(int UserId)
+        {
+            var Model = new AccountSummary();
+
+
+            return PartialView("_UserDetail",Model);
         }
 
     }
