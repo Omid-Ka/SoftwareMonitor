@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Core.ViewModels;
 using Domain.Models.Account;
 using Domain.Models.BaseInformation;
 using Domain.Models.Enum;
+using Domain.Models.Teams;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
@@ -15,11 +17,17 @@ namespace SM.MVC.Web.Controllers
     public class BasicInformationController : BaseController
     {
         private ILookupService _lookupService;
+        private ITeamService _teamService;
+        private IUsersService _usersService;
 
-        public BasicInformationController(ILookupService lookupService)
+        public BasicInformationController(ILookupService lookupService, ITeamService teamService, IUsersService usersService)
         {
             _lookupService = lookupService;
+            _teamService = teamService;
+            _usersService = usersService;
         }
+
+        #region BasicInformation
 
         public IActionResult Index()
         {
@@ -40,7 +48,7 @@ namespace SM.MVC.Web.Controllers
                 return View("CreateInformation");
             }
 
-            bool HasInformation = _lookupService.HaslookupWithDescription(model.Description , model.Category);
+            bool HasInformation = _lookupService.HaslookupWithDescription(model.Description, model.Category);
             if (HasInformation)
             {
                 NotifyError("اطلاعات تکراری می باشد");
@@ -114,6 +122,46 @@ namespace SM.MVC.Web.Controllers
             NotifyError("با موفقیت ویرایش شد");
             return RedirectToAction("Index");
         }
+
+
+        #endregion
+
+
+        #region ProjectTeam
+
+        public IActionResult TeamInformation()
+        {
+            var data = _teamService.GetAll();
+            return View(data);
+        }
+
+        public IActionResult CreateTeam()
+        {
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            var model = new CreateTeamVM();
+            model.Details = new List<TeamDetail>();
+            model.Details.Add(null);
+
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult CreateTeam(CreateTeamVM Model)
+        {
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+            return View();
+        }
+
+
+        public IActionResult AddSubUser(CreateTeamVM Model)
+        {
+
+            return PartialView("_AddSubUser");
+        }
+
+        #endregion
 
 
 

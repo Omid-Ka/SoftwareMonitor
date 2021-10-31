@@ -37,13 +37,14 @@ namespace Core.Services
                 IsActive = x.IsActive,
                 LocalTel = x.LocalTel,
                 MobileNo = x.MobileNo,
-                Post = x.PostId.HasValue ? _lookupRepository.GetByPk(x.PostId.Value).Description : ""
+                Post = x.PostId.HasValue ? _lookupRepository.GetByPk(x.PostId.Value).Description : "",
+                FullName = x.Name +" " + x.Family
             });
         }
 
-        public Users GetUserForLogin(string Username, string Password)
+        public Users GetUserForLogin(string Username)
         {
-            return _usersRepository.GetUserForLogin(Username, Password);
+            return _usersRepository.GetUserForLogin(Username);
         }
 
         public bool HasUserWithUserName(string userName)
@@ -78,6 +79,11 @@ namespace Core.Services
         public void EditUser(Users model, ClaimsPrincipal user)
         {
             _usersRepository.EditUser(model, user);
+        }
+
+        public bool IsDisable(ClaimsPrincipal user)
+        {
+            return _usersRepository.IsDisable(user);
         }
     }
 }

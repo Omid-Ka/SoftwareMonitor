@@ -9,7 +9,7 @@ namespace Domain.Interfaces
 {
     public interface IUsersRepository
     {
-        Users GetUserForLogin(string Username, string Password);
+        Users GetUserForLogin(string Username);
 
         IEnumerable<Users> GetAllUsers();
         bool HasUserWithUserName(string userName);
@@ -19,5 +19,6 @@ namespace Domain.Interfaces
         void DeleteUser(int userId, ClaimsPrincipal user);
         Users GetUserById(int userId);
         void EditUser(Users model, ClaimsPrincipal user);
+        bool IsDisable(ClaimsPrincipal user);
     }
 }

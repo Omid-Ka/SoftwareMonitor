@@ -1,0 +1,110 @@
+﻿@model Core.ViewModels.CreateTeamVM
+@{
+    ViewData["Title"] = "ثبت تیم";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@section Styles
+{
+    <style>
+        .SubmitBtn {
+            float: left;
+            margin-left: 50px;
+        }
+    </style>
+}
+
+<div class="card">
+    <div class="header bg-red">
+        <h2>
+            ثبت تیم
+        </h2>
+    </div>
+    <div class="body">
+
+        <form asp-action="CreateTeam" id="CreateForm">
+            <div class="row clearfix">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="Team.Name" class="control-label"></label>
+                            <input asp-for="Team.Name" class="form-control" />
+                            <span asp-validation-for="Team.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="Team.Description" class="control-label"></label>
+                            <input asp-for="Team.Description" class="form-control" />
+                            <span asp-validation-for="Team.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <a class="btn bg-grey waves-effect" onclick="AddSubUser()"> افزودن عضو </a>
+                </div>
+            </div>
+            <div id="SubUser">
+                @foreach (var item in Model.Details)
+                {
+
+                    <div class="row clearfix">
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="form-line">
+
+                                    <label asp-for="@item.UserId" class="control-label"></label>
+                                    @*<input asp-for="@item.UserId" class="form-control" />*@
+                                    <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
+                                            asp-for="@item.UserId" asp-items="@(ViewBag.Users)">
+                                        <option value="">--انتخاب نمایید--</option>
+                                    </select>
+                                    <span asp-validation-for="@item.UserId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label asp-for="@item.Position" class="control-label"></label>
+                                    <input asp-for="@item.Position" class="form-control" />
+                                    <span asp-validation-for="@item.Position" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="row clearfix">
+                <div class="form-group">
+                    <input type="submit" value="ثبت کاربر" class="btn bg-green waves-effect SubmitBtn" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+
+        function AddSubUser() {
+            var data = $("#CreateForm").serialize();
+            $.ajax({
+                url: "@Url.Action("AddSubUser", "BasicInformation")?data="+data ,
+                type: "POST",
+                success: function (result) {
+                    $("#SubUser").html(result);
+                }
+            });
+        }
+
+    </script>
+}
+

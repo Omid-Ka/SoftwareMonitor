@@ -34,6 +34,10 @@ namespace SM.MVC.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                if (_usersService.IsDisable(User))
+                {
+                    return RedirectToAction("Logout", "Login");
+                }
                 return RedirectToAction("Index", "Admin");
             }
             else
@@ -91,11 +95,11 @@ namespace SM.MVC.Web.Controllers
             }
 
 
-            //var hasPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(model.Password, "MD5");
+            //string passwordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
-            Users UserModel = _usersService.GetUserForLogin(model.UserName, model.Password);
+            Users UserModel = _usersService.GetUserForLogin(model.UserName);
 
-            if (UserModel == null)
+            if (UserModel == null || !BCrypt.Net.BCrypt.Verify(model.Password, UserModel.Password))
             {
                 NotifyError("کاربری یافت نشد");
                 return View("Index");

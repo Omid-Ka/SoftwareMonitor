@@ -77,6 +77,9 @@ namespace SM.MVC.Web.Controllers
                 return View("CreateUser");
             }
 
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+            model.Password = passwordHash;
+
             _usersService.AddUser(model,User);
 
             NotifyError("با موفقیت ثبت شد");
@@ -147,6 +150,9 @@ namespace SM.MVC.Web.Controllers
             //    NotifyError("اطلاعات کاربر تکراری می باشد");
             //    return View("CreateUser");
             //}
+
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+            model.Password = passwordHash;
 
             _usersService.EditUser(model, User);
 

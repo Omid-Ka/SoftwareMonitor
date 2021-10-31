@@ -23,9 +23,9 @@ namespace Data.Repository
             return _SMContext.Users.Where(x=>x.IsActive);
         }
 
-        public Users GetUserForLogin(string Username, string Password)
+        public Users GetUserForLogin(string Username)
         {
-            return _SMContext.Users.SingleOrDefault(x => x.UserName == Username && x.Password == Password  && x.IsActive);
+            return _SMContext.Users.SingleOrDefault(x => x.UserName == Username  && x.IsActive);
         }
 
         public bool HasUserWithUserName(string userName)
@@ -87,6 +87,15 @@ namespace Data.Repository
 
             _SMContext.Update(model);
             _SMContext.SaveChanges();
+        }
+
+        public bool IsDisable(ClaimsPrincipal user)
+        {
+            var UserId = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+
+
+            return _SMContext.Users.Any(x => x.IsActive == false && x.Id == UserId);
         }
     }
 }

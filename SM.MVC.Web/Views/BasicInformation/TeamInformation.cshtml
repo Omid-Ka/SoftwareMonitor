@@ -1,0 +1,151 @@
+﻿@using Core.Helper
+@model IEnumerable<Domain.Models.Teams.Team>
+@{
+    ViewData["Title"] = "اصلاعات تیم ها";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section Styles
+{
+
+    <!-- JQuery DataTable Css -->
+    <link href="~/Admin/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
+}
+<div class="card">
+    <div class="header bg-red">
+        <h2>
+            تیم ها
+        </h2>
+    </div>
+    <div class="body">
+        <a asp-controller="BasicInformation" asp-action="CreateTeam" class="btn bg-green waves-effect">ثبت تیم جدید</a>
+        <br />
+        <br />
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="GridView">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-right">نام</th>
+                                            <th class="align-right">شرح وظایف</th>
+                                            <th class="align-right">تاریخ ایجاد</th>
+                                            <th class="align-right">عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="align-right">نام</th>
+                                            <th class="align-right">شرح وظایف</th>
+                                            <th class="align-right">تاریخ ایجاد</th>
+                                            <th class="align-right">عملیات</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <th class="align-right">@item.Name </th>
+                                                <th class="align-right">@item.Description</th>
+                                                <th class="align-right">@item.DateInserted.GetPrsianDate()</th>
+                                                <th class="align-right">
+                                                    <a class="btn bg-amber waves-effect" onclick="DeleteTeam(@item.Id)"> حذف تیم </a>
+                                                    <a class="btn bg-light-green waves-effect" onclick="EditTeam(@item.Id)"> ویرایش تیم </a>
+                                                    <a class="btn bg-grey waves-effect" onclick="showModal(@item.Id)"> اعضاء </a>
+                                                </th>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<button id="ModalSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#largeModal"></button>
+
+<!-- Large Size -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="largeModalLabel">اعضاء</h2>
+            </div>
+            <div id="ShowModal" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+    <script>
+        function DeleteTeam(id) {
+            $.ajax({
+                url: "@Url.Action("DeleteTeam", "BasicInformation")?UserId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#GridView").html(result);
+                }
+            });
+        }
+
+        function EditTeam(id) {
+            window.location.href = "@Url.Action("EditTeam", "BasicInformation")?UserId=" + id;
+        }
+
+
+        function showModal(id) {
+            $.ajax({
+                url: "@Url.Action("ShowModal", "BasicInformation")?UserId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowModal").html(result);
+                    $("#ModalSubmit").click();
+                }
+            });
+        }
+
+
+
+
+    </script>
+
+
+    <script src="~/Admin/plugins/jquery/jquery.min.js"></script>
+
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="~/Admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+    <!-- Custom Js -->
+    <script src="~/Admin/js/admin.js"></script>
+    <script src="~/Admin/js/pages/tables/jquery-datatable.js"></script>
+    <script src="~/Admin/js/pages/ui/modals.js"></script>
+
+
+}
+
+

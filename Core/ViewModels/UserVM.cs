@@ -19,6 +19,8 @@ namespace Core.ViewModels
         public string Post { get; set; }
         public int? LocalTel { get; set; }
         public string MobileNo { get; set; }
+        public string FullName { get; set; }
+
 
     }
 }
