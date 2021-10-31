@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core.Helper;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Account;
@@ -17,11 +18,15 @@ namespace SM.MVC.Web.Controllers
     {
         private IUsersService _usersService;
         private ILookupService _lookupService;
+        private IUserLogService _userLogService;
+        private IProjectService _projectService;
 
-        public AccountController(IUsersService usersService, ILookupService lookupService)
+        public AccountController(IUsersService usersService, ILookupService lookupService, IUserLogService userLogService, IProjectService projectService)
         {
             _usersService = usersService;
             _lookupService = lookupService;
+            _userLogService = userLogService;
+            _projectService = projectService;
         }
 
         public IActionResult Index()
@@ -153,6 +158,20 @@ namespace SM.MVC.Web.Controllers
         {
             var Model = new AccountSummary();
 
+            var UserAcount = _usersService.GetUserById(UserId);
+
+            Model.UserId = UserId;
+            Model.UserFullName = UserAcount.Name + " " + UserAcount.Family;
+            Model.UserTelNumber = UserAcount.MobileNo;
+            Model.UserLocalTel = UserAcount.LocalTel.ToString();
+            Model.CreateUserDate = UserAcount.DateInserted.GetPrsianDate();
+            Model.LastLogin = _userLogService.GetLastLoginUserId(UserId);
+
+
+            var projects = _projectService.GetAllProjectByUserId(UserId);
+
+
+            Model.ProjectList = projects.ToList();
 
             return PartialView("_UserDetail",Model);
         }

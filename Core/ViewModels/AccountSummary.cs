@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Models;
 
 namespace Core.ViewModels
 {
@@ -13,13 +14,13 @@ namespace Core.ViewModels
         public string CreateUserDate { get; set; }
         public string LastLogin { get; set; }
 
-        public List<ProjectSummary> ProjectList { get; set; }
+        public List<Project> ProjectList { get; set; }
 
     }
 
-    public class ProjectSummary 
-    {
-        public int ProjectId { get; set; }
-        public string ProjectName { get; set; }
-    }
+    //public class ProjectSummary 
+    //{
+    //    public int? ProjectId { get; set; }
+    //    public string ProjectName { get; set; }
+    //}
 }

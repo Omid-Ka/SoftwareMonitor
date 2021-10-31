@@ -1,1 +1,127 @@
-﻿سلام
+﻿@model Core.ViewModels.AccountSummary
+
+
+<style>
+    .center {
+        text-align: center !important;
+        background-color: aliceblue !important;
+        font-size: 24px !important;
+    }
+
+    .Header {
+        font-size: 30px !important;
+        text-align: center !important;
+        background-color: aliceblue !important;
+    }
+
+    .tabStyle {
+        padding-right: 0px !important;
+        font-size: 24px;
+    }
+
+    .ItemsStyle {
+        margin-bottom: 0px !important;
+    }
+
+    .ColStyle {
+        margin-top: 6px;
+        border: 2px solid;
+        border-radius: 20px;
+        height: 40px;
+    }
+</style>
+
+
+<div class="body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs tab-col-teal tabStyle" role="tablist">
+        <li role="presentation" class="active"><a href="#Profile" data-toggle="tab">اطلاعات شخصی</a></li>
+        <li role="presentation"><a href="#Project" data-toggle="tab">پروژه ها</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="Profile">
+
+            <div class="row clearfix">
+                <div class="center">
+                    <b>@Model.UserFullName</b>
+                </div>
+            </div>
+            <div class="row clearfix center">
+
+                <div class="col-sm-4 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        شماره تماس
+                    </div>
+                </div>
+                <div class="col-sm-8 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        @Model.UserTelNumber
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix center">
+
+                <div class="col-sm-4 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        شماره داخلی
+                    </div>
+                </div>
+                <div class="col-sm-8 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        @Model.UserLocalTel
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix center">
+
+                <div class="col-sm-4 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        تاریخ ثبت نام
+                    </div>
+                </div>
+                <div class="col-sm-8 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        @Model.CreateUserDate
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix center">
+
+                <div class="col-sm-4 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        آخرین ورود
+                    </div>
+                </div>
+                <div class="col-sm-8 ColStyle">
+                    <div class="form-group ItemsStyle">
+                        @Model.LastLogin
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Project">
+            <div class="row clearfix">
+                <div class="center">
+                    <b>پروژه ها</b>
+                </div>
+            </div>
+            @foreach (var item in @Model.ProjectList)
+            {
+                <div class="row clearfix center">
+                    <div class="col-sm-4 ColStyle">
+                        <div class="form-group ItemsStyle">
+                            @item.ProjectName
+                        </div>
+                    </div>
+                    <div class="col-sm-8 ColStyle">
+                        <div class="form-group ItemsStyle">
+                            @item.ProjectDescription
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

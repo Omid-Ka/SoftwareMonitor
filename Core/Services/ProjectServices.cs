@@ -55,5 +55,10 @@ namespace Core.Services
         {
             _projectRepository.EditProject(model, user);
         }
+
+        public IEnumerable<Project> GetAllProjectByUserId(int userId)
+        {
+            return _projectRepository.GetAllProjectByUserId(userId);
+        }
     }
 }

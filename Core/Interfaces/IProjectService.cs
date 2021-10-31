@@ -15,5 +15,6 @@ namespace Core.Interfaces
         void DeleteProject(int ProjectId, ClaimsPrincipal user);
         Project GetProjectById(int projectId);
         void EditProject(Project model, ClaimsPrincipal user);
+        IEnumerable<Project> GetAllProjectByUserId(int userId);
     }
 }

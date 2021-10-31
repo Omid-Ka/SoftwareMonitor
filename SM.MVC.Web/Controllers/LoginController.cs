@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Account;
+using Domain.Models.Enum;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -21,15 +22,24 @@ namespace SM.MVC.Web.Controllers
     {
 
         private IUsersService _usersService;
+        private IUserLogService _userLogService;
 
-        public LoginController(IUsersService usersService)
+        public LoginController(IUsersService usersService, IUserLogService userLogService)
         {
             _usersService = usersService;
+            _userLogService = userLogService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else
+            {
+                return View();
+            }
         }
        
 
@@ -83,9 +93,9 @@ namespace SM.MVC.Web.Controllers
 
             //var hasPassword = FormsAuthentication.HashPasswordForStoringInConfigFile(model.Password, "MD5");
 
-            Users User = _usersService.GetUserForLogin(model.UserName, model.Password);
+            Users UserModel = _usersService.GetUserForLogin(model.UserName, model.Password);
 
-            if (User == null)
+            if (UserModel == null)
             {
                 NotifyError("کاربری یافت نشد");
                 return View("Index");
@@ -95,9 +105,9 @@ namespace SM.MVC.Web.Controllers
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier,User.Id.ToString()),
-                new Claim(ClaimTypes.Name,User.Name.ToString()+" " + User.Family.ToString()),
-                new Claim(ClaimTypes.Email,User.Email.ToString()),
+                new Claim(ClaimTypes.NameIdentifier,UserModel.Id.ToString()),
+                new Claim(ClaimTypes.Name,UserModel.Name.ToString()+" " + UserModel.Family.ToString()),
+                new Claim(ClaimTypes.Email,UserModel.Email.ToString()),
                 new Claim("IpAddress",IpAddress),
             };
 
@@ -112,12 +122,15 @@ namespace SM.MVC.Web.Controllers
 
             var res = HttpContext.SignInAsync(principal, properties);
 
+            _userLogService.AddEnterUserLog(UserModel.Id, IpAddress, UserLogType.Enter);
+
             return RedirectToAction("Index","Admin");
         }
 
 
         public IActionResult Logout()
         {
+            _userLogService.AddUserLog(User,  UserLogType.Exit);
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return View("Index");
         }

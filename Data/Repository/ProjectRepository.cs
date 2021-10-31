@@ -70,5 +70,16 @@ namespace Data.Repository
             _SMContext.Update(model);
             _SMContext.SaveChanges();
         }
+
+        public IEnumerable<Project> GetAllProjectByUserId(int userId)
+        {
+            var UserTeam = _SMContext.TeamDetails.Where(x => x.IsActive && x.UserId == userId).Select(x => x.TeamId)
+                .ToArray();
+            var data = _SMContext.Partners
+                .Where(x => x.IsActive && (x.UserId == userId || UserTeam.Contains(x.TeamId.Value)))
+                .Select(x => x.Project);
+
+            return data;
+        }
     }
 }
