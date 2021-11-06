@@ -20,5 +20,6 @@ namespace Domain.Interfaces
         Users GetUserById(int userId);
         void EditUser(Users model, ClaimsPrincipal user);
         bool IsDisable(ClaimsPrincipal user);
+        string GetFullNameById(int userid);
     }
 }

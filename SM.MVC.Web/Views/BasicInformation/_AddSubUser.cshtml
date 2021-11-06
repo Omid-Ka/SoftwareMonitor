@@ -1,32 +1,30 @@
 ﻿@model Core.ViewModels.CreateTeamVM
 
-@foreach (var item in Model.Details)
+@for (int i = 0; i < Model.Details.Count; i++)
 {
 
     <div class="row clearfix">
-
         <div class="col-sm-4">
             <div class="form-group">
                 <div class="form-line">
-
-                    <label asp-for="@item.UserId" class="control-label"></label>
-                    @*<input asp-for="@item.UserId" class="form-control" />*@
+                    <label asp-for="@Model.Details[i].UserId" class="control-label"></label>
                     <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
-                            asp-for="@item.UserId" asp-items="@(ViewBag.Users)">
+                            asp-for="@Model.Details[i].UserId" asp-items="@(ViewBag.Users)">
                         <option value="">--انتخاب نمایید--</option>
                     </select>
-                    <span asp-validation-for="@item.UserId" class="text-danger"></span>
+                    <span asp-validation-for="@Model.Details[i].UserId" class="text-danger"></span>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
             <div class="form-group">
                 <div class="form-line">
-                    <label asp-for="@item.Position" class="control-label"></label>
-                    <input asp-for="@item.Position" class="form-control" />
-                    <span asp-validation-for="@item.Position" class="text-danger"></span>
+                    <label asp-for="@Model.Details[i].Position" class="control-label"></label>
+                    <input asp-for="@Model.Details[i].Position" class="form-control" />
+                    <span asp-validation-for="@Model.Details[i].Position" class="text-danger"></span>
                 </div>
             </div>
         </div>
     </div>
+
 }

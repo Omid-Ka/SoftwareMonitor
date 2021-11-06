@@ -55,6 +55,7 @@
                                                 <th class="align-right">
                                                     <a class="btn bg-amber waves-effect" onclick="DeleteTeam(@item.Id)"> حذف تیم </a>
                                                     <a class="btn bg-light-green waves-effect" onclick="EditTeam(@item.Id)"> ویرایش تیم </a>
+                                                    <a class="btn bg-grey waves-effect" onclick="AddMember(@item.Id)"> افزودن اعضا </a>
                                                     <a class="btn bg-grey waves-effect" onclick="showModal(@item.Id)"> اعضاء </a>
                                                 </th>
                                             </tr>
@@ -71,6 +72,7 @@
     </div>
 </div>
 <button id="ModalSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#largeModal"></button>
+<button id="ModalAddMemberSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#AddMember"></button>
 
 <!-- Large Size -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
@@ -89,6 +91,24 @@
     </div>
 </div>
 
+<!-- Large Size -->
+<div class="modal fade" id="AddMember" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="AddMemberLabel">افزودن اعضاء</h2>
+            </div>
+            <div id="ShowAddMemberModal" class="modal-body">
+
+            </div>  
+            <div class="modal-footer">
+                <a class="btn bg-green waves-effect" onclick="FinalAddMember()"> ثبت تغییرات </a>
+                <button id="BtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts
 {
@@ -96,7 +116,7 @@
     <script>
         function DeleteTeam(id) {
             $.ajax({
-                url: "@Url.Action("DeleteTeam", "BasicInformation")?UserId=" + id  ,
+                url: "@Url.Action("DeleteTeam", "BasicInformation")?TeamId=" + id  ,
                 type: "POST",
                 success: function (result) {
                     $("#GridView").html(result);
@@ -105,17 +125,43 @@
         }
 
         function EditTeam(id) {
-            window.location.href = "@Url.Action("EditTeam", "BasicInformation")?UserId=" + id;
+            window.location.href = "@Url.Action("EditTeam", "BasicInformation")?TeamId=" + id;
         }
 
 
         function showModal(id) {
             $.ajax({
-                url: "@Url.Action("ShowModal", "BasicInformation")?UserId=" + id  ,
+                url: "@Url.Action("ShowModal", "BasicInformation")?TeamId=" + id  ,
                 type: "POST",
                 success: function (result) {
                     $("#ShowModal").html(result);
                     $("#ModalSubmit").click();
+                }
+            });
+        }
+
+        function AddMember(id) {
+            $.ajax({
+                url: "@Url.Action("AddMemberModal", "BasicInformation")?TeamId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowAddMemberModal").html(result);
+                    $("#ModalAddMemberSubmit").click();
+                }
+            });
+        }
+
+
+        function FinalAddMember() {
+            var data = $("#CreateForm").serialize();
+            debugger;
+            $.ajax({
+                url: "@Url.Action("FinalAddMember", "BasicInformation")",
+                data: data,
+                type: "POST",
+                success: function (result) {
+                    $("#SubUser").html("");
+                    $("#BtnClose").click();
                 }
             });
         }

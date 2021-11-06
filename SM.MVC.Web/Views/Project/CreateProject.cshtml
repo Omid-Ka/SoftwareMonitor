@@ -1,4 +1,5 @@
-﻿@model Domain.Models.Project
+﻿@using Domain.Models.Enum
+@model Core.ViewModels.CreateProjectVM
 @{
     ViewData["Title"] = "ثبت پروژه";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -29,23 +30,65 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="form-line">
-                            <label asp-for="ProjectName" class="control-label"></label>
-                            <input asp-for="ProjectName" class="form-control" />
-                            <span asp-validation-for="ProjectName" class="text-danger"></span>
+                            <label asp-for="Project.ProjectName" class="control-label"></label>
+                            <input asp-for="Project.ProjectName" class="form-control" />
+                            <span asp-validation-for="Project.ProjectName" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-8">
                     <div class="form-group">
                         <div class="form-line">
-                            <label asp-for="ProjectDescription" class="control-label"></label>
-                            <input asp-for="ProjectDescription" class="form-control" />
-                            <span asp-validation-for="ProjectDescription" class="text-danger"></span>
+                            <label asp-for="Project.ProjectDescription" class="control-label"></label>
+                            <input asp-for="Project.ProjectDescription" class="form-control" />
+                            <span asp-validation-for="Project.ProjectDescription" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
 
             </div>
+            
+            @for (int i = 0; i < Model.Partners.Count; i++)
+            {
+        <div class="row clearfix">
+            @Html.Hidden("Model.Partners[" + i + "].PartnerTeam", Model.Partners[i].PartnerTeam)
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <div class="form-line">
+                        <label asp-for="Partners[i].PartnerTeam.ToDescription()" class="control-label"></label>
+                        <input asp-for="Partners[i].PartnerTeam.ToDescription()" class="form-control disabled" />
+                        <span asp-validation-for="Partners[i].PartnerTeam" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <div class="form-line">
+                        <label asp-for="@Model.Partners[i].TeamId" class="control-label"></label>
+                        <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
+                                asp-for="@Model.Partners[i].TeamId" asp-items="@(ViewBag.Teams)">
+                            <option value="">--انتخاب نمایید--</option>
+                        </select>
+                        <span asp-validation-for="Partners[i].TeamId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="form-line">
+                        <label asp-for="Partners[i].UserId" class="control-label"></label>
+                        <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
+                                asp-for="Partners[i].UserId" asp-items="@(ViewBag.Users)">
+                            <option value="">--انتخاب نمایید--</option>
+                        </select>
+                        <span asp-validation-for="Partners[i].UserId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            }
+            
+
             <div class="row clearfix">
                 <div class="form-group">
                     <input type="submit" value="ثبت پروژه" class="btn bg-green waves-effect SubmitBtn" />

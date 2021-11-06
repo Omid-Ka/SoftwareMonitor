@@ -97,5 +97,13 @@ namespace Data.Repository
 
             return _SMContext.Users.Any(x => x.IsActive == false && x.Id == UserId);
         }
+
+        public string GetFullNameById(int UserId)
+        {
+            var data = _SMContext.Users.Find(UserId);
+
+
+            return data.Name + " " + data.Family;
+        }
     }
 }

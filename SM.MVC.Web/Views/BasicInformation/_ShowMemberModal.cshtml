@@ -1,0 +1,79 @@
+﻿@model List<Core.ViewModels.TeamDetailVM>
+
+
+<style>
+    .center {
+        text-align: center !important;
+        background-color: aliceblue !important;
+        font-size: 24px !important;
+    }
+
+    .Header {
+        font-size: 30px !important;
+        text-align: center !important;
+        background-color: aliceblue !important;
+    }
+
+    .tabStyle {
+        padding-right: 0px !important;
+        font-size: 24px;
+    }
+
+    .ItemsStyle {
+        margin-bottom: 0px !important;
+    }
+
+    .ColStyle {
+        margin-top: 6px;
+        border: 2px solid;
+        border-radius: 20px;
+        height: 40px;
+    }
+</style>
+
+
+<div class="body">
+    <!-- Nav tabs -->
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="Profile">
+            <div id="MemberModal">
+
+                <div class="row clearfix center">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-sm-4 ColStyle">
+                            <div class="form-group ItemsStyle">
+                                @item.Member
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ColStyle">
+                            <div class="form-group ItemsStyle">
+                                @item.Position
+                            </div>
+                        </div>
+                        <div class="col-sm-2 ">
+                            <div class="form-group ItemsStyle">
+                                <a class="btn bg-danger waves-effect" onclick="DeleteMember(@item.Id)"> حذف عضو </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function DeleteMember(id) {
+        $.ajax({
+            url: "@Url.Action("DeleteMember", "BasicInformation")?TeamDetailId=" + id  ,
+            type: "POST",
+            success: function (result) {
+                $("#MemberModal").html(result );
+
+            }
+        });
+    }
+</script>

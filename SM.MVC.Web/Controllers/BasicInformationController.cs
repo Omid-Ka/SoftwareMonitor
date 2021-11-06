@@ -18,12 +18,14 @@ namespace SM.MVC.Web.Controllers
     {
         private ILookupService _lookupService;
         private ITeamService _teamService;
+        private ITeamDetailService _teamDetailService;
         private IUsersService _usersService;
 
-        public BasicInformationController(ILookupService lookupService, ITeamService teamService, IUsersService usersService)
+        public BasicInformationController(ILookupService lookupService, ITeamService teamService, ITeamDetailService teamDetailService, IUsersService usersService)
         {
             _lookupService = lookupService;
             _teamService = teamService;
+            _teamDetailService = teamDetailService;
             _usersService = usersService;
         }
 
@@ -151,14 +153,147 @@ namespace SM.MVC.Web.Controllers
         {
             ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
                 "FullName");
-            return View();
+
+            if (!ModelState.IsValid)
+            {
+                NotifyError("خطا در ثبت اطلاعات");
+                return View("CreateTeam",Model);
+            }
+
+            if (string.IsNullOrEmpty(Model.Team.Name))
+            {
+                NotifyError("نام تیم را ثبت نمایید");
+                return View("CreateTeam", Model);
+            }
+            if (string.IsNullOrEmpty(Model.Team.Description))
+            {
+                NotifyError("شرح فعالیت را ثبت نمایید");
+                return View("CreateTeam", Model);
+            }
+
+            _teamService.AddTeam(Model.Team,User);
+
+            if (Model.Details.Count > 0)
+            {
+                foreach (var item in Model.Details)
+                {
+                    if (item.UserId > 0 && !string.IsNullOrEmpty(item.Position))
+                    {
+                        item.TeamId = Model.Team.Id;
+                        _teamDetailService.AddTeamDetail(item, User);
+                    }
+                }
+            }
+
+            NotifySuccess("با موفقیت ثبت گردید");
+
+            return RedirectToAction("TeamInformation", "BasicInformation");
         }
 
 
         public IActionResult AddSubUser(CreateTeamVM Model)
         {
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
 
-            return PartialView("_AddSubUser");
+            Model.Details.Add(null);
+
+            return PartialView("_AddSubUser", Model);
+        }
+
+
+        public IActionResult DeleteTeam(int TeamId)
+        {
+            _teamService.DeleteTeam(TeamId, User);
+
+            var data = _teamService.GetAll();
+
+            return PartialView("_TeamGrid", data);
+        }
+
+        public IActionResult EditTeam(int TeamId)
+        {
+            var model = _teamService.GetTeamById(TeamId);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult EditTeam(Team Model)
+        {
+            if (!ModelState.IsValid)
+            {
+                NotifyError("خطا در ثبت اطلاعات");
+                return View("EditTeam", Model);
+            }
+            if (string.IsNullOrEmpty(Model.Name))
+            {
+                NotifyError("نام تیم را ثبت نمایید");
+                return View("EditTeam", Model);
+            }
+            if (string.IsNullOrEmpty(Model.Description))
+            {
+                NotifyError("شرح فعالیت را ثبت نمایید");
+                return View("EditTeam", Model);
+            }
+
+            _teamService.UpdateTeam(Model, User);
+
+            return RedirectToAction("TeamInformation", "BasicInformation");
+        }
+
+        public IActionResult ShowModal(int TeamId)
+        {
+            var model = _teamDetailService.GetAllByTeamId(TeamId) ;
+
+            return PartialView("_ShowMemberModal", model);
+        }
+
+
+        public IActionResult DeleteMember(int TeamDetailId)
+        {
+            var Detail = _teamDetailService.GetByPk(TeamDetailId);
+            _teamDetailService.DeleteMemberById(TeamDetailId,User);
+            var model = _teamDetailService.GetAllByTeamId(TeamDetailId);
+
+            return PartialView("_DeleteMember");
+        }
+
+        public IActionResult AddMemberModal(int TeamId)
+        {
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            var model = new CreateTeamVM();
+            model.Team = new Team();
+            model.Team.Id = TeamId;
+            model.Details = new List<TeamDetail>();
+            model.Details.Add(null);
+            //model.Details = _teamDetailService.GetAllItemsByTeamId(TeamId);
+
+            return PartialView("_AddMemberModal",model);
+        }
+
+
+
+        public IActionResult FinalAddMember(CreateTeamVM Model)
+        {
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            if (Model.Details.Count > 0)
+            {
+                foreach (var item in Model.Details)
+                {
+                    if (item.UserId > 0 && !string.IsNullOrEmpty(item.Position))
+                    {
+                        item.TeamId = Model.Team.Id;
+                        _teamDetailService.AddTeamDetail(item, User);
+                    }
+                }
+            }
+
+            NotifySuccess("با موفقیت ثبت گردید");
+
+            return PartialView("_AddMemberModal", Model);
         }
 
         #endregion

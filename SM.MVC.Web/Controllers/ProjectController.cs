@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.DTO;
 using Core.Interfaces;
+using Core.ViewModels;
 using Domain.Models;
+using Domain.Models.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,6 +20,8 @@ namespace SM.MVC.Web.Controllers
     public class ProjectController : BaseController
     {
         private IProjectService _projectService;
+        private IUsersService _usersService;
+        private ITeamService _teamService;
 
         public ProjectController(IProjectService projectService)
         {
@@ -32,11 +37,28 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult CreateProject()
         {
-            return View();
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            ViewBag.Teams = new SelectList(_teamService.GetAll() , "Id",
+                "Name");
+
+            var model = new CreateProjectVM();
+            model.Partners = new List<PartnerVM>();
+
+            foreach (PartnerTeam type in Enum.GetValues(typeof(PartnerTeam)))
+            {
+                model.Partners.Add(new PartnerVM()
+                {
+                    PartnerTeam = type
+                });
+            }
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult CreateProject(Project model)
+        public IActionResult CreateProject(CreateProjectVM model)
         {
 
             if (!ModelState.IsValid)
@@ -45,7 +67,7 @@ namespace SM.MVC.Web.Controllers
                 return View("CreateProject");
             }
 
-            bool HasUser = _projectService.HasProjectWithName(model.ProjectName);
+            bool HasUser = _projectService.HasProjectWithName(model.Project.ProjectName);
             if (HasUser)
             {
                 NotifyError("اطلاعات کاربر تکراری می باشد");
@@ -53,7 +75,7 @@ namespace SM.MVC.Web.Controllers
             }
 
 
-            _projectService.AddProject(model, User);
+            _projectService.AddProject(model.Project, User);
 
             NotifyError("با موفقیت ثبت شد");
             return RedirectToAction("Index");
@@ -109,5 +131,27 @@ namespace SM.MVC.Web.Controllers
             NotifyError("با موفقیت ویرایش شد");
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult Partners(int ProjectId)
+        {
+            return null;
+        }
+
+        public IActionResult DeletePartners (int PartnerId)
+        {
+            return null;
+        }
+
+        public IActionResult AddPartners(int ProjectId)
+        {
+            return null;
+        }
+
+        public IActionResult FinalAddPartners(int ProjectId)
+        {
+            return null;
+        }
+
     }
 }
