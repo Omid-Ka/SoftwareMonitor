@@ -16,6 +16,7 @@ namespace Core.ViewModels
 
     public class PartnerVM
     {
+        public int? Id { get; set; }    
         [Display(Name = "نوع همکاری")]
         public PartnerTeam PartnerTeam { get; set; }
         public int? ProjectId { get; set; }

@@ -7,6 +7,7 @@ using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models;
 using Domain.Models.Enum;
+using Domain.Models.Projects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,10 +23,14 @@ namespace SM.MVC.Web.Controllers
         private IProjectService _projectService;
         private IUsersService _usersService;
         private ITeamService _teamService;
+        private IPartnersService _partnersService;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService, IUsersService usersService, ITeamService teamService, IPartnersService partnersService)
         {
             _projectService = projectService;
+            _usersService = usersService;
+            _teamService = teamService;
+            _partnersService = partnersService;
         }
 
         // GET: /<controller>/
@@ -43,17 +48,11 @@ namespace SM.MVC.Web.Controllers
             ViewBag.Teams = new SelectList(_teamService.GetAll() , "Id",
                 "Name");
 
+
             var model = new CreateProjectVM();
             model.Partners = new List<PartnerVM>();
-
-            foreach (PartnerTeam type in Enum.GetValues(typeof(PartnerTeam)))
-            {
-                model.Partners.Add(new PartnerVM()
-                {
-                    PartnerTeam = type
-                });
-            }
-
+            model.Partners.Add(null);
+            
             return View(model);
         }
 
@@ -67,8 +66,8 @@ namespace SM.MVC.Web.Controllers
                 return View("CreateProject");
             }
 
-            bool HasUser = _projectService.HasProjectWithName(model.Project.ProjectName);
-            if (HasUser)
+            bool HasProject = _projectService.HasProjectWithName(model.Project.ProjectName);
+            if (HasProject)
             {
                 NotifyError("اطلاعات کاربر تکراری می باشد");
                 return View("CreateProject");
@@ -76,6 +75,24 @@ namespace SM.MVC.Web.Controllers
 
 
             _projectService.AddProject(model.Project, User);
+
+
+            if (model.Partners.Count > 0)
+            {
+                foreach (var item in model.Partners)
+                {
+                    if (item.UserId > 0 || item.TeamId > 0)
+                    {
+                        var Partners = new Partners()
+                        {
+                            ProjectId = model.Project.Id,
+                            TeamId = item.TeamId,
+                            UserId = item.UserId
+                        };
+                        _partnersService.AddPartner(Partners, User);
+                    }
+                }
+            }
 
             NotifyError("با موفقیت ثبت شد");
             return RedirectToAction("Index");
@@ -93,12 +110,24 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult EditProject(int ProjectId)
         {
-            var model = _projectService.GetProjectById(ProjectId);
+            var data = _projectService.GetProjectById(ProjectId);
+
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            ViewBag.Teams = new SelectList(_teamService.GetAll(), "Id",
+                "Name");
+
+
+            var model = new CreateProjectVM();
+            model.Project = data;
+            model.Partners = _partnersService.GetAllPartnerVMByProjectId(ProjectId);
+
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult EditProject(Project model)
+        public IActionResult EditProject(CreateProjectVM model)
         {
 
             if (!ModelState.IsValid)
@@ -106,27 +135,27 @@ namespace SM.MVC.Web.Controllers
                 NotifyError("خطا در ثبت اطلاعات");
                 return View("CreateProject");
             }
+            
+            _projectService.EditProject(model.Project, User);
 
-            //bool HasUser = _usersService.HasUserWithUserName(model.UserName);
-            //if (HasUser)
+            //if (model.Partners.Count > 0)
             //{
-            //    NotifyError("اطلاعات کاربر تکراری می باشد");
-            //    return View("CreateUser");
-            //}
-            //HasUser = _usersService.HasUserWithNationalcode(model.NationalCode);
-            //if (HasUser)
-            //{
-            //    NotifyError("اطلاعات کاربر تکراری می باشد");
-            //    return View("CreateUser");
-            //}
-            //HasUser = _usersService.HasUserWithPersonnelCode(model.PersonnelCode);
-            //if (HasUser)
-            //{
-            //    NotifyError("اطلاعات کاربر تکراری می باشد");
-            //    return View("CreateUser");
+            //    foreach (var item in model.Partners)
+            //    {
+            //        if (item.UserId > 0 || item.TeamId > 0)
+            //        {
+            //            var Partners = new Partners()
+            //            {
+            //                ProjectId = model.Project.Id,
+            //                TeamId = item.TeamId,
+            //                UserId = item.UserId,
+            //                Id = item.Id.HasValue ? item.Id.Value : 0
+            //            };
+            //            _partnersService.UpdatePartner(Partners, User);
+            //        }
+            //    }
             //}
 
-            _projectService.EditProject(model, User);
 
             NotifyError("با موفقیت ویرایش شد");
             return RedirectToAction("Index");
@@ -151,6 +180,19 @@ namespace SM.MVC.Web.Controllers
         public IActionResult FinalAddPartners(int ProjectId)
         {
             return null;
+        }
+
+        public IActionResult AddSubPartner(CreateProjectVM Model)
+        {
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            ViewBag.Teams = new SelectList(_teamService.GetAll(), "Id",
+                "Name");
+
+            Model.Partners.Add(null);
+
+            return PartialView("_SubPartner",Model);
         }
 
     }

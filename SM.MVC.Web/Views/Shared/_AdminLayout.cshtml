@@ -9,9 +9,9 @@
 
     <title>@ViewData["Title"]</title>
 
-    @Html.Partial("_AdminLinks")
+    @await Html.PartialAsync("_AdminLinks")
 
-    @RenderSection("Styles", false)
+    @await RenderSectionAsync("Styles", false)
 </head>
 <body class="theme-lime">
 
@@ -64,12 +64,12 @@
                     <!-- #END# Call Search -->
                     <!-- Notifications -->
 
-                    @Html.Partial("_Notifications")
+                    @await Html.PartialAsync("_Notifications")
 
                     <!-- #END# Notifications -->
                     <!-- Tasks -->
 
-                    @Html.Partial("_Tasks")
+                    @await Html.PartialAsync("_Tasks")
                     <!-- #END# Tasks -->
                 </ul>
             </div>
@@ -80,10 +80,10 @@
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
-            @Html.Partial("_UserInfo")
+            @await Html.PartialAsync("_UserInfo")
             <!-- #User Info -->
             <!-- Menu -->
-            @Html.Partial("_Sidebar")
+            @await Html.PartialAsync("_Sidebar")
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->
@@ -104,11 +104,11 @@
     </section>
 
 
-    @Html.Partial("_AdminScripts")
+    @await Html.PartialAsync("_AdminScripts")
 
 
 
-@RenderSection("Scripts", false)
+    @await RenderSectionAsync("Scripts", false)
 
     <script>
 

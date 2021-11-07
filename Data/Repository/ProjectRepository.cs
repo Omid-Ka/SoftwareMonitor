@@ -42,17 +42,45 @@ namespace Data.Repository
 
         public void DeleteUser(int projectId, ClaimsPrincipal user)
         {
-            var model = _SMContext.Projects.Find(projectId);
-            model.IsActive = false;
-            model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+            //var model = _SMContext.Projects.Find(projectId);
+            //model.IsActive = false;
+            //model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+            //    .FirstOrDefault());
+            //model.DateModified = DateTime.Now;
+            ////model.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
+            ////    .FirstOrDefault();
+
+
+            //_SMContext.Update(model);
+            //_SMContext.SaveChanges();
+
+            var Ip = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
+                .FirstOrDefault();
+            var currentuser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
                 .FirstOrDefault());
+
+            var model = _SMContext.Projects.Find(projectId);
+            var Detail = _SMContext.Partners.Where(x => x.IsActive && x.ProjectId == projectId);
+            foreach (var item in Detail)
+            {
+                item.IsActive = false;
+                item.UpdatedUser = currentuser;
+                item.DateModified = DateTime.Now;
+                item.IpAddress = Ip;
+
+                _SMContext.Partners.Update(item);
+                _SMContext.SaveChanges();
+            }
+
+            model.IsActive = false;
+            model.UpdatedUser = currentuser;
             model.DateModified = DateTime.Now;
-            //model.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
-            //    .FirstOrDefault();
+            model.IpAddress = Ip;
 
 
             _SMContext.Update(model);
             _SMContext.SaveChanges();
+
         }
 
         public Project GetProjectById(int projectId)

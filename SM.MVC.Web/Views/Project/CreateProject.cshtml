@@ -24,7 +24,7 @@
     </div>
     <div class="body">
 
-        <form asp-action="CreateProject">
+        <form asp-action="CreateProject" id="CreateForm">
             <div class="row clearfix">
 
                 <div class="col-sm-4">
@@ -47,54 +47,83 @@
                 </div>
 
             </div>
-            
-            @for (int i = 0; i < Model.Partners.Count; i++)
-            {
-        <div class="row clearfix">
-            @Html.Hidden("Model.Partners[" + i + "].PartnerTeam", Model.Partners[i].PartnerTeam)
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <div class="form-line">
-                        <label asp-for="Partners[i].PartnerTeam.ToDescription()" class="control-label"></label>
-                        <input asp-for="Partners[i].PartnerTeam.ToDescription()" class="form-control disabled" />
-                        <span asp-validation-for="Partners[i].PartnerTeam" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <div class="form-line">
-                        <label asp-for="@Model.Partners[i].TeamId" class="control-label"></label>
-                        <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
-                                asp-for="@Model.Partners[i].TeamId" asp-items="@(ViewBag.Teams)">
-                            <option value="">--انتخاب نمایید--</option>
-                        </select>
-                        <span asp-validation-for="Partners[i].TeamId" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <div class="form-line">
-                        <label asp-for="Partners[i].UserId" class="control-label"></label>
-                        <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
-                                asp-for="Partners[i].UserId" asp-items="@(ViewBag.Users)">
-                            <option value="">--انتخاب نمایید--</option>
-                        </select>
-                        <span asp-validation-for="Partners[i].UserId" class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-            }
-            
+            <div id="SubPartner">
 
-            <div class="row clearfix">
-                <div class="form-group">
-                    <input type="submit" value="ثبت پروژه" class="btn bg-green waves-effect SubmitBtn" />
-                </div>
+                @for (int i = 0; i < Model.Partners.Count; i++)
+                {
+                    <div class="row clearfix">
+                        @*@Html.Hidden("Model.Partners[" + i + "].PartnerTeam", Model.Partners[i].PartnerTeam)*@
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label asp-for="Partners[i].PartnerTeam" class="control-label"></label>
+                                    <br />
+                                    @Html.EditorFor(x => x.Partners[i].PartnerTeam, "Enum")
+                                    <span asp-validation-for="Partners[i].PartnerTeam" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label asp-for="@Model.Partners[i].TeamId" class="control-label"></label>
+                                    <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
+                                            asp-for="@Model.Partners[i].TeamId" asp-items="@(ViewBag.Teams)">
+                                        <option value="">--انتخاب نمایید--</option>
+                                    </select>
+                                    <span asp-validation-for="Partners[i].TeamId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <label asp-for="Partners[i].UserId" class="control-label"></label>
+                                    <select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
+                                            asp-for="Partners[i].UserId" asp-items="@(ViewBag.Users)">
+                                        <option value="">--انتخاب نمایید--</option>
+                                    </select>
+                                    <span asp-validation-for="Partners[i].UserId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                
             </div>
+
+                <div class="row clearfix">
+                    <div class="form-group">
+                        <a class="btn bg-grey waves-effect" onclick="AddSubPartner()"> افزودن همکار </a>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="form-group">
+                        <input type="submit" value="ثبت پروژه" class="btn bg-green waves-effect SubmitBtn" />
+                    </div>
+                </div>
         </form>
     </div>
 </div>
 
+@section Scripts
+{
+    <script>
+
+        function AddSubPartner() {
+            var data = $("#CreateForm").serialize();
+            debugger;
+            $.ajax({
+                url: "@Url.Action("AddSubPartner", "Project")",
+                data: data,
+                type: "POST",
+                success: function (result) {
+                    $("#SubPartner").html("");
+                    $("#SubPartner").html(result);
+                }
+            });
+        }
+
+    </script>
+}

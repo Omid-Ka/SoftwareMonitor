@@ -1,0 +1,45 @@
+﻿
+@using Domain.Models.Enum
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@model Enum
+
+
+@{
+	//var isRequired = this.ViewData.ModelMetadata.IsRequired;
+
+    var selected = ViewData["selected"] as int?;
+
+
+	var type = this.ViewData.ModelMetadata.ModelType;
+	if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+	{
+		type = type.GenericTypeArguments[0];
+	}
+
+	var values = Enum.GetValues(type);
+	var items = (from Enum value in values
+				 select new SelectListItem
+							{
+								Text = value.ToDescription(),
+								Value = Convert.ToInt32(value).ToString(),
+								Selected = value.Equals(Model) || (Convert.ToInt32(value) == selected)
+							});
+}
+@*<select id="Post" class="form-control show-tick" data-live-search="true" searchable="جستجو..."
+        asp-for="" asp-items="@(items)">
+    <option value="">--انتخاب نمایید--</option>
+</select>*@
+
+@Html.DropDownListFor(m => m, items, "انتخاب نمایید",  new { @class = "form-control show-tick" })
+
+@*@if (isRequired)
+{
+	
+	@Html.DropDownListFor(m => m, items)
+}
+else
+{
+	
+	@Html.DropDownListFor(m => m, items, "---")
+}*@

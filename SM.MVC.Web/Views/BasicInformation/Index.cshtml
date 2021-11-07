@@ -7,9 +7,7 @@
 }
 @section Styles
 {
-
-    <!-- JQuery DataTable Css -->
-    <link href="~/Admin/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    @await Html.PartialAsync("_DatabaseLinks")
 
 }
 <div class="card">
@@ -98,26 +96,7 @@
         }
     </script>
 
-
-    <script src="~/Admin/plugins/jquery/jquery.min.js"></script>
-
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="~/Admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-
-    <!-- Custom Js -->
-    <script src="~/Admin/js/admin.js"></script>
-    <script src="~/Admin/js/pages/tables/jquery-datatable.js"></script>
-
-
+    @await Html.PartialAsync("_DatatableScripts")
 }
 
 

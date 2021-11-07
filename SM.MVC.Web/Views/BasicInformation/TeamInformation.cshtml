@@ -7,9 +7,7 @@
 @section Styles
 {
 
-    <!-- JQuery DataTable Css -->
-    <link href="~/Admin/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-
+    @await Html.PartialAsync("_DatabaseLinks")
 }
 <div class="card">
     <div class="header bg-red">
@@ -100,7 +98,7 @@
             </div>
             <div id="ShowAddMemberModal" class="modal-body">
 
-            </div>  
+            </div>
             <div class="modal-footer">
                 <a class="btn bg-green waves-effect" onclick="FinalAddMember()"> ثبت تغییرات </a>
                 <button id="BtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
@@ -171,26 +169,7 @@
 
     </script>
 
-
-    <script src="~/Admin/plugins/jquery/jquery.min.js"></script>
-
-
-    <!-- Jquery DataTable Plugin Js -->
-    <script src="~/Admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-    <script src="~/Admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
-
-    <!-- Custom Js -->
-    <script src="~/Admin/js/admin.js"></script>
-    <script src="~/Admin/js/pages/tables/jquery-datatable.js"></script>
-    <script src="~/Admin/js/pages/ui/modals.js"></script>
-
+    @await Html.PartialAsync("_DatatableScripts")
 
 }
 

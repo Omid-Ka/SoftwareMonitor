@@ -17,9 +17,9 @@
 
     <title>@ViewData["Title"]</title>
 
-    @Html.Partial("_Links")
+    @await Html.PartialAsync("_Links")
 
-    @RenderSection("Styles", false)
+    @await RenderSectionAsync("Styles", false)
 
 </head>
 <body>
@@ -29,9 +29,9 @@
 
 
 
-    @Html.Partial("_Scripts")
+    @await Html.PartialAsync("_Scripts")
 
-    @RenderSection("Scripts", false)
+    @await RenderSectionAsync("Scripts", false)
 
 </body>
 </html>
