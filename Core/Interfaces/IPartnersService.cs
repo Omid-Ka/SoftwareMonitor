@@ -12,6 +12,5 @@ namespace Core.Interfaces
     {
         void AddPartner(Partners item, ClaimsPrincipal user);
         List<PartnerVM> GetAllPartnerVMByProjectId(int projectId);
-        void UpdatePartner(Partners partners, ClaimsPrincipal user);
     }
 }
