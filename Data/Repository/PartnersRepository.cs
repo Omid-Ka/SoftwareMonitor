@@ -43,5 +43,15 @@ namespace Data.Repository
         {
             return _SMContext.Partners.Where(x => x.IsActive && x.ProjectId == projectId).ToList();
         }
+
+        public IEnumerable<Partners> GetAllTeamsByProjectId(int projectId)
+        {
+            return _SMContext.Partners.Where(x => x.IsActive && x.ProjectId == projectId && x.TeamId > 0);
+        }
+
+        public IEnumerable<Partners> GetAllUsersByProjectId(int projectId)
+        {
+            return _SMContext.Partners.Where(x => x.IsActive && x.ProjectId == projectId && x.UserId > 0);
+        }
     }
 }

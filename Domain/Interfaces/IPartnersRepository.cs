@@ -12,5 +12,7 @@ namespace Domain.Interfaces
     {
         void AddPartner(Partners item, ClaimsPrincipal user);
         List<Partners> GetAllPartnerVMByProjectId(int projectId);
+        IEnumerable<Partners> GetAllTeamsByProjectId(int projectId);
+        IEnumerable<Partners> GetAllUsersByProjectId(int projectId);
     }
 }

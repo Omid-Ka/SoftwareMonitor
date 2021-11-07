@@ -1,5 +1,29 @@
-﻿<!-- Jquery Core Js -->
+﻿@using System.Web
+<!-- Jquery Core Js -->
 <script src="~/Admin/plugins/jquery/jquery.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        debugger;
+        var success = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Success"]))';    //'@TempData["Success"]';
+        var warning = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Warning"]))';    //'@TempData["Warning"]';
+        var info = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Info"]))';          //'@TempData["Info"]';
+        var error = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Error"]))';        //'@TempData["Error"]';
+            
+        if (success.length > 0) {
+            toastr["success"](success);
+        } else if (warning.length > 0) {
+            alert(warning);
+            toastr["warning"](warning);
+        } else if (info.length > 0) {
+            alert(info);
+            toastr["info"](info);
+        } else if (error.length > 0) {
+            alert(error);
+            toastr["error"](error);
+        }
+    });
+</script>
 
 <!-- Bootstrap Core Js -->
 <script src="~/Admin/plugins/bootstrap/js/bootstrap.js"></script>
@@ -31,8 +55,18 @@
 <script src="~/Admin/js/pages/forms/basic-form-elements.js"></script>
 
 <!-- Demo Js -->
-<!--<script src="~/Admin/js/demo.js"></script>-->
+<script src="~/Admin/js/demo.js"></script>
 
 <!-- toastr -->
 <script src="~/bootstrap-toastr/toastr.js"></script>
-<script src="~/bootstrap-toastr/toastr.min.js"></script>
+@*<script src="~/bootstrap-toastr/toastr.min.js"></script>*@
+
+
+
+<!-- Sparkline Chart Plugin Js -->
+<script src="~/Admin/plugins/jquery-sparkline/jquery.sparkline.js"></script>
+
+
+<!-- notifications Js -->
+<script src="~/Admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+<script src="~/Admin/js/pages/ui/notifications.js"></script>

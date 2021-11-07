@@ -54,8 +54,8 @@
                                                 <th class="align-right">
                                                     <a class="btn bg-amber waves-effect" onclick="DeleteProject(@item.Id)"> حذف پروژه </a>
                                                     <a class="btn bg-light-green waves-effect" onclick="EditProject(@item.Id)"> ویرایش پروژه </a>
-                                                    <a class="btn bg-grey waves-effect" onclick="Partners(@item.Id)"> همکاران </a>
                                                     <a class="btn bg-light-green waves-effect" onclick="AddPartners(@item.Id)"> افزودن همکاران </a>
+                                                    <a class="btn bg-grey waves-effect" onclick="SummaryStatus(@item.Id)"> خلاصه وضعیت </a>
                                                 </th>
                                             </tr>
                                         }
@@ -79,7 +79,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="largeModalLabel">همکاران</h2>
+                <h2 class="modal-title" id="largeModalLabel">خلاصه وضعیت</h2>
             </div>
             <div id="ShowModal" class="modal-body">
 
@@ -131,9 +131,9 @@
         }
 
 
-        function Partners(id) {
+        function SummaryStatus(id) {
             $.ajax({
-                url: "@Url.Action("Partners", "Project")?ProjectId=" + id  ,
+                url: "@Url.Action("SummaryStatus", "Project")?ProjectId=" + id  ,
                 type: "POST",
                 success: function (result) {
                     $("#ShowModal").html(result);
@@ -155,7 +155,7 @@
 
 
         function FinalAddPartners() {
-            var data = $("#CreateForm").serialize();
+            var data = $("#AddForm").serialize();
             debugger;
             $.ajax({
                 url: "@Url.Action("FinalAddPartners", "Project")",

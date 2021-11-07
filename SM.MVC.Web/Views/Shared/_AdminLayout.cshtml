@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -103,32 +104,20 @@
         </div>
     </section>
 
+    @*<input id="Success" type="hidden" value="@(TempData["Success"])"/>
+        <input id="Warning" type="hidden" value="@TempData["Warning"]"/>
+        <input id="Info" type="hidden" value="@TempData["Info"]"/>
+        <input id="Error" type="hidden" value="@TempData["Error"]"/>*@
+
+
+
 
     @await Html.PartialAsync("_AdminScripts")
 
-
-
     @await RenderSectionAsync("Scripts", false)
 
-    <script>
+   
 
-        $(document).ready(function() {
-            var success = '@TempData["Success"]';
-            var warning = '@TempData["Warning"]';
-            var info = '@TempData["Info"]';
-            var error = '@TempData["Error"]';
-
-            if (success.length > 0) {
-                toastr["success"](success);
-            } else if (warning.length > 0) {
-                toastr["warning"](warning);
-            } else if (info.length > 0) {
-                toastr["info"](info);
-            } else if (error.length > 0) {
-                toastr["error"](error);
-            }
-        });
-    </script>
 
 </body>
 </html>

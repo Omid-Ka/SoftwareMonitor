@@ -14,5 +14,6 @@ namespace Domain.Interfaces
         IEnumerable<TeamDetail> GetAllByTeamId(int teamId);
         TeamDetail GetByPk(int teamDetailId);
         void DeleteMemberById(int teamDetailId, ClaimsPrincipal user);
+        int[] GetUsersByTeamIds(int[] teamArray);
     }
 }

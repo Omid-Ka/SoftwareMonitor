@@ -105,5 +105,10 @@ namespace Data.Repository
 
             return data.Name + " " + data.Family;
         }
+
+        public List<Users> GetAllUsersByIds(int[] userArray)
+        {
+            return _SMContext.Users.Where(x => x.IsActive && userArray.Contains(x.Id)).ToList();
+        }
     }
 }

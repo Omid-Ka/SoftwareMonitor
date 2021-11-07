@@ -81,5 +81,6 @@ namespace Data.Repository
             _SMContext.Update(model);
             _SMContext.SaveChanges();
         }
+        
     }
 }

@@ -63,5 +63,10 @@ namespace Data.Repository
             _SMContext.SaveChanges();
         }
 
+        public int[] GetUsersByTeamIds(int[] teamArray)
+        {
+            return _SMContext.TeamDetails.Where(x => x.IsActive && teamArray.Contains(x.TeamId) && x.UserId.HasValue)
+                .Select(x => x.UserId.Value).ToArray();
+        }
     }
 }

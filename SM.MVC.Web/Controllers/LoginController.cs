@@ -128,6 +128,7 @@ namespace SM.MVC.Web.Controllers
 
             _userLogService.AddEnterUserLog(UserModel.Id, IpAddress, UserLogType.Enter);
 
+            NotifySuccess(UserModel.Name +" "+ UserModel.Family + "  عزیز خوش آمدید ");
             return RedirectToAction("Index","Admin");
         }
 

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.DTO;
 using Core.Interfaces;
 using Core.ViewModels;
+using Data.Migrations;
 using Domain.Models;
 using Domain.Models.Enum;
 using Domain.Models.Projects;
@@ -12,8 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SM.MVC.Web.Controllers
 {
@@ -162,9 +161,17 @@ namespace SM.MVC.Web.Controllers
         }
 
 
-        public IActionResult Partners(int ProjectId)
+        public IActionResult SummaryStatus(int ProjectId)
         {
-            return null;
+            var model = new ProjectSummaryVM();
+
+            model.Project = _projectService.GetProjectById(ProjectId);
+
+            model.Partners = _partnersService.GetAllPartnerInProjectByProjectId(ProjectId);
+
+            
+
+            return PartialView("_ProjectSummaryStatus",model);
         }
 
         public IActionResult DeletePartners (int PartnerId)
@@ -174,12 +181,61 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult AddPartners(int ProjectId)
         {
-            return null;
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            ViewBag.Teams = new SelectList(_teamService.GetAll(), "Id",
+                "Name");
+            
+            var model = new CreateProjectVM();
+            model.Project = new Project() {Id = ProjectId};
+            model.Partners = _partnersService.GetAllPartnerVMByProjectId(ProjectId);
+            model.Partners.Add(new PartnerVM()
+            {
+                ProjectId = ProjectId
+            });
+            return PartialView("_AddPartners",model);
         }
 
-        public IActionResult FinalAddPartners(int ProjectId)
+        public IActionResult FinalAddPartners(CreateProjectVM model)
         {
-            return null;
+            ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
+                "FullName");
+
+            ViewBag.Teams = new SelectList(_teamService.GetAll(), "Id",
+                "Name");
+
+            if (model.Partners.Count > 0)
+            {
+                foreach (var item in model.Partners)
+                {
+                    if (item.UserId > 0 || item.TeamId > 0)
+                    {
+                        var Partners = new Partners();
+                        if (item.UserId > 0 && item.TeamId > 0)
+                        {
+                            Partners = new Partners()
+                            {
+                                ProjectId = model.Project.Id,
+                                TeamId = item.TeamId
+                            };
+
+                        }
+                        else
+                        {
+                            Partners = new Partners()
+                            {
+                                ProjectId = model.Project.Id,
+                                UserId = item.UserId
+                            };
+                        }
+                        _partnersService.AddPartner(Partners, User);
+                    }
+                }
+            }
+
+            NotifyError("با موفقیت ثبت شد");
+            return PartialView("_AddPartners", model);
         }
 
         public IActionResult AddSubPartner(CreateProjectVM Model)
