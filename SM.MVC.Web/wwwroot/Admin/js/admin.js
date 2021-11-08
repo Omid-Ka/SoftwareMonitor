@@ -25,7 +25,8 @@ $.AdminBSB.options = {
         grey: '#9E9E9E',
         blueGrey: '#607D8B',
         black: '#000000',
-        white: '#ffffff'
+        white: '#ffffff',
+        SpecialGray: '#6A747A'
     },
     leftSideBar: {
         scrollColor: 'rgba(0,0,0,0.5)',

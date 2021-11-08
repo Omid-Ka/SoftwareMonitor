@@ -1,25 +1,33 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using SM.MVC.Web.Modules;
 
 namespace SM.MVC.Web.Controllers
 {
-    public class ReportsController : BaseController
+    public class ProjectInfoController : BaseController
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult FunctionalReport()
+
+        public IActionResult DocReview()
         {
             return View();
         }
 
-        public IActionResult Test()
+
+        public IActionResult CodeReview()
+        {
+            return View();
+        }
+
+
+        public IActionResult LoadAndStress()
         {
             return View();
         }

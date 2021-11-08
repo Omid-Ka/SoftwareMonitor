@@ -18,7 +18,7 @@
 }
 
 <div class="card">
-    <div class="header bg-red">
+    <div class="header bg-blue-grey">
         <h2>
             ویرایش اطلاعات
         </h2>
@@ -26,6 +26,10 @@
     <div class="body">
 
         <form asp-action="EditLookup">
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.DateInserted)
+            @Html.HiddenFor(x => x.CreatorID)
+            @Html.HiddenFor(x => x.IpAddress)
             <div class="row clearfix">
 
                 <div class="col-sm-4">

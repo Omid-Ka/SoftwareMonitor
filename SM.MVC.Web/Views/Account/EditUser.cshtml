@@ -16,7 +16,7 @@
 }
 
 <div class="card">
-    <div class="header bg-red">
+    <div class="header bg-blue-grey">
         <h2>
             ویرایش کاربر
         </h2>
@@ -27,6 +27,8 @@
             <div class="row clearfix">
                 @Html.HiddenFor(x => x.Id)
                 @Html.HiddenFor(x => x.DateInserted)
+                @Html.HiddenFor(x => x.CreatorID)
+                @Html.HiddenFor(x => x.IpAddress)
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="form-line">

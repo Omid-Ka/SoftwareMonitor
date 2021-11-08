@@ -17,7 +17,7 @@
 }
 
 <div class="card">
-    <div class="header bg-red">
+    <div class="header bg-blue-grey">
         <h2>
             ویرایش پروژه
         </h2>
@@ -27,6 +27,8 @@
         <form asp-action="EditProject">
             @Html.HiddenFor(x => x.Project.Id)
             @Html.HiddenFor(x => x.Project.DateInserted)
+            @Html.HiddenFor(x => x.Project.CreatorID)
+            @Html.HiddenFor(x => x.Project.IpAddress)
             <div class="row clearfix">
 
                 <div class="col-sm-4">

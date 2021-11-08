@@ -60,7 +60,7 @@ namespace SM.MVC.Web.Controllers
 
             _lookupService.AddLookup(model, User);
 
-            NotifyError("با موفقیت ثبت شد");
+            NotifySuccess("با موفقیت ثبت شد");
             return RedirectToAction("Index");
         }
 
@@ -121,7 +121,7 @@ namespace SM.MVC.Web.Controllers
 
             _lookupService.Editlookup(model, User);
 
-            NotifyError("با موفقیت ویرایش شد");
+            NotifySuccess("با موفقیت ویرایش شد");
             return RedirectToAction("Index");
         }
 

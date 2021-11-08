@@ -7,6 +7,7 @@ using Domain.Models.Account;
 using Domain.Models.BaseInformation;
 using Domain.Models.Log;
 using Domain.Models.Projects;
+using Domain.Models.ProjectTests;
 using Domain.Models.Teams;
 
 namespace Data
@@ -25,5 +26,6 @@ namespace Data
         public DbSet<Partners> Partners { set; get; }
         public DbSet<Team> Teams { set; get; }
         public DbSet<TeamDetail> TeamDetails { set; get; }
+        public DbSet<TestHeader> TestHeaders { set; get; }
     }
 }

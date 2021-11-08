@@ -16,7 +16,7 @@
 }
 
 <div class="card">
-    <div class="header bg-red">
+    <div class="header bg-blue-grey">
         <h2>
             ویرایش تیم
         </h2>
@@ -25,6 +25,10 @@
 
         <form asp-action="EditTeam" >
             <div class="row clearfix">
+                @Html.HiddenFor(x => x.Id)
+                @Html.HiddenFor(x => x.DateInserted)
+                @Html.HiddenFor(x => x.CreatorID)
+                @Html.HiddenFor(x => x.IpAddress)
 
                 <div class="col-sm-4">
                     <div class="form-group">

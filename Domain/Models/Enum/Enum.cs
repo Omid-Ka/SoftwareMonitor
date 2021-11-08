@@ -20,7 +20,10 @@ namespace Domain.Models.Enum
         Gender = 1,
         [Display(Name = "پست سازمانی")]
         [Description("پست سازمانی")]
-        Post = 2
+        Post = 2,
+        [Display(Name = "تست های نرم افزاری")]
+        [Description("تست های نرم افزاری")]
+        Test = 3
     }
 
     public enum PartnerTeam
@@ -68,4 +71,18 @@ namespace Domain.Models.Enum
         [Description("ESB_Support")]
         ESB_Support = 14
     }
+
+
+    public enum TestType
+    {
+        [Display(Name = "عملکردی")]
+        [Description("عملکردی")]
+        Finctional = 1,
+        [Display(Name = "غیر عملکردی")]
+        [Description("غیر عملکردی")]
+        Non_Finctional = 2
+
+    }
+
+
 }

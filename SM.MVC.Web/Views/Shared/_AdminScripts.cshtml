@@ -4,7 +4,6 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        debugger;
         var success = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Success"]))';    //'@TempData["Success"]';
         var warning = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Warning"]))';    //'@TempData["Warning"]';
         var info = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Info"]))';          //'@TempData["Info"]';
@@ -13,13 +12,10 @@
         if (success.length > 0) {
             toastr["success"](success);
         } else if (warning.length > 0) {
-            alert(warning);
             toastr["warning"](warning);
         } else if (info.length > 0) {
-            alert(info);
             toastr["info"](info);
         } else if (error.length > 0) {
-            alert(error);
             toastr["error"](error);
         }
     });

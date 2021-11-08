@@ -36,6 +36,22 @@
                 <li>
                     <a asp-controller="Project" asp-action="Index">لیست پروژه ها</a>
                 </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <span>ثبت اطلاعات پروژه ها</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a  asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
+                        </li>
+                        <li>
+                            <a  asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
+                        </li>
+                        <li>
+                            <a  asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </li>
         <li>

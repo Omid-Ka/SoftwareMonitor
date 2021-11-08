@@ -3107,7 +3107,8 @@
 
 /* General ===================================== */
 body {
-    background-color: #e9e9e9;
+    background-color: #dbdbdb;
+    /*background-color: #e9e9e9;*/
     -moz-transition: all 0.5s;
     -o-transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -10135,7 +10136,8 @@ fieldset[disabled] .form-control {
     transition: all 0.5s;
     /*font-family: "Roboto", sans-serif;*/
     font-family: IRAN Sans Regular;
-    background: #fdfdfd;
+    /*background: #fdfdfd;*/
+    background: #cfcfcf;
     width: 300px;
     overflow: hidden;
     display: inline-block;
@@ -10188,7 +10190,7 @@ fieldset[disabled] .form-control {
         white-space: nowrap;
         position: relative;
         border-bottom: 1px solid #e9e9e9;
-        background: url("../images/user-img-background.jpg") no-repeat no-repeat;
+        background: url("../images/UserInfoPic1.jpg") no-repeat no-repeat;
         height: 135px;
     }
 
@@ -10261,7 +10263,8 @@ fieldset[disabled] .form-control {
             }
 
             .sidebar .menu .list .header {
-                background: #eee;
+                /*background: #eee;*/
+                background: #dfdfdf;
                 font-size: 12px;
                 font-weight: 600;
                 padding: 8px 16px;
