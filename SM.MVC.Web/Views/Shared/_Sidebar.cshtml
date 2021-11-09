@@ -20,7 +20,20 @@
                     <a asp-controller="Account" asp-action="Index">لیست کاربران</a>
                 </li>
                 <li>
-                    <a href="#">گروه های کاربری</a>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <span>دسترسی کاربران</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a  asp-controller="Access" asp-action="AccessGroups">گروه های کاربری</a>
+                            </li>
+                            <li>
+                                <a  asp-controller="Access" asp-action="UserAccess">دسترسی کاربران</a>
+                            </li>
+                        </ul>
+                    </li>
+
                 </li>
             </ul>
         </li>

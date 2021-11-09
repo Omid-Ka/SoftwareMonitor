@@ -23,7 +23,10 @@ namespace Domain.Models.Enum
         Post = 2,
         [Display(Name = "تست های نرم افزاری")]
         [Description("تست های نرم افزاری")]
-        Test = 3
+        Test = 3,
+        [Display(Name = "شاخص های بررسی کد")]
+        [Description("شاخص های بررسی کد")]
+        Indicator = 3
     }
 
     public enum PartnerTeam
@@ -82,6 +85,74 @@ namespace Domain.Models.Enum
         [Description("غیر عملکردی")]
         Non_Finctional = 2
 
+    }
+
+
+    public enum CodeReviewDetailType
+    {
+        [Display(Name = "خوانایی کد")]
+        [Description("خوانایی کد")]
+        Readability = 1,
+        [Display(Name = "شی گرایی")]
+        [Description("شی گرایی")]
+        ObjectOriented = 2,
+        [Display(Name = "ایمنی کد")]
+        [Description("ایمنی کد")]
+        CodeSecurity = 3,
+        [Display(Name = "استفاده از منابع")]
+        [Description("استفاده از منابع")]
+        UseOfResources = 4,
+        [Display(Name = "شاخص های پیچیدگی")]
+        [Description("شاخص های پیچیدگی")]
+        Complexity = 5,
+        [Display(Name = "هشدارهای IDE")]
+        [Description("هشدارهای IDE")]
+        Warning = 6
+
+    }
+
+
+    public enum DocReviewTitle
+    {
+        [Display(Name = "نمودار توالی")]
+        [Description("نمودار توالی")]
+        SequenceDiagram = 1,
+
+        [Display(Name = "نمودار فعالیت")]
+        [Description("نمودار فعالیت")]
+        ActivityDiagram = 2,
+
+        [Display(Name = "نمودار کاربرد")]
+        [Description("نمودار کاربرد")]
+        ApplicationDiagram = 3,
+
+        [Display(Name = "نمودار کلاس")]
+        [Description("نمودار کلاس")]
+        ClassDiagram = 4,
+
+        [Display(Name = "ماژول ها")]
+        [Description("ماژول ها")]
+        Modules = 5,
+
+        [Display(Name = "شرح فعالیت")]
+        [Description("شرح فعالیت")]
+        ActivityDescription = 6,
+    }
+
+    public enum DocReviewAnswer
+    {
+
+        [Display(Name = "کامل")]
+        [Description("کامل")]
+        Complete = 1,
+
+        [Display(Name = "ناقص")]
+        [Description("ناقص")]
+        Incomplete = 2,
+
+        [Display(Name = "ندارد")]
+        [Description("ندارد")]
+        Less = 3
     }
 
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Models.Access;
 using Domain.Models.Account;
 using Domain.Models.BaseInformation;
 using Domain.Models.Log;
@@ -27,5 +28,13 @@ namespace Data
         public DbSet<Team> Teams { set; get; }
         public DbSet<TeamDetail> TeamDetails { set; get; }
         public DbSet<TestHeader> TestHeaders { set; get; }
+        public DbSet<DocReview> DocReviews { set; get; }
+        public DbSet<CodeReview> CodeReviews { set; get; }
+        public DbSet<CodeReviewDetail> CodeReviewDetails { set; get; }
+        public DbSet<LoadAndSterss> LoadAndStersses { set; get; }
+        public DbSet<Access> Accesses { set; get; }
+        public DbSet<AccessGroup> AccessGroups { set; get; }
+        public DbSet<AccessGroupDetail> AccessGroupDetails { set; get; }
+        public DbSet<UserAccess> UserAccesses { set; get; }
     }
 }

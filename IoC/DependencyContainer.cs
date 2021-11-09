@@ -39,6 +39,22 @@ namespace IoC
 
             service.AddScoped<ITeamDetailService, TeamDetailService>();
             service.AddScoped<ITeamDetailRepository, TeamDetailRepository>();
+
+
+            service.AddScoped<IAccessService, AccessService>();
+            service.AddScoped<IAccessRepository, AccessRepository>();
+
+
+            service.AddScoped<IAccessGroupService, AccessGroupService>();
+            service.AddScoped<IAccessGroupRepository, AccessGroupRepository>();
+
+
+            service.AddScoped<IAccessGroupDetailService, AccessGroupDetailService>();
+            service.AddScoped<IAccessGroupDetailRepository, AccessGroupDetailRepository>();
+
+
+            service.AddScoped<IUserAccessService, UserAccessService>();
+            service.AddScoped<IUserAccessRepository, UserAccessRepository>();
         }
     }
 }

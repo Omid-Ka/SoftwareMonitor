@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20211030052920_AddUserLog.cs" />
     <Compile Remove="Migrations\20211030052920_AddUserLog.Designer.cs" />
+    <Compile Remove="Migrations\20211109062723_AddNonFunctionalTestTbl.cs" />
+    <Compile Remove="Migrations\20211109062723_AddNonFunctionalTestTbl.Designer.cs" />
+    <Compile Remove="Migrations\20211109063612_AddNonFunctionalTestTbl.cs" />
+    <Compile Remove="Migrations\20211109063612_AddNonFunctionalTestTbl.Designer.cs" />
+    <Compile Remove="Migrations\20211109073020_AddAccessTbls.cs" />
+    <Compile Remove="Migrations\20211109073020_AddAccessTbls.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

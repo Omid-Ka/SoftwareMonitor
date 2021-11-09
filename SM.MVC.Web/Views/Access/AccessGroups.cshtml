@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "گروه های کاربری";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles
+{
+    @await Html.PartialAsync("_DatabaseLinks")
+}
+
+<div class="card">
+    <div class="header bg-blue-grey">
+        <h2>
+            گروه های کاربری
+        </h2>
+    </div>
+    <div class="body">
+        <a asp-controller="Access" asp-action="CreateAccessGroup" class="btn bg-green waves-effect">ثبت گروه جدید</a>
+        <br />
+        <br />
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="GridView">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-right">عنوان</th>
+                                            <th class="align-right">عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="align-right">عنوان</th>
+                                            <th class="align-right">عملیات</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <th class="align-right">@item.Name </th>
+                                                <th class="align-right">
+                                                    <a class="btn bg-amber waves-effect" onclick="DeleteGroup(@item.Id)"> حذف گروه </a>
+                                                    <a class="btn bg-light-green waves-effect" onclick="EditGroup(@item.Id)"> ویرایش گروه </a>
+                                                </th>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts
+{
+    
+    
+    <script>
+
+        function DeleteGroup(id) {
+            $.ajax({
+                url: "@Url.Action("DeleteGroup", "Access")?Id=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#GridView").html(result);
+
+                }
+            });
+        }
+
+        function EditGroup(id) {
+            window.location.href = "@Url.Action("EditGroup", "Access")?Id=" + id;
+        }
+
+    </script>
+
+
+    @await Html.PartialAsync("_DatatableScripts")
+}

@@ -4,166 +4,22 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(SoftwareMonitoringDBContext))]
-    partial class SoftwareMonitoringDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211109064507_AddNonFunctionalTestTbl")]
+    partial class AddNonFunctionalTestTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Domain.Models.Access.Access", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CreatorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateInserted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UpdatedUser")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Accesses");
-                });
-
-            modelBuilder.Entity("Domain.Models.Access.AccessGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CreatorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateInserted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UpdatedUser")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AccessGroups");
-                });
-
-            modelBuilder.Entity("Domain.Models.Access.AccessGroupDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccessGroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AccessId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateInserted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("UpdatedUser")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccessGroupId");
-
-                    b.HasIndex("AccessId");
-
-                    b.ToTable("AccessGroupDetails");
-                });
-
-            modelBuilder.Entity("Domain.Models.Access.UserAccess", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccessId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateInserted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("UpdatedUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccessId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserAccesses");
-                });
 
             modelBuilder.Entity("Domain.Models.Account.Users", b =>
                 {
@@ -731,36 +587,6 @@ namespace Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TeamDetails");
-                });
-
-            modelBuilder.Entity("Domain.Models.Access.AccessGroupDetail", b =>
-                {
-                    b.HasOne("Domain.Models.Access.AccessGroup", "AccessGroup")
-                        .WithMany()
-                        .HasForeignKey("AccessGroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Access.Access", "Access")
-                        .WithMany()
-                        .HasForeignKey("AccessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Models.Access.UserAccess", b =>
-                {
-                    b.HasOne("Domain.Models.Access.Access", "Access")
-                        .WithMany()
-                        .HasForeignKey("AccessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Account.Users", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Models.Account.Users", b =>

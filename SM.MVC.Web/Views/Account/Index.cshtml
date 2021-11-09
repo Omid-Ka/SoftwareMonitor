@@ -72,6 +72,7 @@
                                                     <a class="btn bg-amber waves-effect" onclick="DeleteUser(@item.Id)"> حذف کاربر </a>
                                                     <a class="btn bg-light-green waves-effect" onclick="EditUser(@item.Id)"> ویرایش کاربر </a>
                                                     <a class="btn bg-grey waves-effect" onclick="showModal(@item.Id)"> خلاصه فعالیت </a>
+                                                    <a class="btn bg-grey waves-effect" onclick="UserAccessModal(@item.Id)"> دسترسی ها </a>
                                                 </th>
                                             </tr>
                                         }
@@ -87,6 +88,7 @@
     </div>
 </div>
 <button id="ModalSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#largeModal"></button>
+<button id="AccessModalSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#AccessModal"></button>
 
 <!-- Large Size -->
 <div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
@@ -100,6 +102,24 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Large Size -->
+<div class="modal fade" id="AccessModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="AddMemberLabel">دسترسی ها</h2>
+            </div>
+            <div id="ShowAccessModal" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn bg-green waves-effect" onclick="FinalAddMember()"> ثبت تغییرات </a>
+                <button id="BtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
             </div>
         </div>
     </div>
@@ -137,6 +157,17 @@
             });
         }
 
+
+        function UserAccessModal(id) {
+            $.ajax({
+                url: "@Url.Action("UserAccessModal", "Access")?UserId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowAccessModal").html(result);
+                    $("#AccessModalSubmit").click();
+                }
+            });
+        }
 
 
 
