@@ -4,6 +4,29 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@section Styles
+{
+    <style>
+        .AccessDiv {
+            border: 1px solid;
+            border-radius: 30px;
+            border-color: #376bff;
+            margin-bottom: 0px !important;
+            font-size: 25px;
+        }
+
+        .AccessLable {
+            width: 50%;
+            float: right;
+        }
+
+        .AccessSpan {
+            width: 50%;
+            float: right;
+        }
+
+    </style>
+}
 
 <div class="card">
     <div class="header bg-blue-grey">
@@ -35,11 +58,11 @@
                     @Html.HiddenFor(x => x.Accesses[i].AccessId)
                     @Html.HiddenFor(x => x.Accesses[i].AccessName)
 
-                    if (!string.IsNullOrEmpty(Model.Accesses[i].AccessName))
+                    if (Model.Accesses[i] != null)
                     {
-                        <div class="col-sm-3">
-                            <div class="demo-switch-title">@Model.Accesses[i].AccessName</div>
-                            <div class="switch">
+                        <div class="col-sm-2 AccessDiv">
+                            <div class="demo-switch-title AccessLable">@Model.Accesses[i].AccessName</div>
+                            <div class="switch AccessSpan">
                                 <label><input asp-for="Accesses[i].Selected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>
                             </div>
                         </div>
@@ -47,9 +70,11 @@
                 }
 
             </div>
+            <br />
+            <br />
             <div class="row clearfix">
                 <div class="form-group">
-                    <input type="submit" value="ثبت کاربر" class="btn bg-green waves-effect SubmitBtn" />
+                    <input type="submit" value="ثبت گروه کاربری" class="btn bg-green waves-effect SubmitBtn" />
                 </div>
             </div>
         </form>

@@ -9,6 +9,7 @@ using System.Text;
 using Domain.Models.Log;
 using Domain.Models.Enum;
 using System.Security.Claims;
+using Domain.Models.Access;
 
 namespace Core.Services
 {
@@ -51,5 +52,25 @@ namespace Core.Services
             }).ToList();
         }
 
+        public List<AccessVM> GetAllByGroupId(int groupId)
+        {
+            var AccessModel = _accessGroupDetailRepository.GetAllUsedAccess().Where(x=>x.AccessGroupId == groupId).Select(x=>x.AccessId).ToArray();
+
+            var Access = _accessRepository.GetAllAccess().Where(x => AccessModel.Contains(x.Id)).Select(x =>
+                new AccessVM()
+                {
+                    AccessId = x.Id,
+                    AccessName = x.Name,
+                    Selected = false
+                }).ToList();
+
+            return Access;
+
+        }
+
+        public string[] GetAllByIds(int[] accessIds)
+        {
+            return _accessRepository.GetAllAccess().Where(x => accessIds.Contains(x.Id)).Select(x => x.Name).ToArray();
+        }
     }
 }

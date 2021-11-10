@@ -8,17 +8,22 @@ using System.Text;
 using Domain.Models.Log;
 using Domain.Models.Enum;
 using System.Security.Claims;
+using Domain.Models.Access;
 
 namespace Core.Services
 {
     public class UserAccessService : IUserAccessService
     {
-        private IUserLogRepository _userLogRepository;
+        private IUserAccessRepository _userAccessRepository;
 
-        public UserAccessService(IUserLogRepository userLogRepository)
+        public UserAccessService(IUserAccessRepository userAccessRepository)
         {
-            _userLogRepository = userLogRepository;
+            _userAccessRepository = userAccessRepository;
         }
-        
+
+        public IEnumerable<UserAccess> GetAllByUserId(int userid)
+        {
+            return _userAccessRepository.GetAllAccessByUserId(userid);
+        }
     }
 }

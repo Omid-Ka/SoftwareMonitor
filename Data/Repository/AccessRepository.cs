@@ -25,7 +25,6 @@ namespace Data.Repository
         {
             return _SMContext.Accesses.Where(x => x.IsActive);
         }
-
         public IEnumerable<Access> GetAllCurrentAccessByGroupId(int id)
         {
             var AccessIds = _SMContext.AccessGroupDetails.Where(x => x.IsActive && x.AccessGroupId == id)
@@ -34,5 +33,7 @@ namespace Data.Repository
             return _SMContext.Accesses.Where(x => x.IsActive && AccessIds.Contains(x.Id));
 
         }
+        
+
     }
 }

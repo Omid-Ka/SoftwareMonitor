@@ -1,4 +1,61 @@
-﻿<div class="menu">
+﻿@using System.Security.Claims
+@using Core.AccessConst
+@using Newtonsoft.Json
+
+@{
+    var rolesJson = JsonConvert.SerializeObject((((User.Identity as ClaimsIdentity)?.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value)) ?? throw new InvalidOperationException()).ToArray());
+
+
+    var roles = (User.Identity as ClaimsIdentity)?.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToList();
+}
+
+<script>
+    var roles = JSON.parse('@Html.Raw(rolesJson)');
+    $(document).ready(function () {
+
+        var menu = $(".page-sidebar-menu");
+        console.log('***');
+        console.log(menu);
+        console.log('***');
+        menu.find("li[user-access]").each(function () {
+            var access = $(this).attr("user-access").split(",");
+            var hassAccess = false;
+            for (var i = 0; i < access.length; i++) {
+                if (roles.indexOf(access[i]) !== -1) {
+                    hassAccess = true;
+                    break;
+                }
+            }
+            if (!hassAccess) {
+                $(this).remove();
+            }
+        });
+        console.log('***');
+        console.log(menu);
+        console.log('***');
+
+        menu.find("li:not([user-access])").each(function () {
+            if ($(this).children("a[href^=javascript]").length > 0 && $(this).children("ul").children("li").length === 0) {
+                $(this).remove();
+            }
+        });
+        menu.find("li:not([user-access])").each(function () {
+            if ($(this).children("a[href^=javascript]").length > 0 && $(this).children("ul").children("li").length === 0) {
+                $(this).remove();
+            }
+        });
+        menu.find("li:not([user-access])").each(function () {
+            if ($(this).children("a[href^=javascript]").length > 0 && $(this).children("ul").children("li").length === 0) {
+                $(this).remove();
+            }
+        });
+    });
+
+</script>
+
+
+
+<div class="menu">
     <ul class="list">
         <li class="header"></li>
         <li class="active">
@@ -13,27 +70,15 @@
                 <span>مدیریت کاربران</span>
             </a>
             <ul class="ml-menu">
-                <li>
+                <li user-access ="@AccessConst.BaseInfo">
                     <a asp-controller="BasicInformation" asp-action="Index">اطلاعات پایه</a>
                 </li>
-                <li>
+                <li user-access ="@AccessConst.UserList">
                     <a asp-controller="Account" asp-action="Index">لیست کاربران</a>
                 </li>
                 <li>
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <span>دسترسی کاربران</span>
-                        </a>
-                        <ul class="ml-menu">
-                            <li>
-                                <a  asp-controller="Access" asp-action="AccessGroups">گروه های کاربری</a>
-                            </li>
-                            <li>
-                                <a  asp-controller="Access" asp-action="UserAccess">دسترسی کاربران</a>
-                            </li>
-                        </ul>
-                    </li>
-
+                <li user-access ="@AccessConst.AddAccessGroup">
+                    <a asp-controller="Access" asp-action="AccessGroups">گروه های کاربری</a>
                 </li>
             </ul>
         </li>
@@ -43,10 +88,10 @@
                 <span>مدیریت پروژه ها</span>
             </a>
             <ul class="ml-menu">
-                <li>
+                <li  user-access ="@AccessConst.TeamInfo">
                     <a asp-controller="BasicInformation" asp-action="TeamInformation">اطلاعات پایه</a>
                 </li>
-                <li>
+                <li  user-access ="@AccessConst.ProjectList">
                     <a asp-controller="Project" asp-action="Index">لیست پروژه ها</a>
                 </li>
                 <li>
@@ -54,14 +99,14 @@
                         <span>ثبت اطلاعات پروژه ها</span>
                     </a>
                     <ul class="ml-menu">
-                        <li>
-                            <a  asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
+                        <li  user-access ="@AccessConst.AddDocReview">
+                            <a asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
                         </li>
-                        <li>
-                            <a  asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
+                        <li  user-access ="@AccessConst.AddCodeReview">
+                            <a asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
                         </li>
-                        <li>
-                            <a  asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>
+                        <li   user-access ="@AccessConst.AddLoadAndStress">
+                            <a asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>
                         </li>
                     </ul>
                 </li>
@@ -73,7 +118,7 @@
                 <span>گزارشات</span>
             </a>
             <ul class="ml-menu">
-                <li>
+                <li   user-access ="@AccessConst.FunctionalReport">
                     <a asp-controller="Reports" asp-action="FunctionalReport">گزارشات عملکردی</a>
                 </li>
                 <li>

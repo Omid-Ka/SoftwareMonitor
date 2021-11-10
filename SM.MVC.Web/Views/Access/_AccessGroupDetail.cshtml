@@ -1,0 +1,36 @@
+﻿@model List<Core.ViewModels.AccessVM>
+
+<style>
+    .AccessDiv {
+        border: 1px solid;
+        border-radius: 30px;
+        border-color: #376bff;
+        margin-bottom: 0px !important;
+        font-size: 25px;
+    }
+
+    .AccessLable {
+        width: 50%;
+        float: right;
+    }
+
+    .AccessSpan {
+        width: 50%;
+        float: right;
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    @Html.HiddenFor(Model => item.AccessId)
+    <div class="row clearfix">
+        <div class="col-sm-6 AccessDiv">
+            <div class="demo-switch-title AccessLable">@item.AccessName</div>
+            <div class="switch AccessSpan">
+                <label><input asp-for="@item.Selected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>
+            </div>
+        </div>
+    </div>
+}
+
+

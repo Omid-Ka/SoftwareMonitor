@@ -9,6 +9,7 @@ using System.Text;
 using Domain.Models.Enum;
 using Domain.Models.Log;
 using Core.Helper;
+using Domain.Models.Access;
 
 namespace Data.Repository
 {
@@ -19,6 +20,10 @@ namespace Data.Repository
         {
             this._SMContext = SMContext;
         }
-        
+
+        public IEnumerable<UserAccess> GetAllAccessByUserId(int userId)
+        {
+            return _SMContext.UserAccesses.Where(x => x.IsActive && x.UserId == userId);
+        }
     }
 }

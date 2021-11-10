@@ -45,15 +45,15 @@ namespace Data.Repository
             var UserId = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
                 .FirstOrDefault());
 
-            var data = _SMContext.AccessGroupDetails.Where(x => x.IsActive && x.AccessGroupId == GroupId);
+            var data = _SMContext.AccessGroupDetails.Where(x => x.IsActive && x.AccessGroupId == GroupId).ToList();
 
             foreach (var Item in data)
             {
                 Item.IsActive = false;
                 Item.UpdatedUser = UserId;
                 Item.DateModified = DateTime.Now;
-                _SMContext.Update(Item);
 
+                _SMContext.Update(Item);
                 _SMContext.SaveChanges();
             }
 

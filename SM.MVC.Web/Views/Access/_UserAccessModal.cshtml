@@ -1,23 +1,54 @@
 ﻿@model List<Core.ViewModels.UserAccessVN>
 
 
+<style>
+    .HeadAccessDiv {
+        border: 1px solid;
+        border-radius: 30px;
+        border-color: #376bff;
+        margin-bottom: 5px !important;
+        font-size: 25px;
+        padding-right: 12px;
+;
+    }
+</style>
+
+<input type="hidden" value="@ViewBag.UserId" id="UserId" />
+
 <form id="UserAccessFrom">
     <div class="row clearfix">
-        <div class="col-sm-3">
+        <div class="col-sm-3 ">
             @for (int i = 0; i < Model.Count; i++)
             {
-                <div onclick="ClickOnGroup(@Model[i].AccessGroup.Id)">
+                <div class="HeadAccessDiv" onclick="ClickOnGroup(@Model[i].AccessGroup.Id)">
                     <span>@Model[i].AccessGroup.Name</span>
                 </div>
             }
-
         </div>
         <div class="col-sm-6">
-            
+
             <div id="GroupDetail">
+
+
 
             </div>
 
         </div>
     </div>
 </form>
+
+
+<script>
+    function ClickOnGroup(id) {
+
+        var user = $("#UserId").val();
+        $.ajax({
+            url: "@Url.Action("GetPartialAccessByGroupId", "Access")?GroupId=" + id + "&userid=" + user,
+            type: "POST",
+            success: function (result) {
+                $("#GroupDetail").html(result);
+
+            }
+        });
+    }
+</script>

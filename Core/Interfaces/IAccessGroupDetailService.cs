@@ -15,5 +15,6 @@ namespace Core.Interfaces
         void AddGroupDetail(AccessGroupDetail accessGroupDetail, ClaimsPrincipal user);
         void DisableAllAccessByGroupId(int AccessGroupId, ClaimsPrincipal user);
         List<AccessGroupDetail> GetAllDetailByGroupId(int id);
+        bool UserHasAccess(int id, int userId);
     }
 }

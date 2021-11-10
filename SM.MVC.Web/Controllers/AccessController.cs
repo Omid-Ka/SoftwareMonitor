@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.ViewModels;
@@ -15,12 +16,14 @@ namespace SM.MVC.Web.Controllers
         private IAccessGroupService _accessGroupService;
         private IAccessGroupDetailService _accessGroupDetailService;
         private IAccessService _accessService;
+        private IUserAccessService _userAccessService;
 
-        public AccessController(IAccessGroupService accessGroupService, IAccessGroupDetailService accessGroupDetailService, IAccessService accessService)
+        public AccessController(IAccessGroupService accessGroupService, IAccessGroupDetailService accessGroupDetailService, IAccessService accessService, IUserAccessService userAccessService)
         {
             _accessGroupService = accessGroupService;
             _accessGroupDetailService = accessGroupDetailService;
             _accessService = accessService;
+            _userAccessService = userAccessService;
         }
 
         public IActionResult Index()
@@ -154,12 +157,12 @@ namespace SM.MVC.Web.Controllers
                 return View("EditGroup", model);
             }
 
-            var HasDuplicate = _accessGroupService.HasDuplicate(model.GroupName);
-            if (HasDuplicate)
-            {
-                NotifyError("عنوان تکراری است");
-                return View("EditGroup", model);
-            }
+            //var HasDuplicate = _accessGroupService.HasDuplicate(model.GroupName);
+            //if (HasDuplicate)
+            //{
+            //    NotifyError("عنوان تکراری است");
+            //    return View("EditGroup", model);
+            //}
 
             var Entity = _accessGroupService.GetById(model.AccessGroupId);
             Entity.Name = model.GroupName;
@@ -209,10 +212,29 @@ namespace SM.MVC.Web.Controllers
 
             }
 
+            ViewBag.UserId = UserId;
 
-            return PartialView("_UserAccessModal",model);
+            return PartialView("_UserAccessModal", model);
         }
 
+        public IActionResult GetPartialAccessByGroupId(int GroupId,int userid)
+        {
+            var data = _accessService.GetAllByGroupId(GroupId);
+
+            var UserAccess = _userAccessService.GetAllByUserId(userid);
+
+
+            foreach (var item in data)
+            {
+                if (UserAccess.Any(x => x.AccessId == item.AccessId))
+                {
+                    item.Selected = true;
+                }
+            }
+
+            return PartialView("_AccessGroupDetail", data);
+
+        }
 
 
         #endregion

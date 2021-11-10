@@ -16,10 +16,12 @@ namespace Core.Services
     public class AccessGroupDetailService : IAccessGroupDetailService
     {
         private IAccessGroupDetailRepository _accessGroupDetailRepository;
+        private IUserAccessRepository _userAccessRepository;
 
-        public AccessGroupDetailService(IAccessGroupDetailRepository accessGroupDetailRepository)
+        public AccessGroupDetailService(IAccessGroupDetailRepository accessGroupDetailRepository, IUserAccessRepository userAccessRepository)
         {
             _accessGroupDetailRepository = accessGroupDetailRepository;
+            _userAccessRepository = userAccessRepository;
         }
 
         public void AddGroupDetail(AccessGroupDetail accessGroupDetail, ClaimsPrincipal user)
@@ -35,6 +37,15 @@ namespace Core.Services
         public List<AccessGroupDetail> GetAllDetailByGroupId(int id)
         {
             return _accessGroupDetailRepository.GetAllUsedAccess().Where(x=>x.AccessGroupId == id).ToList();
+        }
+
+        public bool UserHasAccess(int id, int userId)
+        {
+            var data = _userAccessRepository.GetAllAccessByUserId(userId);
+
+
+
+            return data.Any(x => x.AccessId == id);
         }
     }
 }

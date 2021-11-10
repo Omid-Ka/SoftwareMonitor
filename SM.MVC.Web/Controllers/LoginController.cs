@@ -23,11 +23,15 @@ namespace SM.MVC.Web.Controllers
 
         private IUsersService _usersService;
         private IUserLogService _userLogService;
+        private IUserAccessService _userAccessService;
+        private IAccessService _accessService;
 
-        public LoginController(IUsersService usersService, IUserLogService userLogService)
+        public LoginController(IUsersService usersService, IUserLogService userLogService, IUserAccessService userAccessService, IAccessService accessService)
         {
             _usersService = usersService;
             _userLogService = userLogService;
+            _userAccessService = userAccessService;
+            _accessService = accessService;
         }
 
         public IActionResult Index()
@@ -105,6 +109,11 @@ namespace SM.MVC.Web.Controllers
                 return View("Index");
             }
 
+
+
+            var AccessIds = _userAccessService.GetAllByUserId(UserModel.Id).Select(x => x.AccessId).ToArray();
+            var Roles = _accessService.GetAllByIds(AccessIds);
+
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
 
             var claims = new List<Claim>
@@ -114,6 +123,8 @@ namespace SM.MVC.Web.Controllers
                 new Claim(ClaimTypes.Email,UserModel.Email.ToString()),
                 new Claim("IpAddress",IpAddress),
             };
+
+            claims.AddRange(Roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
