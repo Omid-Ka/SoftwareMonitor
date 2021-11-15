@@ -7,23 +7,27 @@ using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Access;
+using Microsoft.AspNetCore.Authorization;
 using SM.MVC.Web.Modules;
 
 namespace SM.MVC.Web.Controllers
 {
+    [Authorize]
     public class AccessController : BaseController
     {
         private IAccessGroupService _accessGroupService;
         private IAccessGroupDetailService _accessGroupDetailService;
         private IAccessService _accessService;
         private IUserAccessService _userAccessService;
+        private IProjectService _projectService;
 
-        public AccessController(IAccessGroupService accessGroupService, IAccessGroupDetailService accessGroupDetailService, IAccessService accessService, IUserAccessService userAccessService)
+        public AccessController(IAccessGroupService accessGroupService, IAccessGroupDetailService accessGroupDetailService, IAccessService accessService, IUserAccessService userAccessService, IProjectService projectService)
         {
             _accessGroupService = accessGroupService;
             _accessGroupDetailService = accessGroupDetailService;
             _accessService = accessService;
             _userAccessService = userAccessService;
+            _projectService = projectService;
         }
 
         public IActionResult Index()
@@ -197,34 +201,71 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult UserAccessModal(int UserId)
         {
-            var AccessGroups = _accessGroupService.GetAllGroups();
-            var model = new List<UserAccessVN>();
 
-            foreach (var item in AccessGroups)
+            var ListGroup = new ListAccessGroupVM();
+            ListGroup.GroupList = new List<CreateAccesGroupVM>();
+
+
+            var AccessGroups = _accessGroupService.GetAllGroups().ToList();
+            if (AccessGroups.Any())
             {
-                var Details = _accessGroupDetailService.GetAllDetailByGroupId(item.Id);
-
-                model.Add(new UserAccessVN()
+                foreach (var Groups in AccessGroups)
                 {
-                    AccessGroup = item,
-                    AccessGroupDetails = Details
-                });
+                    var Details = _accessService.GetAllByGroupId(Groups.Id);
 
+                    var UserAccess = _userAccessService.GetAllByUserId(UserId);
+                    foreach (var item in Details)
+                    {
+                        if (UserAccess.Any(x => x.AccessId == item.AccessId))
+                        {
+                            item.Selected = true;
+                        }
+                    }
+
+                    ListGroup.GroupList.Add(new CreateAccesGroupVM()
+                    {
+                        GroupName = Groups.Name,
+                        AccessGroupId = Groups.Id,
+                        Accesses = Details
+                    });
+                }
             }
+            else
+            {
+                ListGroup.GroupList.Add(null);
+            }
+
+            ListGroup.Projects = _projectService.GetAllProjectForAccess(UserId);
 
             ViewBag.UserId = UserId;
 
-            return PartialView("_UserAccessModal", model);
+            return View("_UserAccessModal", ListGroup);
         }
 
-        public IActionResult GetPartialAccessByGroupId(int GroupId,int userid)
+        public IActionResult GetPartialAccessByGroupId(int GroupId, int userid)
         {
-            var data = _accessService.GetAllByGroupId(GroupId);
+            //var data = _accessService.GetAllByGroupId(GroupId);
+
+            //var UserAccess = _userAccessService.GetAllByUserId(userid);
+
+
+            //foreach (var item in data)
+            //{
+            //    if (UserAccess.Any(x => x.AccessId == item.AccessId))
+            //    {
+            //        item.Selected = true;
+            //    }
+            //}
+
+            var ListGroup = new ListAccessGroupVM();
+            ListGroup.GroupList = new List<CreateAccesGroupVM>();
+
+            var Groups = _accessGroupService.GetById(GroupId);
+
+            var Details = _accessService.GetAllByGroupId(GroupId);
 
             var UserAccess = _userAccessService.GetAllByUserId(userid);
-
-
-            foreach (var item in data)
+            foreach (var item in Details)
             {
                 if (UserAccess.Any(x => x.AccessId == item.AccessId))
                 {
@@ -232,8 +273,37 @@ namespace SM.MVC.Web.Controllers
                 }
             }
 
-            return PartialView("_AccessGroupDetail", data);
+            ListGroup.GroupList.Add(new CreateAccesGroupVM()
+            {
+                GroupName = Groups.Name,
+                AccessGroupId = Groups.Id,
+                Accesses = Details
+            });
 
+
+
+            return PartialView("_AccessGroupDetail", ListGroup);
+
+        }
+
+
+        public IActionResult FinalAccessModal(string Ids,int userid)
+        {
+            if (!string.IsNullOrEmpty(Ids))
+            {
+
+                var IdsArray = Ids.Split(",").ToArray();
+
+                var intIds = IdsArray.Select(int.Parse).ToArray();
+
+                var Result = _userAccessService.ChangeUserAccess(intIds, userid,User);
+
+                NotifySuccess("با موفقیت ثبت گردید");
+
+                return PartialView("_UserAccessModal");
+            }
+
+            return PartialView("_UserAccessModal");
         }
 
 

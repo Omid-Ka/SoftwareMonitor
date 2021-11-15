@@ -15,5 +15,6 @@ namespace Domain.Interfaces
         Project GetProjectById(int projectId);
         void EditProject(Project model, ClaimsPrincipal user);
         IEnumerable<Project> GetAllProjectByUserId(int userId);
+        IEnumerable<Project> GetAllProjectAssignedByUserId(int userId);
     }
 }

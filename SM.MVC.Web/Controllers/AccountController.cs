@@ -8,12 +8,14 @@ using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Account;
 using Domain.Models.Enum;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
 
 namespace SM.MVC.Web.Controllers
 {
+    [Authorize]
     public class AccountController : BaseController
     {
         private IUsersService _usersService;

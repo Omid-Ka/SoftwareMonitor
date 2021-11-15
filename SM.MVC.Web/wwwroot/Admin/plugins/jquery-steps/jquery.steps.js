@@ -1,4 +1,4 @@
-/*! 
+﻿/*! 
  * jQuery Steps v1.1.0 - 09/04/2014
  * Copyright (c) 2014 Rafael Staib (http://www.jquery-steps.com)
  * Licensed under MIT http://www.opensource.org/licenses/MIT
@@ -1974,7 +1974,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Cancel"
          * @for defaults
          **/
-        cancel: "Cancel",
+        cancel: "انصراف",
 
         /**
          * This label is important for accessability reasons.
@@ -1985,7 +1985,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "current step:"
          * @for defaults
          **/
-        current: "current step:",
+        current: "صفحه حاضر:",
 
         /**
          * This label is important for accessability reasons and describes the kind of navigation.
@@ -1996,7 +1996,7 @@ var defaults = $.fn.steps.defaults = {
          * @for defaults
          * @since 0.9.7
          **/
-        pagination: "Pagination",
+        pagination: "صفحه گذاری",
 
         /**
          * Label for the finish button.
@@ -2006,7 +2006,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Finish"
          * @for defaults
          **/
-        finish: "Finish",
+        finish: "ثبت ",
 
         /**
          * Label for the next button.
@@ -2016,7 +2016,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Next"
          * @for defaults
          **/
-        next: "Next",
+        next: "بعدی",
 
         /**
          * Label for the previous button.
@@ -2026,7 +2026,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Previous"
          * @for defaults
          **/
-        previous: "Previous",
+        previous: "قبلی",
 
         /**
          * Label for the loading animation.
@@ -2036,7 +2036,7 @@ var defaults = $.fn.steps.defaults = {
          * @default "Loading ..."
          * @for defaults
          **/
-        loading: "Loading ..."
+        loading: "لطفا صبر کنید ..."
     }
 };
 })(jQuery);

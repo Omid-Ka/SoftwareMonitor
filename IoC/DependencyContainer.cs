@@ -55,6 +55,30 @@ namespace IoC
 
             service.AddScoped<IUserAccessService, UserAccessService>();
             service.AddScoped<IUserAccessRepository, UserAccessRepository>();
+
+
+            service.AddScoped<IProjectUsersRelationService, ProjectUsersRelationService>();
+            service.AddScoped<IProjectUsersRelationRepository, ProjectUsersRelationRepository>();
+
+
+            service.AddScoped<ITestHeaderService, TestHeaderService>();
+            service.AddScoped<ITestHeaderRepository, TestHeaderRepository>();
+
+
+            service.AddScoped<ICodeReviewService, CodeReviewService>();
+            service.AddScoped<ICodeReviewRepository, CodeReviewRepository>();
+
+
+            service.AddScoped<ICodeReviewDetailService, CodeReviewDetailService>();
+            service.AddScoped<ICodeReviewDetailRepository, CodeReviewDetailRepository>();
+
+
+            service.AddScoped<IDocReviewService, DocReviewService>();
+            service.AddScoped<IDocReviewRepository, DocReviewRepository>();
+
+
+            service.AddScoped<ILoadAndSterssService, LoadAndSterssService>();
+            service.AddScoped<ILoadAndSterssRepository, LoadAndSterssRepository>();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using Domain.Models;
+using System.Collections;
 
 namespace Core.Interfaces
 {
@@ -16,5 +17,7 @@ namespace Core.Interfaces
         Project GetProjectById(int projectId);
         void EditProject(Project model, ClaimsPrincipal user);
         IEnumerable<Project> GetAllProjectByUserId(int userId);
+        List<ProjectDTO> GetAllProjectForAccess(int userId);
+        IEnumerable<Project> GetAllProjectAssignedByUserId(int v);
     }
 }

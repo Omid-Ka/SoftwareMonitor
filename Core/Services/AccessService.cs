@@ -72,5 +72,6 @@ namespace Core.Services
         {
             return _accessRepository.GetAllAccess().Where(x => accessIds.Contains(x.Id)).Select(x => x.Name).ToArray();
         }
+        
     }
 }

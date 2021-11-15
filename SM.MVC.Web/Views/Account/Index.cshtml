@@ -118,7 +118,7 @@
 
             </div>
             <div class="modal-footer">
-                <a class="btn bg-green waves-effect" onclick="FinalAddMember()"> ثبت تغییرات </a>
+                <a class="btn bg-green waves-effect" onclick="FinalAccessModal()"> ثبت تغییرات </a>
                 <button id="BtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
             </div>
         </div>
@@ -169,7 +169,38 @@
             });
         }
 
+        @*function UserAccessModal(id) {
+            window.location.href = "@Url.Action("UserAccess", "Access")?UserId=" + id;
+        }*@
 
+        function FinalAccessModal() {
+
+            debugger;
+            //$("#UserAccessFrom").find("checkbox").each(function(){
+            //    if ($(this).prop('checked')==true) {
+            //        console.log($(this).val());
+            //    }
+            //});
+            var Ids = "";
+            var user = $("#UserId").val();
+            $('input[type=checkbox]').each(function () {
+                if (this.checked) {
+                    Ids += $(this).val() + ",";
+                }
+            });
+
+
+            var data = $("#UserAccessFrom").serialize();
+            $.ajax({
+                url: "@Url.Action("FinalAccessModal", "Access")?Ids=" + Ids + "&userid=" + user ,
+                //data: data,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowAccessModal").html("");
+                    $("#BtnClose").click();
+                }
+            });
+        }
 
     </script>
 

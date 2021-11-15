@@ -20,10 +20,37 @@ namespace Data.Repository
         {
             this._SMContext = SMContext;
         }
-
         public IEnumerable<UserAccess> GetAllAccessByUserId(int userId)
         {
             return _SMContext.UserAccesses.Where(x => x.IsActive && x.UserId == userId);
+        }
+
+        public void DeleteAccess(UserAccess item, ClaimsPrincipal user)
+        {
+            item.IsActive = false;
+            item.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            item.DateModified = DateTime.Now;
+
+            _SMContext.Update(item);
+            _SMContext.SaveChanges();
+        }
+
+        public void AddNewAccess(int id, int userid, ClaimsPrincipal user)
+        {
+            var model = new UserAccess();
+            model.UserId = userid;
+            model.AccessId = id;
+            model.IsActive = true;
+            model.CreatorID = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            model.DateInserted = DateTime.Now;
+            model.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
+                .FirstOrDefault();
+
+
+            _SMContext.Add(model);
+            _SMContext.SaveChanges();
         }
     }
 }

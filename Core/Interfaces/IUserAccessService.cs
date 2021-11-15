@@ -13,5 +13,6 @@ namespace Core.Interfaces
     public interface IUserAccessService
     {
         IEnumerable<UserAccess> GetAllByUserId(int userid);
+        bool ChangeUserAccess(int[] intIds, int userid, ClaimsPrincipal user);
     }
 }

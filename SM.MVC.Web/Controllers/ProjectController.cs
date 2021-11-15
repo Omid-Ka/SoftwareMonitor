@@ -16,7 +16,8 @@ using SM.MVC.Web.Modules;
 
 namespace SM.MVC.Web.Controllers
 {
-    //[Authorize]
+
+    [Authorize]
     public class ProjectController : BaseController
     {
         private IProjectService _projectService;

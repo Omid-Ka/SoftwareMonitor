@@ -17,12 +17,12 @@
         }
 
         .AccessLable {
-            width: 50%;
+            width: 75%;
             float: right;
         }
 
         .AccessSpan {
-            width: 50%;
+            width: 25%;
             float: right;
         }
     </style>
@@ -61,7 +61,7 @@
 
                     if (Model.Accesses[i] != null)
                     {
-                        <div class="col-sm-2 AccessDiv">
+                        <div class="col-sm-4 AccessDiv">
                             <div class="demo-switch-title AccessLable">@Model.Accesses[i].AccessName</div>
                             <div class="switch AccessSpan">
                                 <label><input asp-for="Accesses[i].Selected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>

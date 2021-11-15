@@ -13,5 +13,7 @@ namespace Domain.Interfaces
     public interface IUserAccessRepository
     {
         IEnumerable<UserAccess> GetAllAccessByUserId(int userId);
+        void DeleteAccess(UserAccess item, ClaimsPrincipal user);
+        void AddNewAccess(int id, int userid, ClaimsPrincipal user);
     }
 }

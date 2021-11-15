@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Core.DTO;
+using Domain.Models;
 
 namespace Core.ViewModels
 {
+
+    public class ListAccessGroupVM
+    {
+        public List<CreateAccesGroupVM> GroupList { get; set; }
+        public List<ProjectDTO> Projects { get; set; }
+    }
+
     public class CreateAccesGroupVM
     {
         public int AccessGroupId { get; set; }

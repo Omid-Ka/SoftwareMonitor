@@ -6,12 +6,12 @@ using Domain.Models.BaseInformation;
 using Domain.Models.Log;
 using Domain.Models.Enum;
 using System.Security.Claims;
-using Domain.Models.ProjectTests;
+using Domain.Models.Projects;
 
 namespace Domain.Interfaces
 {
-    public interface ITestHeaderRepository
+    public interface IProjectUsersRelationRepository
     {
-        List<TestHeader> GetTestHeaders(TestType testType, int testId);
+        List<ProjectUsersRelation> GetAllProjectByUserId(int userId);
     }
 }

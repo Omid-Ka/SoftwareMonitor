@@ -109,5 +109,13 @@ namespace Data.Repository
 
             return data;
         }
+
+        public IEnumerable<Project> GetAllProjectAssignedByUserId(int userId)
+        {
+            var UserProjectIds = _SMContext.ProjectUsersRelations.Where(x => x.IsActive && x.UserId == userId)
+                .Select(x => x.ProjectId).ToArray();
+
+            return _SMContext.Projects.Where(x => x.IsActive && UserProjectIds.Contains(x.Id));
+        }
     }
 }

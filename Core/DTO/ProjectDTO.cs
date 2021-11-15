@@ -8,5 +8,6 @@ namespace Core.DTO
     {
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
+        public bool Selected { get; set; }
     }
 }

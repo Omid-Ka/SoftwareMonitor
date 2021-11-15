@@ -9,22 +9,21 @@ using System.Text;
 using Domain.Models.Enum;
 using Domain.Models.Log;
 using Core.Helper;
-using Domain.Models.ProjectTests;
+using Domain.Models.Projects;
 
 namespace Data.Repository
 {
-    public class TestHeaderRepository : ITestHeaderRepository
+    public class ProjectUsersRelationRepository : IProjectUsersRelationRepository
     {
         private SoftwareMonitoringDBContext _SMContext;
-        public TestHeaderRepository(SoftwareMonitoringDBContext SMContext)
+        public ProjectUsersRelationRepository(SoftwareMonitoringDBContext SMContext)
         {
             this._SMContext = SMContext;
         }
 
-        public List<TestHeader> GetTestHeaders(TestType testType, int testId)
+        public List<ProjectUsersRelation> GetAllProjectByUserId(int userId)
         {
-            return _SMContext.TestHeaders.Where(x => x.IsActive && x.TestType == testType && x.TitleId == testId)
-                .ToList();
+            return _SMContext.ProjectUsersRelations.Where(x => x.IsActive && x.UserId == userId).ToList();
         }
     }
 }

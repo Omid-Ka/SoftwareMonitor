@@ -100,21 +100,23 @@
                 <li  user-access ="@AccessConst.ProjectList">
                     <a asp-controller="Project" asp-action="Index">لیست پروژه ها</a>
                 </li>
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <span>ثبت اطلاعات پروژه ها</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li  user-access ="@AccessConst.AddDocReview">
-                            <a asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
-                        </li>
-                        <li  user-access ="@AccessConst.AddCodeReview">
-                            <a asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
-                        </li>
-                        <li   user-access ="@AccessConst.AddLoadAndStress">
-                            <a asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>
-                        </li>
-                    </ul>
+                
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:void(0);" class="menu-toggle">
+                <i class="material-icons">insert_chart</i>
+                <span>ثبت نتایج آزمون ها</span>
+            </a>
+            <ul class="ml-menu">
+                <li  user-access ="@AccessConst.AddDocReview">
+                    <a asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
+                </li>
+                <li  user-access ="@AccessConst.AddCodeReview">
+                    <a asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
+                </li>
+                <li   user-access ="@AccessConst.AddLoadAndStress">
+                    <a asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>
                 </li>
             </ul>
         </li>

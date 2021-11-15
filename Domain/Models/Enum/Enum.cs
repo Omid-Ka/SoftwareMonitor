@@ -26,7 +26,7 @@ namespace Domain.Models.Enum
         Test = 3,
         [Display(Name = "شاخص های بررسی کد")]
         [Description("شاخص های بررسی کد")]
-        Indicator = 3
+        Indicator = 4
     }
 
     public enum PartnerTeam
@@ -136,7 +136,7 @@ namespace Domain.Models.Enum
 
         [Display(Name = "شرح فعالیت")]
         [Description("شرح فعالیت")]
-        ActivityDescription = 6,
+        ActivityDescription = 6
     }
 
     public enum DocReviewAnswer

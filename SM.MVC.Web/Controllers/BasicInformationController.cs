@@ -8,12 +8,14 @@ using Domain.Models.Account;
 using Domain.Models.BaseInformation;
 using Domain.Models.Enum;
 using Domain.Models.Teams;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
 
 namespace SM.MVC.Web.Controllers
 {
+    [Authorize]
     public class BasicInformationController : BaseController
     {
         private ILookupService _lookupService;

@@ -1,5 +1,11 @@
-﻿@model List<Core.ViewModels.UserAccessVN>
+﻿@using Newtonsoft.Json
+@model Core.ViewModels.ListAccessGroupVM
 
+@{
+    var groupIds = Model.GroupList.Select(x => x.AccessGroupId).ToArray();
+    var rolesJson = JsonConvert.SerializeObject((groupIds ?? throw new InvalidOperationException()));
+
+}
 
 <style>
     .HeadAccessDiv {
@@ -9,39 +15,155 @@
         margin-bottom: 5px !important;
         font-size: 25px;
         padding-right: 12px;
-;
+    }
+
+    .AccessDiv {
+        /*border: 1px solid;
+        border-radius: 30px;
+        border-color: #376bff;*/
+        margin-bottom: 0px !important;
+        font-size: 25px;
+    }
+
+    .AccessLable {
+        width: 75%;
+        float: right;
+    }
+
+    .AccessSpan {
+        width: 25%;
+        float: right;
+    }
+    .center {
+        text-align: center !important;
+        background-color: aliceblue !important;
+        font-size: 24px !important;
+    }
+
+    .Header {
+        font-size: 30px !important;
+        text-align: center !important;
+        background-color: aliceblue !important;
+    }
+
+    .tabStyle {
+        padding-right: 0px !important;
+        font-size: 24px;
+    }
+
+    .ItemsStyle {
+        margin-bottom: 0px !important;
+    }
+
+    .ColStyle {
+        margin-top: 6px;
+        border: 2px solid;
+        border-radius: 20px;
+        height: 40px;
     }
 </style>
 
+
+
 <input type="hidden" value="@ViewBag.UserId" id="UserId" />
 
-<form id="UserAccessFrom">
-    <div class="row clearfix">
-        <div class="col-sm-3 ">
-            @for (int i = 0; i < Model.Count; i++)
-            {
-                <div class="HeadAccessDiv" onclick="ClickOnGroup(@Model[i].AccessGroup.Id)">
-                    <span>@Model[i].AccessGroup.Name</span>
+<div class="body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs tab-col-teal tabStyle" role="tablist">
+        <li role="presentation" class="active"><a href="#Profile" data-toggle="tab">سیستم</a></li>
+        <li role="presentation"><a href="#Project" data-toggle="tab">سامانه ها</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="Profile">
+
+            <div class="row clearfix">
+                <div class="center">
+                    <b>دسترسی های سیستم</b>
                 </div>
-            }
-        </div>
-        <div class="col-sm-6">
-
-            <div id="GroupDetail">
-
-
-
             </div>
+
+
+            <form id="UserAccessFrom">
+                <div class="row clearfix">
+                    <div class="col-sm-10">
+                        @for (int i = 0; i < Model.GroupList.Count; i++)
+                        {
+                            <div id="Group_@Model.GroupList[i].AccessGroupId" class="hidden">
+                                @if (Model.GroupList[i].Accesses.Count > 0)
+                                {
+                                    for (int j = 0; j < Model.GroupList[i].Accesses.Count; j++)
+                                    {
+                                        @Html.Hidden("Model.GroupList[" + i + "].Accesses[" + j + "].AccessName", Model.GroupList[i].Accesses[j].AccessName)
+                                        @Html.Hidden("Model.GroupList[" + i + "].Accesses[" + j + "].AccessId", Model.GroupList[i].Accesses[j].AccessId)
+                                        @Html.Hidden("Model.GroupList[" + i + "].Accesses[" + j + "].Selected", Model.GroupList[i].Accesses[j].Selected)
+                                        <div class="AccessDiv">
+                                            <div class="demo-switch-title AccessLable">@Model.GroupList[i].Accesses[j].AccessName</div>
+                                            <div class="switch AccessSpan">
+                                                <label><input value="@Model.GroupList[i].Accesses[j].AccessId" asp-for="GroupList[i].Accesses[j].Selected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="row clearfix">
+                            @for (int i = 0; i < Model.GroupList.Count; i++)
+                            {
+                                @Html.Hidden("Model.GroupList[" + i + "].AccessGroupId", Model.GroupList[i].AccessGroupId)
+                                @Html.Hidden("Model.GroupList[" + i + "].GroupName", Model.GroupList[i].GroupName)
+
+                                <div class="HeadAccessDiv" id="HeadGroup_@Model.GroupList[i].AccessGroupId" onclick="ClickOnGroup(@Model.GroupList[i].AccessGroupId)">
+                                    <span>@Model.GroupList[i].GroupName</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="Project">
+
+            <div class="row clearfix">
+                <div class="center">
+                    <b>دسترسی های پروژه ها</b>
+                </div>
+            </div>
+            <div class="row clearfix">
+                @if (Model.Projects.Count > 0)
+                {
+                    for (int i = 0; i < Model.Projects.Count; i++)
+                    {
+                        @Html.Hidden("Model.Projects[" + i + "].Id", Model.Projects[i].Id)
+                        @Html.Hidden("Model.Projects[" + i + "].ProjectName", Model.Projects[i].ProjectName)
+                        <div class="AccessDiv">
+                            <div class="demo-switch-title AccessLable">@Model.Projects[i].ProjectName</div>
+                            <div class="switch AccessSpan">
+                            <label><input value="@Model.Projects[i].Id" asp-for="Projects[i].Selected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
 
         </div>
     </div>
-</form>
+</div>
+
 
 
 <script>
     function ClickOnGroup(id) {
 
-        var user = $("#UserId").val();
+        @*var user = $("#UserId").val();
         $.ajax({
             url: "@Url.Action("GetPartialAccessByGroupId", "Access")?GroupId=" + id + "&userid=" + user,
             type: "POST",
@@ -49,6 +171,22 @@
                 $("#GroupDetail").html(result);
 
             }
+        });*@
+        var roles = JSON.parse('@Html.Raw(rolesJson)');
+
+        $.each(roles , function(index, val) {
+            $('#Group_' + val).removeClass();
+            $('#Group_' + val).addClass("hidden");
+            $('#HeadGroup_' + val).css("background-color", "#ffffff");
         });
+
+        /*$('#Group_+i').removeClass();*/
+
+
+        $('#Group_' + id).removeClass();
+        $('#HeadGroup_' + id).css("background-color", "#a3bbff");
+        //$('#Group_' + id).addClass("visible");
+
+
     }
 </script>

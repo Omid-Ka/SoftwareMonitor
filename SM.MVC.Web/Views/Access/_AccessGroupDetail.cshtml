@@ -1,4 +1,4 @@
-﻿@model List<Core.ViewModels.AccessVM>
+﻿@model Core.ViewModels.ListAccessGroupVM
 
 <style>
     .AccessDiv {
@@ -10,27 +10,32 @@
     }
 
     .AccessLable {
-        width: 50%;
+        width: 75%;
         float: right;
     }
 
     .AccessSpan {
-        width: 50%;
+        width: 25%;
         float: right;
     }
 </style>
 
-@foreach (var item in Model)
+@for (int i = 0; i < Model.GroupList.Count; i++)
 {
-    @Html.HiddenFor(Model => item.AccessId)
-    <div class="row clearfix">
-        <div class="col-sm-6 AccessDiv">
-            <div class="demo-switch-title AccessLable">@item.AccessName</div>
-            <div class="switch AccessSpan">
-                <label><input asp-for="@item.Selected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>
+
+    @if (Model.GroupList[i].Accesses.Count > 0)
+    {
+        for (int j = 0; j < Model.GroupList[i].Accesses.Count; j++)
+        {
+            <div class="AccessDiv">
+                <div class="demo-switch-title AccessLable">@Model.GroupList[i].Accesses[j].AccessName</div>
+                <div class="switch AccessSpan">
+                    <label><input asp-for="GroupList[i].Accesses[j].Selected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>
+                </div>
             </div>
-        </div>
-    </div>
+        }
+    }
+
 }
 
 
