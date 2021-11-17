@@ -21,7 +21,8 @@ namespace Core.ViewModels
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public DateTime DateInserted { get; set; }
-
-        public List<DocReview> DocReviewList { get; set; }  
+        
     }
+
+
 }

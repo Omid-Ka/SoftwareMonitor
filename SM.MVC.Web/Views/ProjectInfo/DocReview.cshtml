@@ -19,7 +19,7 @@
     </div>
     <div class="body">
 
-        <a asp-controller="Account" asp-action="CreateUser" class="btn bg-green waves-effect">ثبت سند جدید</a>
+        <a asp-controller="ProjectInfo" asp-action="CreateDocReview" class="btn bg-green waves-effect">ثبت سند جدید</a>
         <br />
         <br />
 
@@ -100,7 +100,7 @@
     <script>
         function DeleteDoc(id) {
             $.ajax({
-                url: "@Url.Action("DeleteUser", "Account")?UserId=" + id  ,
+                url: "@Url.Action("DeleteDoc", "ProjectInfo")?DocId=" + id  ,
                 type: "POST",
                 success: function (result) {
                     $("#GridView").html(result);
@@ -110,13 +110,13 @@
         }
 
         function EditDoc(id) {
-            window.location.href = "@Url.Action("EditUser", "Account")?UserId=" + id;
+            window.location.href = "@Url.Action("EditDoc", "ProjectInfo")?DocId=" + id;
         }
 
 
         function showDocModal(id) {
             $.ajax({
-                url: "@Url.Action("ShowModal", "Account")?UserId=" + id  ,
+                url: "@Url.Action("showDocModal", "ProjectInfo")?DocId=" + id  ,
                 type: "POST",
                 success: function (result) {
                     $("#ShowModal").html(result);

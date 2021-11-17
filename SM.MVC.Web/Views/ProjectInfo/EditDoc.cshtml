@@ -1,9 +1,11 @@
 ﻿@using Domain.Models.Enum
+@using Microsoft.CodeAnalysis
 @model Core.ViewModels.CreateTestVM
 @{
     ViewData["Title"] = "ثبت تحلیل سند";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 
 @section Styles
 {
@@ -196,155 +198,79 @@
 <div class="card">
     <div class="header bg-blue-grey">
         <h2>
-            ثبت تحلیل سند
+            ویرایش تحلیل سند
         </h2>
     </div>
     <div class="body">
 
         <div class="VerticalSubmit">
-            <div id="Steps" class="CommitSteps">
-                <ul>
-                    <li id="FirstStep" class="current" onclick="FirstStep()">
-                        <a href="#FirstContent">
-                            <span class="number">1.</span>
-                            ثبت اطلاعات اولیه
-                        </a>
-                    </li>
-                    <li id="SecondStep" class="disabled" onclick="SecondStep()">
-                        <a href="#SecondContent">
-                            <span class="number">2.</span>
-                            ثبت اطلاعات تکمیلی
-                        </a>
-                    </li>
-                </ul>
-            </div>
 
-            <div id="Content" class="CommitContent">
+            <form id="ContentForm" asp-action="EditDoc">
+                @Html.HiddenFor(x => x.ProjectId)
+                @Html.HiddenFor(x => x.Id)
+                @for (int i = 0; i < Model.DocReviewList.Count; i++)
+                {
+                    @Html.Hidden("Model.DocReviewList[" + i + "].DocReviewTitle", Model.DocReviewList[i].DocReviewTitle)
+                    <div class="row clearfix CommitContentRow">
 
-                <form id="ContentForm">
-                    <div id="FirstContent" class="ShowDisplay">
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="TestType" class="control-label"></label>
-                                            <select id="Type" class="form-control show-tick" asp-for="TestType" asp-items="Html.GetEnumSelectList<TestType>()">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="TestType" class="text-danger"></span>
-                                        </div>
-                                    </div>
+                        <div class="col-sm-12">
+                            <div class="form-group Margin-b Margin-t">
+                                <div class="form-line">
+                                    <label class="control-label">
+                                        @Model.DocReviewList[i].DocReviewTitle.ToDescription()
+                                    </label>
                                 </div>
                             </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="TitleId" class="control-label"></label>
-                                            
-                                            <select id="TestTitle" class="form-control show-tick" asp-for="TitleId" asp-items="@(ViewBag.TestTitle)">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="TitleId" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="ProjectId" class="control-label"></label>
-                                            <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="ProjectId" class="text-danger"></span>
-                                        </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix CommitContentRow">
+                        <div class="col-sm-5 Margin-b">
+                            @foreach (DocReviewAnswer Answersub in Enum.GetValues(typeof(ProjectInfo)))
+                            {
+
+                                var _id = "DocReviewList_" + i + "_Answersub" + (int)Answersub;
+
+                                //DocReviewList[i].DocReviewAnswer
+                                <div class="col-sm-4 Margin-b">
+                                    <div class="form-check form-check-inline">
+                                        @*<input class="form-check-input" type="radio" name="@Model.DocReviewList[i].DocReviewAnswer" asp-for="DocReviewList[i].DocReviewAnswer" id="@(Model.DocReviewList[i].DocReviewTitle)+@((int) Answersub)" value="@((int) Answersub)">*@
+                                        @Html.RadioButton("Model.DocReviewList[" + i + "].DocReviewAnswer", (int)Answersub, new { HtmlAttributes = new { @class = "form-check-input" }, @id = _id })
+                                        <label class="form-check-label" for="@_id"> @Answersub.ToDescription()</label>
                                     </div>
                                 </div>
 
+                            }
+                        </div>
+
+                        <div class="col-sm-1 Margin-b">
+                            <div class="form-group Margin-b Margin-t">
+                                <label asp-for="@Model.DocReviewList[i].Description" class="control-label"></label>
+
+                                @*@Html.Label("Model.DocReviewList[" + i + "].Description", Model.DocReviewList[i].Description, new { HtmlAttributes = new { @class = "control-label" }})*@
                             </div>
+                        </div>
+
+                        <div class="col-sm-5 Margin-b">
+                            <div class="form-group Margin-b Margin-t">
+                                <div class="form-line">
+                                    @*<input asp-for="@Model.DocReviewList[i].Description" class="form-control" />*@
+
+
+                                    @Html.Editor("Model.DocReviewList[" + i + "].Description", new { HtmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-
-                    <div id="SecondContent" class="hideDisplay">
-
-                        @for (int i = 0; i < Model.DocReviewList.Count; i++)
-                        {
-                            @Html.Hidden("Model.DocReviewList[" + i + "].DocReviewTitle", Model.DocReviewList[i].DocReviewTitle)
-                            <div class="row clearfix CommitContentRow">
-
-                                <div class="col-sm-12">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label class="control-label">
-                                                @Model.DocReviewList[i].DocReviewTitle.ToDescription()
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-5 Margin-b">
-                                    @foreach (DocReviewAnswer Answersub in Enum.GetValues(typeof(DocReviewAnswer)))
-                                    {
-
-                                        var _id = "DocReviewList_" + i + "_Answersub" + (int)Answersub;
-
-                                        //DocReviewList[i].DocReviewAnswer
-                                        <div class="col-sm-4 Margin-b">
-                                            <div class="form-check form-check-inline">
-                                                @*<input class="form-check-input" type="radio" name="@Model.DocReviewList[i].DocReviewAnswer" asp-for="DocReviewList[i].DocReviewAnswer" id="@(Model.DocReviewList[i].DocReviewTitle)+@((int) Answersub)" value="@((int) Answersub)">*@
-                                                @Html.RadioButton("Model.DocReviewList[" + i + "].DocReviewAnswer", (int)Answersub, new { HtmlAttributes = new { @class = "form-check-input" }, @id = _id })
-                                                <label class="form-check-label" for="@_id"> @Answersub.ToDescription()</label>
-                                            </div>
-                                        </div>
-
-                                    }
-                                </div>
-
-                                <div class="col-sm-1 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <label asp-for="@Model.DocReviewList[i].Description" class="control-label"></label>
-
-                                        @*@Html.Label("Model.DocReviewList[" + i + "].Description", Model.DocReviewList[i].Description, new { HtmlAttributes = new { @class = "control-label" }})*@
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-5 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            @*<input asp-for="@Model.DocReviewList[i].Description" class="form-control" />*@
+                }
 
 
-                                            @Html.Editor("Model.DocReviewList[" + i + "].Description", new { HtmlAttributes = new { @class = "form-control" } })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        }
-
+                <div class="row clearfix">
+                    <div class="form-group">
+                        <input type="submit" value="ویرایش تحلیل" class="btn bg-green waves-effect SubmitBtn" />
                     </div>
-
-                </form>
-            </div>
-
-            <div id="Actions" class="CommitAction">
-
-                <ul>
-                    <li id="previous" onclick="previousStep()" class="ShowDisplay disabled">
-                        <a>قبل</a>
-                    </li>
-                    <li id="next" class="waves-effect ShowDisplay" onclick="nextStep()">
-                        <a>بعد</a>
-                    </li>
-                    <li id="Finish" class="waves-effect hideDisplay" onclick="finish()">
-                        <a>ثبت</a>
-                    </li>
-                </ul>
-
-            </div>
+                </div>
+            </form>
 
 
         </div>

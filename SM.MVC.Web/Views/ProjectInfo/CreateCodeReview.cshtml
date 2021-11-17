@@ -1,13 +1,13 @@
 ﻿@using Domain.Models.Enum
-@model Core.ViewModels.CreateTestVM
+@model Core.ViewModels.CreateCodeReviewVM
 @{
-    ViewData["Title"] = "ثبت تحلیل سند";
+    ViewData["Title"] = "ثبت بررسی کد";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
 @section Styles
 {
-    <!-- Sweet Alert Css -->
     <style>
         .CommitSteps {
             float: right;
@@ -190,13 +190,23 @@
             width: 100%;
             overflow: hidden;
         }
+
+
+        .Lightblue {
+            background: lightblue;
+        }
+
+        .lightgray {
+            background: lightgray;
+        }
+
     </style>
 }
 
 <div class="card">
     <div class="header bg-blue-grey">
         <h2>
-            ثبت تحلیل سند
+            ثبت بررسی کد
         </h2>
     </div>
     <div class="body">
@@ -223,106 +233,153 @@
 
                 <form id="ContentForm">
                     <div id="FirstContent" class="ShowDisplay">
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="TestType" class="control-label"></label>
-                                            <select id="Type" class="form-control show-tick" asp-for="TestType" asp-items="Html.GetEnumSelectList<TestType>()">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="TestType" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="TitleId" class="control-label"></label>
-                                            
-                                            <select id="TestTitle" class="form-control show-tick" asp-for="TitleId" asp-items="@(ViewBag.TestTitle)">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="TitleId" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="ProjectId" class="control-label"></label>
-                                            <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="ProjectId" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
 
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-8 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="ProjectId" class="control-label"></label>
+                                        <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
+                                            <option value="">--انتخاب نمایید--</option>
+                                        </select>
+                                        <span asp-validation-for="ProjectId" class="text-danger"></span>
+                                    </div>
+                                </div>
                             </div>
+
+                        </div>
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-6 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="AllCountRow" class="control-label"></label>
+                                        <input asp-for="AllCountRow" class="form-control" />
+                                        <span asp-validation-for="AllCountRow" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="MatchGroups" class="control-label"></label>
+                                        <input asp-for="MatchGroups" class="form-control" />
+                                        <span asp-validation-for="MatchGroups" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-6 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="AccurateMatch" class="control-label"></label>
+                                        <input asp-for="AccurateMatch" class="form-control" />
+                                        <span asp-validation-for="AccurateMatch" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="HighMatch" class="control-label"></label>
+                                        <input asp-for="HighMatch" class="form-control" />
+                                        <span asp-validation-for="HighMatch" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-6 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="NormalMatch" class="control-label"></label>
+                                        <input asp-for="NormalMatch" class="form-control" />
+                                        <span asp-validation-for="NormalMatch" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="PoorMatch" class="control-label"></label>
+                                        <input asp-for="PoorMatch" class="form-control" />
+                                        <span asp-validation-for="PoorMatch" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-8 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="Offers" class="control-label"></label>
+                                        <input asp-for="Offers" class="form-control" />
+                                        <span asp-validation-for="Offers" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
                     <div id="SecondContent" class="hideDisplay">
 
-                        @for (int i = 0; i < Model.DocReviewList.Count; i++)
+                        @foreach (CodeReviewDetailType DetailType in Enum.GetValues(typeof(CodeReviewDetailType)))
                         {
-                            @Html.Hidden("Model.DocReviewList[" + i + "].DocReviewTitle", Model.DocReviewList[i].DocReviewTitle)
                             <div class="row clearfix CommitContentRow">
-
-                                <div class="col-sm-12">
-                                    <div class="form-group Margin-b Margin-t">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="col-sm-12 Margin-b align-center lightgray">
                                         <div class="form-line">
-                                            <label class="control-label">
-                                                @Model.DocReviewList[i].DocReviewTitle.ToDescription()
-                                            </label>
+                                            <label class="control-label"> @DetailType.ToDescription() </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-5 Margin-b">
-                                    @foreach (DocReviewAnswer Answersub in Enum.GetValues(typeof(DocReviewAnswer)))
-                                    {
 
-                                        var _id = "DocReviewList_" + i + "_Answersub" + (int)Answersub;
 
-                                        //DocReviewList[i].DocReviewAnswer
-                                        <div class="col-sm-4 Margin-b">
-                                            <div class="form-check form-check-inline">
-                                                @*<input class="form-check-input" type="radio" name="@Model.DocReviewList[i].DocReviewAnswer" asp-for="DocReviewList[i].DocReviewAnswer" id="@(Model.DocReviewList[i].DocReviewTitle)+@((int) Answersub)" value="@((int) Answersub)">*@
-                                                @Html.RadioButton("Model.DocReviewList[" + i + "].DocReviewAnswer", (int)Answersub, new { HtmlAttributes = new { @class = "form-check-input" }, @id = _id })
-                                                <label class="form-check-label" for="@_id"> @Answersub.ToDescription()</label>
+                            @for (int i = 0; i < Model.CodeReviewDetailList.Count; i++)
+                            {
+
+                                if (Model.CodeReviewDetailList[i].DetailType == DetailType)
+                                {
+                                    @Html.Hidden("Model.CodeReviewDetailList[" + i + "].DetailType", Model.CodeReviewDetailList[i].DetailType)
+                                    @Html.Hidden("Model.CodeReviewDetailList[" + i + "].IndicatorId", Model.CodeReviewDetailList[i].IndicatorId)
+
+                                    <div class="row clearfix CommitContentRow">
+                                        <div class="form-group Margin-b Margin-t">
+                                            <div class="col-sm-3 Margin-b Lightblue">
+                                                <div class="form-line">
+                                                    <label class="control-label"> @Model.CodeReviewDetailList[i].IndicatorDesc</label>
+                                                </div>
                                             </div>
+
+                                            <div class="col-sm-1 Margin-b">
+                                                <label class="control-label"> امتیاز</label>
+                                            </div>
+
+                                            <div class="col-sm-1 Margin-b">
+                                                <div class="form-line">
+                                                    @Html.Editor("Model.CodeReviewDetailList[" + i + "].Score", new { HtmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-2 Margin-b">
+                                                <label class="control-label"> پیشنهادات</label>
+                                            </div>
+
+                                            <div class="col-sm-4 Margin-b">
+                                                <div class="form-line">
+                                                    @Html.Editor("Model.CodeReviewDetailList[" + i + "].Description", new { HtmlAttributes = new { @class = "form-control" } })
+                                                </div>
+                                            </div>
+
+
+
                                         </div>
-
-                                    }
-                                </div>
-
-                                <div class="col-sm-1 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <label asp-for="@Model.DocReviewList[i].Description" class="control-label"></label>
-
-                                        @*@Html.Label("Model.DocReviewList[" + i + "].Description", Model.DocReviewList[i].Description, new { HtmlAttributes = new { @class = "control-label" }})*@
                                     </div>
-                                </div>
 
-                                <div class="col-sm-5 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            @*<input asp-for="@Model.DocReviewList[i].Description" class="form-control" />*@
-
-
-                                            @Html.Editor("Model.DocReviewList[" + i + "].Description", new { HtmlAttributes = new { @class = "form-control" } })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                                }
+                            }
                         }
 
                     </div>
@@ -463,8 +520,8 @@
             var content = $("#ContentForm").serialize();
             debugger;
             $.ajax({
-                url: "@Url.Action("PostCreateDocReview", "ProjectInfo")?" + content,
-                //data: data,
+                url: "@Url.Action("PostCreateCodeReview", "ProjectInfo")",
+                data: content,
                 type: "POST",
                 //dataType: 'json',
                 /* contentType: 'application/x-www-form-urlencoded; charset=UTF-8',*/
@@ -482,3 +539,5 @@
 
     </script>
 }
+
+

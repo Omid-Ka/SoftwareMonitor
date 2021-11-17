@@ -94,7 +94,7 @@ namespace Domain.Models.Enum
         [Description("خوانایی کد")]
         Readability = 1,
         [Display(Name = "شی گرایی")]
-        [Description("شی گرایی")]
+        [Description("شی گرایی")]  
         ObjectOriented = 2,
         [Display(Name = "ایمنی کد")]
         [Description("ایمنی کد")]

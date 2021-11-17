@@ -8217,6 +8217,7 @@ fieldset[disabled] .form-control {
         float: right;
         margin: 0 0 0.5em 0;
         width: 80%;
+        min-height: 450px;
     }
 
     .wizard.vertical > .actions {

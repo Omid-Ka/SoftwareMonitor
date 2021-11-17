@@ -21,5 +21,6 @@ namespace Core.Interfaces
         void DeleteLookup(int LookupId, ClaimsPrincipal user);
         void Editlookup(Lookup model, ClaimsPrincipal user);
         Lookup GetByLookupId(int lookupId);
+        IEnumerable<Lookup> GetAllByCategoryAndReference(CodeReviewDetailType type , LookupCategory indicator);
     }
 }

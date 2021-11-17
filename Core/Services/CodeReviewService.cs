@@ -8,17 +8,22 @@ using System.Text;
 using Domain.Models.Log;
 using Domain.Models.Enum;
 using System.Security.Claims;
+using Domain.Models.ProjectTests;
 
 namespace Core.Services
 {
     public class CodeReviewService : ICodeReviewService
     {
-        private IUserLogRepository _userLogRepository;
+        private ICodeReviewRepository _codeReviewRepository;
 
-        public CodeReviewService(IUserLogRepository userLogRepository)
+        public CodeReviewService(ICodeReviewRepository codeReviewRepository)
         {
-            _userLogRepository = userLogRepository;
+            _codeReviewRepository = codeReviewRepository;
         }
-        
+
+        public void AddCodeReview(CodeReview codeReview, ClaimsPrincipal user)
+        {
+            _codeReviewRepository.AddCodeReview(codeReview, user);
+        }
     }
 }

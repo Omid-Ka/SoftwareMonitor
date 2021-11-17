@@ -13,5 +13,8 @@ namespace Domain.Interfaces
     public interface ITestHeaderRepository
     {
         List<TestHeader> GetTestHeaders(TestType testType, int testId);
+        void AddHeader(TestHeader testHeader, ClaimsPrincipal user);
+        void DeleteDoc(int docId, ClaimsPrincipal user);
+        TestHeader GetByPk(int docId);
     }
 }

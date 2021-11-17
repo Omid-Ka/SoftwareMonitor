@@ -25,7 +25,6 @@ namespace Core.Services
             _projectRepository = projectRepository;
             _lookupRepository = lookupRepository;
         }
-
         public List<TestHeaderVM> GetTestHeaders(TestType TestType, int testId)
         {
             return _testHeaderRepository.GetTestHeaders(TestType, testId).Select(x=>new TestHeaderVM()
@@ -39,6 +38,21 @@ namespace Core.Services
                 Title = _lookupRepository.GetByLookupId(x.TitleId).Description
 
             }).ToList();
+        }
+
+        public void AddHeader(TestHeader testHeader, ClaimsPrincipal user)
+        {
+            _testHeaderRepository.AddHeader(testHeader, user);
+        }
+
+        public void DeleteDoc(int docId, ClaimsPrincipal user)
+        {
+            _testHeaderRepository.DeleteDoc(docId,user);
+        }
+
+        public TestHeader GetByPk(int docId)
+        {
+            return _testHeaderRepository.GetByPk(docId);
         }
     }
 }

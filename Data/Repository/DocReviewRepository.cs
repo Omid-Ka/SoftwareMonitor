@@ -9,6 +9,7 @@ using System.Text;
 using Domain.Models.Enum;
 using Domain.Models.Log;
 using Core.Helper;
+using Domain.Models.ProjectTests;
 
 namespace Data.Repository
 {
@@ -19,6 +20,38 @@ namespace Data.Repository
         {
             this._SMContext = SMContext;
         }
-        
+
+        public void AdddocReview(DocReview detail, ClaimsPrincipal user)
+        {
+            detail.IsActive = true;
+            detail.CreatorID = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            detail.DateInserted = DateTime.Now;
+            detail.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
+                .FirstOrDefault();
+
+
+            _SMContext.Add(detail);
+            _SMContext.SaveChanges();
+        }
+
+        public IEnumerable<DocReview> GetDocReviewsByDocId(int docId)
+        {
+            return _SMContext.DocReviews.Where(x => x.IsActive && x.TestHeaderId == docId);
+        }
+
+        public void UpdatedocReview(DocReview item, ClaimsPrincipal user)
+        {
+            var model = _SMContext.DocReviews.Find(item.Id);
+            model.IsActive = true;
+            model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            model.DateModified = DateTime.Now;
+            model.Description = item.Description;
+            model.DocReviewAnswer = item.DocReviewAnswer;
+
+            _SMContext.Update(model);
+            _SMContext.SaveChanges();
+        }
     }
 }

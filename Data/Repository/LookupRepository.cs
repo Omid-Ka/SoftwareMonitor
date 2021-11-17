@@ -83,5 +83,11 @@ namespace Data.Repository
         {
             return _SMContext.Lookups.Find(lookupId);
         }
+
+        public IEnumerable<Lookup> GetAllByCategoryAndReference(CodeReviewDetailType type, LookupCategory indicator)
+        {
+            return _SMContext.Lookups.Where(x =>
+                x.IsActive && x.Category == LookupCategory.Indicator && x.ReferenceID == (int) type);
+        }
     }
 }

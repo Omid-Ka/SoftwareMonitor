@@ -88,5 +88,10 @@ namespace Core.Services
         {
            return  _lookupRepository.GetByLookupId(lookupId);
         }
+
+        public IEnumerable<Lookup> GetAllByCategoryAndReference(CodeReviewDetailType type, LookupCategory indicator)
+        {
+            return _lookupRepository.GetAllByCategoryAndReference(type, indicator);
+        }
     }
 }

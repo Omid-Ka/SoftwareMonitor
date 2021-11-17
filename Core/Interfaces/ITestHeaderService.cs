@@ -12,6 +12,9 @@ namespace Core.Interfaces
 {
     public interface ITestHeaderService
     {
-        List<TestHeaderVM> GetTestHeaders(TestType TestType, int testId);   
+        List<TestHeaderVM> GetTestHeaders(TestType TestType, int testId);
+        void AddHeader(TestHeader testHeader, ClaimsPrincipal user);
+        void DeleteDoc(int docId, ClaimsPrincipal user);
+        TestHeader GetByPk(int docId);
     }
 }
