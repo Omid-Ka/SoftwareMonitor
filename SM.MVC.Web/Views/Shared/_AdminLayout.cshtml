@@ -11,6 +11,7 @@
     <title>@ViewData["Title"]</title>
 
     @await Html.PartialAsync("_AdminLinks")
+    @await Html.PartialAsync("_AdminScripts")
 
     @await RenderSectionAsync("Styles", false)
 </head>
@@ -84,7 +85,8 @@
             @await Html.PartialAsync("_UserInfo")
             <!-- #User Info -->
             <!-- Menu -->
-            @await Html.PartialAsync("_Sidebar")
+            @*@await Html.PartialAsync("_Sidebar")*@
+            @await Component.InvokeAsync("SideBar");
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->
@@ -112,7 +114,6 @@
 
 
 
-    @await Html.PartialAsync("_AdminScripts")
 
     @await RenderSectionAsync("Scripts", false)
 

@@ -126,7 +126,6 @@ namespace SM.MVC.Web.Controllers
             var data = _testHeaderService.GetTestHeaders(TestType.Finctional, 15 /*Document Review*/);
 
             return PartialView("_DocReviewGrid", data);
-
         }
 
         public IActionResult EditDoc(int DocId)
@@ -170,7 +169,7 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult CodeReview()
         {
-            var data = _testHeaderService.GetTestHeaders(TestType.Finctional, 15 /*Document Review*/);
+            var data = _testHeaderService.GetTestHeaders(TestType.Finctional, 16 /*Document Review*/);
 
             return View(data);
         }
@@ -264,11 +263,127 @@ namespace SM.MVC.Web.Controllers
         }
 
 
+        public IActionResult DeleteCode(int CodeId)
+        {
+            _testHeaderService.DeleteCode(CodeId, User);
+            var data = _testHeaderService.GetTestHeaders(TestType.Finctional, 16 /*Document Review*/);
+
+            return PartialView("_CodeReviewGrid", data);
+        }
+
+        public IActionResult EditCode(int CodeId)
+        {
+            var Header = _testHeaderService.GetByPk(CodeId);
+            var Code = _codeReviewService.GetCodeReviewsByHeaderId(CodeId);
+            var CodeDetail = _codeReviewDetailService.GetCodeReviewDetailByCodeId(Code.Id);
+
+
+            var model = new CreateCodeReviewVM();
+
+            model.ProjectId = Header.ProjectId;
+            model.AccurateMatch = Code.AccurateMatch;
+            model.AllCountRow = Code.AllCountRow;
+            model.HeaderId = Header.Id;
+            model.HighMatch = Code.HighMatch;
+            model.MatchGroups = Code.MatchGroups;
+            model.NormalMatch = Code.NormalMatch;
+            model.Offers = Code.Offers;
+            model.PoorMatch = Code.PoorMatch;
+            model.CodeId = Code.Id;
+
+
+            model.CodeReviewDetailList = CodeDetail;
+
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult PostEditCodeReview(CodeReviewVM Head, CreateCodeReviewVM model)
+        {
+            if (Head.ProjectId <= 0)
+            {
+                return Json(new { succeed = false, Message = "پروژه انتخاب نشده است" });
+            }
+            var TestHeader  = _testHeaderService.GetByPk(Head.HeaderId);
+
+            TestHeader.ProjectId = Head.ProjectId;
+            TestHeader.TitleId = 16;
+            TestHeader.TestType = TestType.Finctional;
+            TestHeader.EntityType = "CodeReview";
+
+            _testHeaderService.UpdateHeader(TestHeader, User);
+
+
+            var CodeReview = _codeReviewService.GetCodeReviewsByHeaderId(Head.CodeId);
+
+            CodeReview.AccurateMatch = Head.AccurateMatch;
+            CodeReview.AllCountRow = Head.AllCountRow;
+            CodeReview.HighMatch = Head.HighMatch;
+            CodeReview.MatchGroups = Head.MatchGroups;
+            CodeReview.NormalMatch = Head.NormalMatch;
+            CodeReview.PoorMatch = Head.PoorMatch;
+            CodeReview.TestHeaderId = TestHeader.Id;
+            CodeReview.Offers = Head.Offers;
+            
+
+            _codeReviewService.UpdateCodeReview(CodeReview, User);
+
+
+            foreach (var item in model.CodeReviewDetailList)
+            {
+                var Detail = _codeReviewDetailService.GetByPK(item.Id);
+
+                Detail.CodeReviewId = CodeReview.Id;
+                Detail.Description = item.Description;
+                Detail.DetailType = item.DetailType;
+                Detail.IndicatorId = item.IndicatorId;
+                Detail.Score = item.Score;
+
+                _codeReviewDetailService.UpdateCodeReviewDetail(Detail, User);
+
+            }
+            
+
+            return Json(new { succeed = true, Message = "با موفقیت ویرایش شد" });
+        }
+
+        public IActionResult ShowCodeModal(int CodeId)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         public IActionResult LoadAndStress()
         {
+            var Load = _testHeaderService.GetTestHeaders(TestType.Finctional, 9 /*Document Review*/);
+            var Stress = _testHeaderService.GetTestHeaders(TestType.Finctional, 10 /*Document Review*/);
+
+            var data = Load.Union(Stress).OrderByDescending(x => x.DateInserted).ToList();
+
+            return View(data);
+        }
+
+        public IActionResult CreateStressOrLoadTest()
+        {
+            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
+                "ProjectName");
+
+            ViewBag.TestTitle = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Test), "Id",
+                "Description");
+
+            //var model = new CreateLoadOrStrssTest();
+
             return View();
         }
+
+        [HttpPost]
+        public IActionResult CreateStressOrLoadTest(CreateLoadOrStrssTest model)
+        {
+            return null;
+        }
+
     }
 }

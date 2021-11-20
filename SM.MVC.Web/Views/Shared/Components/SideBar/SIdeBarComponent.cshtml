@@ -1,20 +1,24 @@
-﻿@using System.Security.Claims
+﻿
+@{
+    Layout = null;
+}
+@using System.Security.Claims
 @using Core.AccessConst
 @using Newtonsoft.Json
 
 @{
-    var rolesJson = JsonConvert.SerializeObject((((User.Identity as ClaimsIdentity)?.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value)) ?? throw new InvalidOperationException()).ToArray());
+    var rolesJson = JsonConvert.SerializeObject(ViewBag.Roles);
 
     var roles = (User.Identity as ClaimsIdentity)?.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value).ToList();
 }
 
 <style>
     .sidebar-menu {
-
     }
 </style>
 
 <script>
+    
     debugger;
     var roles = JSON.parse('@Html.Raw(rolesJson)');
     $(document).ready(function () {
@@ -26,6 +30,8 @@
         menu.find("li[user-access]").each(function () {
             var access = $(this).attr("user-access").split(",");
             var hassAccess = false;
+
+
             for (var i = 0; i < access.length; i++) {
                 if (roles.indexOf(access[i]) !== -1) {
                     hassAccess = true;
@@ -35,6 +41,13 @@
             if (!hassAccess) {
                 $(this).remove();
             }
+
+
+            //console.log('---');
+            //console.log(access);
+            //console.log(hassAccess);
+            //console.log('---');
+
         });
         console.log('***');
         console.log(menu);
@@ -76,14 +89,14 @@
                 <span>مدیریت کاربران</span>
             </a>
             <ul class="ml-menu">
-                <li user-access ="@AccessConst.BaseInfo">
+                <li user-access="@AccessConst.BaseInfo">
                     <a asp-controller="BasicInformation" asp-action="Index">اطلاعات پایه</a>
                 </li>
-                <li user-access ="@AccessConst.UserList">
+                <li user-access="@AccessConst.UserList">
                     <a asp-controller="Account" asp-action="Index">لیست کاربران</a>
                 </li>
                 <li>
-                <li user-access ="@AccessConst.AddAccessGroup">
+                <li user-access="@AccessConst.AddAccessGroup">
                     <a asp-controller="Access" asp-action="AccessGroups">گروه های کاربری</a>
                 </li>
             </ul>
@@ -94,13 +107,13 @@
                 <span>مدیریت پروژه ها</span>
             </a>
             <ul class="ml-menu">
-                <li  user-access ="@AccessConst.TeamInfo">
+                <li user-access="@AccessConst.TeamInfo">
                     <a asp-controller="BasicInformation" asp-action="TeamInformation">اطلاعات پایه</a>
                 </li>
-                <li  user-access ="@AccessConst.ProjectList">
+                <li user-access="@AccessConst.ProjectList">
                     <a asp-controller="Project" asp-action="Index">لیست پروژه ها</a>
                 </li>
-                
+
             </ul>
         </li>
         <li>
@@ -109,13 +122,13 @@
                 <span>ثبت نتایج آزمون ها</span>
             </a>
             <ul class="ml-menu">
-                <li  user-access ="@AccessConst.AddDocReview">
+                <li user-access="@AccessConst.AddDocReview">
                     <a asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
                 </li>
-                <li  user-access ="@AccessConst.AddCodeReview">
+                <li user-access="@AccessConst.AddCodeReview">
                     <a asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
                 </li>
-                <li   user-access ="@AccessConst.AddLoadAndStress">
+                <li user-access="@AccessConst.AddLoadAndStress">
                     <a asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>
                 </li>
             </ul>
@@ -126,7 +139,7 @@
                 <span>گزارشات</span>
             </a>
             <ul class="ml-menu">
-                <li   user-access ="@AccessConst.FunctionalReport">
+                <li user-access="@AccessConst.FunctionalReport">
                     <a asp-controller="Reports" asp-action="FunctionalReport">گزارشات عملکردی</a>
                 </li>
                 <li>

@@ -34,5 +34,26 @@ namespace Data.Repository
             _SMContext.Add(detail);
             _SMContext.SaveChanges();
         }
+        public List<CodeReviewDetail> GetCodeReviewDetailByCodeId(int codeId)
+        {
+            return _SMContext.CodeReviewDetails.Where(x => x.IsActive && x.CodeReviewId == codeId).ToList();
+        }
+
+        public CodeReviewDetail GetByPK(int itemId)
+        {
+            return _SMContext.CodeReviewDetails.Find(itemId);
+        }
+
+        public void UpdateCodeReviewDetail(CodeReviewDetail detail, ClaimsPrincipal user)
+        {
+            detail.IsActive = true;
+            detail.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            detail.DateModified = DateTime.Now;
+
+
+            _SMContext.Update(detail);
+            _SMContext.SaveChanges();
+        }
     }
 }

@@ -13,5 +13,8 @@ namespace Domain.Interfaces
     public interface ICodeReviewRepository
     {
         void AddCodeReview(CodeReview codeReview, ClaimsPrincipal user);
+        void DeleteItemsByCodeId(int codeId, ClaimsPrincipal user);
+        CodeReview GetCodeReviewsByHeaderId(int codeId);
+        void UpdateCodeReview(CodeReview codeReview, ClaimsPrincipal user);
     }
 }

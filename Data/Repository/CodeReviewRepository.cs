@@ -34,5 +34,52 @@ namespace Data.Repository
             _SMContext.Add(codeReview);
             _SMContext.SaveChanges();
         }
+
+        public void DeleteItemsByCodeId(int codeId, ClaimsPrincipal user)
+        {
+            var UserId = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            var Items = _SMContext.CodeReviews.Where(x => x.IsActive && x.TestHeaderId == codeId).ToList();
+            foreach (var item in Items)
+            {
+
+                var CodeDetail = _SMContext.CodeReviewDetails.Where(x => x.IsActive && x.CodeReviewId == item.Id).ToList();
+                foreach (var Detail in CodeDetail)
+                {
+
+                    Detail.IsActive = false;
+                    Detail.UpdatedUser = UserId;
+                    Detail.DateModified = DateTime.Now;
+
+                    _SMContext.CodeReviewDetails.Update(Detail);
+                    _SMContext.SaveChanges();
+                }
+
+
+                item.IsActive = false;
+                item.UpdatedUser = UserId;
+                item.DateModified = DateTime.Now;
+
+                _SMContext.CodeReviews.Update(item);
+                _SMContext.SaveChanges();
+            }
+        }
+
+        public CodeReview GetCodeReviewsByHeaderId(int codeId)
+        {
+            return _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == codeId);
+        }
+
+        public void UpdateCodeReview(CodeReview codeReview, ClaimsPrincipal user)
+        {
+            codeReview.IsActive = true;
+            codeReview.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            codeReview.DateModified = DateTime.Now;
+
+
+            _SMContext.Update(codeReview);
+            _SMContext.SaveChanges();
+        }
     }
 }

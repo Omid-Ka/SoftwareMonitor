@@ -56,6 +56,7 @@ namespace Core.ViewModels
 
     public class CodeReviewDetailVM
     {
+        public int Id { get; set; } 
         public int CodeReviewId { get; set; }
         public CodeReviewDetailType DetailType { get; set; }
         public int? IndicatorId { get; set; }

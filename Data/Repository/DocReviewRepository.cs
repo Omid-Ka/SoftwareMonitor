@@ -34,7 +34,6 @@ namespace Data.Repository
             _SMContext.Add(detail);
             _SMContext.SaveChanges();
         }
-
         public IEnumerable<DocReview> GetDocReviewsByDocId(int docId)
         {
             return _SMContext.DocReviews.Where(x => x.IsActive && x.TestHeaderId == docId);
@@ -53,5 +52,26 @@ namespace Data.Repository
             _SMContext.Update(model);
             _SMContext.SaveChanges();
         }
+
+        public void DeleteItemsByDocId(int docId, ClaimsPrincipal user)
+        {
+
+            var UserId = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            var Items = _SMContext.DocReviews.Where(x => x.IsActive && x.TestHeaderId == docId).ToList();
+            foreach (var item in Items)
+            {
+                item.IsActive = false;
+                item.UpdatedUser = UserId;
+                item.DateModified = DateTime.Now;
+
+                _SMContext.Update(item);
+                _SMContext.SaveChanges();
+
+            }
+
+
+        }
+
     }
 }

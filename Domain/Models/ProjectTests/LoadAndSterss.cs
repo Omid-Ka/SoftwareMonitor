@@ -8,6 +8,7 @@ namespace Domain.Models.ProjectTests
 {
     public class LoadAndSterss:BaseEntity
     {
+        
         public int TestHeaderId { get; set; }
         public virtual TestHeader TestHeader { get; set; }
         public int TotalRequest { get; set; }
@@ -15,6 +16,8 @@ namespace Domain.Models.ProjectTests
         public int FailRequest { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal AveTime { get; set; }
+        public int Throughput { get; set; }
+        public int Deviation { get; set; }
 
     }
 }

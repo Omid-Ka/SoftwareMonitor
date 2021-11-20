@@ -11,7 +11,9 @@ using Domain.Models.ProjectTests;
 namespace Core.Interfaces
 {
     public interface ICodeReviewService
-    {
+    {   
         void AddCodeReview(CodeReview codeReview, ClaimsPrincipal user);
+        CodeReview GetCodeReviewsByHeaderId(int codeId);
+        void UpdateCodeReview(CodeReview codeReview, ClaimsPrincipal user);
     }
 }

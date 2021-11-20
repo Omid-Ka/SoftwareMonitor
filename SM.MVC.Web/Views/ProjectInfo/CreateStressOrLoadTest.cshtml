@@ -1,0 +1,123 @@
+﻿@model Core.ViewModels.CreateLoadOrStrssTest
+@{
+    ViewData["Title"] = "ثبت تست بار و استرس";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles
+{
+    <style>
+        .SubmitBtn {
+            float: left;
+            margin-left: 50px;
+        }
+    </style>
+}
+
+<div class="card">
+    <div class="header bg-blue-grey">
+        <h2>
+            ثبت تست بار و استرس
+        </h2>
+    </div>
+    <div class="body">
+
+        <form asp-action="CreateStressOrLoadTest">
+
+            <div class="row clearfix">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="ProjectId" class="control-label"></label>
+                            <select id="Gender" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
+                            <span asp-validation-for="ProjectId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="TitleId" class="control-label"></label>
+                            <select id="Post" class="form-control show-tick" asp-for="TitleId" asp-items="@(ViewBag.TestTitle)">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
+                            <span asp-validation-for="TitleId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="TotalRequest" class="control-label"></label>
+                            <input asp-for="TotalRequest" class="form-control"/>
+                            <span asp-validation-for="TotalRequest" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="SuccessRequest" class="control-label"></label>
+                            <input asp-for="SuccessRequest" class="form-control"/>
+                            <span asp-validation-for="SuccessRequest" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="FailRequest" class="control-label"></label>
+                            <input asp-for="FailRequest" class="form-control"/>
+                            <span asp-validation-for="FailRequest" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+
+                            <label asp-for="AveTime" class="control-label"></label>
+                            <input asp-for="AveTime" class="form-control"/>
+                            <span asp-validation-for="AveTime" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="Throughput" class="control-label"></label>
+                            <input asp-for="Throughput" class="form-control"/>
+                            <span asp-validation-for="Throughput" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <label asp-for="Deviation" class="control-label"></label>
+                            <input asp-for="Deviation" class="form-control"/>
+                            <span asp-validation-for="Deviation" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row clearfix">
+                <div class="form-group">
+                    <input type="submit" value="ثبت تست" class="btn bg-green waves-effect SubmitBtn"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

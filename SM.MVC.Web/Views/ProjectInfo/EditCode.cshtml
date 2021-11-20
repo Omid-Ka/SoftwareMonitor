@@ -1,7 +1,9 @@
 ﻿@using Domain.Models.Enum
 @model Core.ViewModels.CreateCodeReviewVM
+
+
 @{
-    ViewData["Title"] = "ثبت بررسی کد";
+    ViewData["Title"] = "EditCode";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -42,6 +44,7 @@
 
                 <form id="ContentForm">
                     <div id="FirstContent" class="ShowDisplay">
+                        @Html.HiddenFor(x => x.HeaderId)
 
                         <div class="row clearfix CommitContentRow">
                             <div class="col-sm-8 Margin-b">
@@ -153,6 +156,7 @@
                                 {
                                     @Html.Hidden("Model.CodeReviewDetailList[" + i + "].DetailType", Model.CodeReviewDetailList[i].DetailType)
                                     @Html.Hidden("Model.CodeReviewDetailList[" + i + "].IndicatorId", Model.CodeReviewDetailList[i].IndicatorId)
+                                    @Html.Hidden("Model.CodeReviewDetailList[" + i + "].Id", Model.CodeReviewDetailList[i].Id)
 
                                     <div class="row clearfix CommitContentRow">
                                         <div class="form-group Margin-b Margin-t">
@@ -219,8 +223,8 @@
 
 @section Scripts
 {
-    
-    
+
+
     <script>
 
         function finish() {
@@ -228,7 +232,7 @@
             var content = $("#ContentForm").serialize();
             debugger;
             $.ajax({
-                url: "@Url.Action("PostCreateCodeReview", "ProjectInfo")",
+                url: "@Url.Action("PostEditCodeReview", "ProjectInfo")",
                 data: content,
                 type: "POST",
                 //dataType: 'json',
@@ -247,5 +251,4 @@
 
     </script>
 }
-
 

@@ -25,5 +25,15 @@ namespace Core.Services
         {
             _codeReviewRepository.AddCodeReview(codeReview, user);
         }
+
+        public CodeReview GetCodeReviewsByHeaderId(int codeId)
+        {
+            return _codeReviewRepository.GetCodeReviewsByHeaderId(codeId);
+        }
+
+        public void UpdateCodeReview(CodeReview codeReview, ClaimsPrincipal user)
+        {
+            _codeReviewRepository.UpdateCodeReview(codeReview, user);
+        }
     }
 }

@@ -294,7 +294,7 @@ namespace SM.MVC.Web.Controllers
 
                 var IdsArray = Ids.Split(",").ToArray();
 
-                var intIds = IdsArray.Select(int.Parse).ToArray();
+                var intIds = IdsArray.Where(x=>x != "").Select(int.Parse).ToArray();
 
                 var Result = _userAccessService.ChangeUserAccess(intIds, userid,User);
 

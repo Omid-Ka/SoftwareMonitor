@@ -13,5 +13,8 @@ namespace Core.Interfaces
     public interface ICodeReviewDetailService
     {
         void AddCodeReviewDetail(CodeReviewDetail detail, ClaimsPrincipal user);
+        List<CodeReviewDetailVM> GetCodeReviewDetailByCodeId(int codeId);
+        CodeReviewDetail GetByPK(int itemId);
+        void UpdateCodeReviewDetail(CodeReviewDetail detail, ClaimsPrincipal user);
     }
 }

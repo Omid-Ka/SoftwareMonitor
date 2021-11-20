@@ -18,13 +18,18 @@ namespace Core.Services
         private ITestHeaderRepository _testHeaderRepository;
         private IProjectRepository _projectRepository;
         private ILookupRepository _lookupRepository;
+        private IDocReviewRepository _docReviewRepository;
+        private ICodeReviewRepository _codeReviewRepository;
 
-        public TestHeaderService(ITestHeaderRepository testHeaderRepository, IProjectRepository projectRepository, ILookupRepository lookupRepository)
+        public TestHeaderService(ITestHeaderRepository testHeaderRepository, IProjectRepository projectRepository, ILookupRepository lookupRepository, IDocReviewRepository docReviewRepository, ICodeReviewRepository codeReviewRepository)
         {
             _testHeaderRepository = testHeaderRepository;
             _projectRepository = projectRepository;
             _lookupRepository = lookupRepository;
+            _docReviewRepository = docReviewRepository;
+            _codeReviewRepository = codeReviewRepository;
         }
+
         public List<TestHeaderVM> GetTestHeaders(TestType TestType, int testId)
         {
             return _testHeaderRepository.GetTestHeaders(TestType, testId).Select(x=>new TestHeaderVM()
@@ -47,12 +52,25 @@ namespace Core.Services
 
         public void DeleteDoc(int docId, ClaimsPrincipal user)
         {
+            _docReviewRepository.DeleteItemsByDocId(docId, user);
+                
             _testHeaderRepository.DeleteDoc(docId,user);
         }
 
         public TestHeader GetByPk(int docId)
         {
             return _testHeaderRepository.GetByPk(docId);
+        }
+
+        public void DeleteCode(int codeId, ClaimsPrincipal user)
+        {
+            _codeReviewRepository.DeleteItemsByCodeId(codeId, user);
+            _testHeaderRepository.DeleteCode(codeId, user);
+        }
+
+        public void UpdateHeader(TestHeader testHeader, ClaimsPrincipal user)
+        {
+            _testHeaderRepository.UpdateHeader(testHeader, user);
         }
     }
 }

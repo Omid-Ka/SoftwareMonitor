@@ -1,0 +1,105 @@
+﻿
+<script>
+
+    function FirstStep() {
+        if ($('#FirstStep').hasClass('done')) {
+
+            // Steps
+            $('#FirstStep').removeClass();
+            $('#FirstStep').addClass("current");
+
+            $('#SecondStep').removeClass();
+            $('#SecondStep').addClass("done");
+
+            // Contents
+
+            $('#FirstContent').removeClass();
+            $('#FirstContent').addClass("ShowDisplay");
+
+            $('#SecondContent').removeClass();
+            $('#SecondContent').addClass("hideDisplay");
+
+            // Actions
+
+            $('#previous').removeClass();
+            $('#previous').addClass("ShowDisplay disabled");
+
+            $('#next').removeClass();
+            $('#next').addClass("waves-effect ShowDisplay");
+
+            $('#Finish').removeClass();
+            $('#Finish').addClass("waves-effect hideDisplay");
+
+
+        }
+    }
+
+
+    function SecondStep() {
+        if ($('#SecondStep').hasClass('done')) {
+
+            // Steps
+
+            $('#FirstStep').removeClass();
+            $('#FirstStep').addClass("done");
+
+            $('#SecondStep').removeClass();
+            $('#SecondStep').addClass("current");
+
+            // Contents
+
+            $('#FirstContent').removeClass();
+            $('#FirstContent').addClass("hideDisplay");
+
+            $('#SecondContent').removeClass();
+            $('#SecondContent').addClass("ShowDisplay");
+
+            // Actions
+
+            $('#previous').removeClass();
+            $('#previous').addClass("waves-effect ShowDisplay");
+
+            $('#next').removeClass();
+            $('#next').addClass("waves-effect hideDisplay");
+
+            $('#Finish').removeClass();
+            $('#Finish').addClass("waves-effect ShowDisplay");
+
+        }
+    }
+
+
+    function previousStep() {
+        FirstStep();
+    }
+
+
+    function nextStep() {
+
+
+        $('#FirstStep').removeClass();
+        $('#FirstStep').addClass("done");
+
+        $('#SecondStep').removeClass();
+        $('#SecondStep').addClass("current");
+
+        // Contents
+
+        $('#FirstContent').removeClass();
+        $('#FirstContent').addClass("hideDisplay");
+
+        $('#SecondContent').removeClass();
+        $('#SecondContent').addClass("ShowDisplay");
+
+        // Actions
+
+        $('#previous').removeClass();
+        $('#previous').addClass("waves-effect ShowDisplay");
+
+        $('#next').removeClass();
+        $('#next').addClass("waves-effect hideDisplay");
+
+        $('#Finish').removeClass();
+        $('#Finish').addClass("waves-effect ShowDisplay");
+    }
+</script>

@@ -4,6 +4,7 @@ using Core.ViewModels;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Domain.Models.Log;
 using Domain.Models.Enum;
@@ -15,15 +16,41 @@ namespace Core.Services
     public class CodeReviewDetailService : ICodeReviewDetailService
     {
         private ICodeReviewDetailRepository _codeReviewDetailRepository;
+        private ILookupRepository _lookupRepository;
 
-        public CodeReviewDetailService(ICodeReviewDetailRepository codeReviewDetailRepository)
+        public CodeReviewDetailService(ICodeReviewDetailRepository codeReviewDetailRepository, ILookupRepository lookupRepository)
         {
             _codeReviewDetailRepository = codeReviewDetailRepository;
+            _lookupRepository = lookupRepository;
         }
 
         public void AddCodeReviewDetail(CodeReviewDetail detail, ClaimsPrincipal user)
         {
             _codeReviewDetailRepository.AddCodeReviewDetail(detail, user);
+        }
+        public List<CodeReviewDetailVM> GetCodeReviewDetailByCodeId(int codeId)
+        {
+            return _codeReviewDetailRepository.GetCodeReviewDetailByCodeId(codeId).Select(x=>new CodeReviewDetailVM()
+            {
+                Id = x.Id,
+                Description = x.Description,
+                DetailType = x.DetailType,
+                IndicatorId = x.IndicatorId,
+                CodeReviewId = x.CodeReviewId,
+                Score = x.Score,
+                IndicatorDesc = x.IndicatorId.HasValue ? _lookupRepository.GetByLookupId(x.IndicatorId.Value).Description : ""
+
+            }).ToList();
+        }
+
+        public CodeReviewDetail GetByPK(int itemId)
+        {
+            return _codeReviewDetailRepository.GetByPK(itemId);
+        }
+
+        public void UpdateCodeReviewDetail(CodeReviewDetail detail, ClaimsPrincipal user)
+        {
+            _codeReviewDetailRepository.UpdateCodeReviewDetail(detail, user);
         }
     }
 }
