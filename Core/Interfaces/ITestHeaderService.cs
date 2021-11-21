@@ -18,5 +18,6 @@ namespace Core.Interfaces
         TestHeader GetByPk(int docId);
         void DeleteCode(int codeId, ClaimsPrincipal user);
         void UpdateHeader(TestHeader testHeader, ClaimsPrincipal user);
+        void DeleteStressTest(int testId, ClaimsPrincipal user);
     }
 }

@@ -39,36 +39,36 @@ namespace Data.Repository
             _SMContext.SaveChanges();
         }
 
-        public void DeleteDoc(int docId, ClaimsPrincipal user)
-        {
-            var model = _SMContext.DocReviews.Find(docId);
-            model.IsActive = false;
-            model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
-                .FirstOrDefault());
-            model.DateModified = DateTime.Now;
+        //public void DeleteDoc(int docId, ClaimsPrincipal user)
+        //{
+        //    var model = _SMContext.DocReviews.Find(docId);
+        //    model.IsActive = false;
+        //    model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+        //        .FirstOrDefault());
+        //    model.DateModified = DateTime.Now;
 
 
-            _SMContext.Update(model);
-            _SMContext.SaveChanges();
-        }
+        //    _SMContext.Update(model);
+        //    _SMContext.SaveChanges();
+        //}
 
         public TestHeader GetByPk(int docId)
         {
             return _SMContext.TestHeaders.Find(docId);
         }
 
-        public void DeleteCode(int codeId, ClaimsPrincipal user)
-        {
-            var model = _SMContext.Users.Find(codeId);
-            model.IsActive = false;
-            model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
-                .FirstOrDefault());
-            model.DateModified = DateTime.Now;
+        //public void DeleteCode(int codeId, ClaimsPrincipal user)
+        //{
+        //    var model = _SMContext.CodeReviews.Find(codeId);
+        //    model.IsActive = false;
+        //    model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+        //        .FirstOrDefault());
+        //    model.DateModified = DateTime.Now;
 
 
-            _SMContext.Update(model);
-            _SMContext.SaveChanges();
-        }
+        //    _SMContext.Update(model);
+        //    _SMContext.SaveChanges();
+        //}
 
         public void UpdateHeader(TestHeader testHeader, ClaimsPrincipal user)
         {
@@ -79,6 +79,19 @@ namespace Data.Repository
 
 
             _SMContext.Update(testHeader);
+            _SMContext.SaveChanges();
+        }
+
+        public void DeleteHeader(int testId, ClaimsPrincipal user)
+        {
+            var model = _SMContext.TestHeaders.Find(testId);
+            model.IsActive = false;
+            model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            model.DateModified = DateTime.Now;
+
+
+            _SMContext.Update(model);
             _SMContext.SaveChanges();
         }
     }

@@ -25,5 +25,9 @@ namespace Core.ViewModels
         public int Throughput { get; set; }
         [Display(Name = "انحراف")]
         public int Deviation { get; set; }
+
+        public int HeaderId { get; set; }
+        public int TestId { get; set; } 
+
     }
 }

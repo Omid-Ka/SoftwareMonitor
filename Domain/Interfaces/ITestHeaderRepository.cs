@@ -14,9 +14,10 @@ namespace Domain.Interfaces
     {
         List<TestHeader> GetTestHeaders(TestType testType, int testId);
         void AddHeader(TestHeader testHeader, ClaimsPrincipal user);
-        void DeleteDoc(int docId, ClaimsPrincipal user);
+        //void DeleteDoc(int docId, ClaimsPrincipal user);
         TestHeader GetByPk(int docId);
-        void DeleteCode(int codeId, ClaimsPrincipal user);
+        //void DeleteCode(int codeId, ClaimsPrincipal user);
         void UpdateHeader(TestHeader testHeader, ClaimsPrincipal user);
+        void DeleteHeader(int testId, ClaimsPrincipal user);
     }
 }

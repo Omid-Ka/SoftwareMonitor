@@ -23,8 +23,9 @@ namespace SM.MVC.Web.Controllers
         private IDocReviewService _docReviewService;
         private ICodeReviewService _codeReviewService;
         private ICodeReviewDetailService _codeReviewDetailService;
+        private ILoadAndSterssService _loadAndSterssService;
 
-        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService)
+        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService, ILoadAndSterssService loadAndSterssService)
         {
             _lookupService = lookupService;
             _projectService = projectService;
@@ -32,6 +33,7 @@ namespace SM.MVC.Web.Controllers
             _docReviewService = docReviewService;
             _codeReviewService = codeReviewService;
             _codeReviewDetailService = codeReviewDetailService;
+            _loadAndSterssService = loadAndSterssService;
         }
 
         public IActionResult Index()
@@ -382,8 +384,130 @@ namespace SM.MVC.Web.Controllers
         [HttpPost]
         public IActionResult CreateStressOrLoadTest(CreateLoadOrStrssTest model)
         {
-            return null;
+            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
+                "ProjectName");
+
+            ViewBag.TestTitle = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Test), "Id",
+                "Description");
+
+            if (model.TitleId < 0)
+            {
+                NotifyError("لطفا عنوان تست را انتخاب نمایید");
+                return View("CreateStressOrLoadTest");
+            }
+            if (model.ProjectId < 0)
+            {
+                NotifyError("لطفا پروژه مورد نظر را انتخاب نمایید");
+                return View("CreateStressOrLoadTest");
+            }
+
+            var TestHeader = new TestHeader();
+
+            TestHeader.ProjectId = model.ProjectId;
+            TestHeader.TitleId = model.TitleId;
+            TestHeader.TestType = TestType.Finctional;
+            TestHeader.EntityType = "StressAndLoad";
+
+            _testHeaderService.AddHeader(TestHeader,User);
+
+            var LoadAndStress = new LoadAndSterss()
+            {
+                AveTime = model.AveTime,
+                Deviation = model.Deviation,
+                FailRequest = model.FailRequest,
+                SuccessRequest = model.SuccessRequest,
+                TestHeaderId = TestHeader.Id,
+                Throughput = model.Throughput,
+                TotalRequest = model.TotalRequest
+            };
+            _loadAndSterssService.AddLoadAndStress(LoadAndStress,User);
+            
+
+            NotifySuccess("با موفقیت ثبت شد");
+            return RedirectToAction("LoadAndStress");
         }
 
+        public IActionResult DeleteStressTest(int TestId)
+        {
+            _testHeaderService.DeleteStressTest(TestId, User);
+            var Load = _testHeaderService.GetTestHeaders(TestType.Finctional, 9 /*Document Review*/);
+            var Stress = _testHeaderService.GetTestHeaders(TestType.Finctional, 10 /*Document Review*/);
+
+            var data = Load.Union(Stress).OrderByDescending(x => x.DateInserted).ToList();
+
+            return PartialView("_StressAndLoadGrid", data);
+        }
+
+        public IActionResult EditStressTest(int TestId)
+        {
+            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
+                "ProjectName");
+
+            ViewBag.TestTitle = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Test), "Id",
+                "Description");
+
+            var head = _testHeaderService.GetByPk(TestId);
+
+           var Test = _loadAndSterssService.GetByHeaderId(TestId);
+
+
+           var model = new CreateLoadOrStrssTest()
+           {
+               ProjectId = head.ProjectId,
+               TitleId = head.TitleId,
+               HeaderId = TestId,
+               TestId = Test.Id,
+               AveTime = Test.AveTime,
+               Deviation = Test.Deviation,
+               FailRequest = Test.FailRequest,
+               SuccessRequest = Test.SuccessRequest,
+               Throughput = Test.Throughput,
+               TotalRequest = Test.TotalRequest
+           };
+
+           return View();
+        }
+
+        public IActionResult EditStressOrLoadTest(CreateLoadOrStrssTest model)
+        {
+            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
+                "ProjectName",model.ProjectId);
+
+            ViewBag.TestTitle = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Test), "Id",
+                "Description",model.TitleId);
+
+            if (model.TitleId < 0)
+            {
+                NotifyError("لطفا عنوان تست را انتخاب نمایید");
+                return View("EditStressTest");
+            }
+            if (model.ProjectId < 0)
+            {
+                NotifyError("لطفا پروژه مورد نظر را انتخاب نمایید");
+                return View("EditStressTest");
+            }
+
+            var head = _testHeaderService.GetByPk(model.HeaderId);
+
+            head.ProjectId = model.ProjectId;
+            head.TitleId = model.TitleId;
+
+            _testHeaderService.UpdateHeader(head,User);
+
+            var Test = _loadAndSterssService.GetByPk(model.TestId);
+
+            Test.AveTime = model.AveTime;
+            Test.Deviation = model.Deviation;
+            Test.FailRequest = model.FailRequest;
+            Test.SuccessRequest = model.SuccessRequest;
+            Test.Throughput = model.Throughput;
+            Test.TotalRequest = model.TotalRequest;
+
+            _loadAndSterssService.UpdateloadAndSterss(Test, User);
+
+
+            NotifySuccess("با موفقیت ثبت شد");
+            return RedirectToAction("LoadAndStress");
+        }
     }
 }

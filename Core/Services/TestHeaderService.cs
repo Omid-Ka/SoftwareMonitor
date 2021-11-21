@@ -20,14 +20,16 @@ namespace Core.Services
         private ILookupRepository _lookupRepository;
         private IDocReviewRepository _docReviewRepository;
         private ICodeReviewRepository _codeReviewRepository;
+        private ILoadAndSterssRepository _loadAndSterssRepository;
 
-        public TestHeaderService(ITestHeaderRepository testHeaderRepository, IProjectRepository projectRepository, ILookupRepository lookupRepository, IDocReviewRepository docReviewRepository, ICodeReviewRepository codeReviewRepository)
+        public TestHeaderService(ITestHeaderRepository testHeaderRepository, IProjectRepository projectRepository, ILookupRepository lookupRepository, IDocReviewRepository docReviewRepository, ICodeReviewRepository codeReviewRepository, ILoadAndSterssRepository loadAndSterssRepository)
         {
             _testHeaderRepository = testHeaderRepository;
             _projectRepository = projectRepository;
             _lookupRepository = lookupRepository;
             _docReviewRepository = docReviewRepository;
             _codeReviewRepository = codeReviewRepository;
+            _loadAndSterssRepository = loadAndSterssRepository;
         }
 
         public List<TestHeaderVM> GetTestHeaders(TestType TestType, int testId)
@@ -54,7 +56,7 @@ namespace Core.Services
         {
             _docReviewRepository.DeleteItemsByDocId(docId, user);
                 
-            _testHeaderRepository.DeleteDoc(docId,user);
+            _testHeaderRepository.DeleteHeader(docId,user);
         }
 
         public TestHeader GetByPk(int docId)
@@ -65,12 +67,19 @@ namespace Core.Services
         public void DeleteCode(int codeId, ClaimsPrincipal user)
         {
             _codeReviewRepository.DeleteItemsByCodeId(codeId, user);
-            _testHeaderRepository.DeleteCode(codeId, user);
+            _testHeaderRepository.DeleteHeader(codeId, user);
         }
 
         public void UpdateHeader(TestHeader testHeader, ClaimsPrincipal user)
         {
             _testHeaderRepository.UpdateHeader(testHeader, user);
+        }
+
+        public void DeleteStressTest(int testId, ClaimsPrincipal user)
+        {
+            _loadAndSterssRepository.DeleteStressTest(testId, user);
+
+            _testHeaderRepository.DeleteHeader(testId, user);
         }
     }
 }

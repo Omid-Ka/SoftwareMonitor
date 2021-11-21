@@ -84,7 +84,7 @@ namespace SM.MVC.Web.Controllers
 
             _usersService.AddUser(model,User);
 
-            NotifyError("با موفقیت ثبت شد");
+            NotifySuccess("با موفقیت ثبت شد");
             return RedirectToAction("Index");
         }
 
