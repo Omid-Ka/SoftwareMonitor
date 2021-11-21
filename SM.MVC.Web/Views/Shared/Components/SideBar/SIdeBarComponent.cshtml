@@ -76,7 +76,6 @@
 
 <div class="menu">
     <ul class="list sidebar-menu">
-        <li class="header"></li>
         <li class="active">
             <a asp-controller="Admin" asp-action="Index">
                 <i class="material-icons">home</i>
@@ -142,10 +141,10 @@
                 <li user-access="@AccessConst.FunctionalReport">
                     <a asp-controller="Reports" asp-action="FunctionalReport">گزارشات عملکردی</a>
                 </li>
-                <li>
+                <li user-access="@AccessConst.NonFunctionalReport">
                     <a href="#">گزارشات غیر عملکردی</a>
                 </li>
-                <li>
+                <li user-access="@AccessConst.ApiReport">
                     <a href="#">گزارشات سرویس ها</a>
                 </li>
             </ul>

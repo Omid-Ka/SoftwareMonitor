@@ -10149,8 +10149,8 @@ fieldset[disabled] .form-control {
     transition: all 0.5s;
     /*font-family: "Roboto", sans-serif;*/
     font-family: IRAN Sans Regular;
-    /*background: #fdfdfd;*/
-    background: #cfcfcf;
+    background: #fdfdfd;
+    /*background: #cfcfcf;*/
     width: 300px;
     overflow: hidden;
     display: inline-block;
@@ -10361,7 +10361,7 @@ fieldset[disabled] .form-control {
                     margin: 7px 0 7px 12px;
                     color: #333;
                     font-weight: bold;
-                    font-size: 14px;
+                    font-size: 20px;
                     overflow: hidden;
                 }
 

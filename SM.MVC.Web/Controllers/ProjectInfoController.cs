@@ -358,6 +358,10 @@ namespace SM.MVC.Web.Controllers
 
         #endregion
 
+
+        #region LoadAndStress
+
+        
         public IActionResult LoadAndStress()
         {
             var Load = _testHeaderService.GetTestHeaders(TestType.Finctional, 9 /*Document Review*/);
@@ -509,5 +513,8 @@ namespace SM.MVC.Web.Controllers
             NotifySuccess("با موفقیت ثبت شد");
             return RedirectToAction("LoadAndStress");
         }
+
+
+        #endregion
     }
 }

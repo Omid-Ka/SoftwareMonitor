@@ -25,7 +25,6 @@ namespace Core.Services
         {
             _codeReviewRepository.AddCodeReview(codeReview, user);
         }
-
         public CodeReview GetCodeReviewsByHeaderId(int codeId)
         {
             return _codeReviewRepository.GetCodeReviewsByHeaderId(codeId);
@@ -35,5 +34,11 @@ namespace Core.Services
         {
             _codeReviewRepository.UpdateCodeReview(codeReview, user);
         }
+
+        public CodeReview GetByProjectId(int projectId)
+        {
+            return _codeReviewRepository.GetByProjectId(projectId);
+        }
+
     }
 }

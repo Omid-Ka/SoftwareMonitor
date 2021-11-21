@@ -10,6 +10,7 @@
 {
     <!-- Show Tabs Css -->
     <link href="~/css/InsertTabs.css" rel="stylesheet" />
+    
 }
 
 <div class="card">
@@ -219,8 +220,8 @@
 
 @section Scripts
 {
-    
-    
+    @await Html.PartialAsync("_DuplicateInsertTabs")
+
     <script>
 
         function finish() {

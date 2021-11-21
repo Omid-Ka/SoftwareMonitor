@@ -7,190 +7,9 @@
 
 @section Styles
 {
-    <!-- Sweet Alert Css -->
-    <style>
-        .CommitSteps {
-            float: right;
-            width: 20%;
-        }
 
-            .CommitSteps a:hover, .CommitSteps a:active {
-                display: block;
-                width: auto;
-                margin: 0 0.5em 0.5em;
-                padding: 1em 1em;
-                text-decoration: none;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-            }
-
-            .CommitSteps .disabled a {
-                background: #eee;
-                color: #aaa;
-                cursor: default;
-            }
-
-                .CommitSteps .disabled a:hover, .CommitSteps .disabled a:active {
-                    background: #eee;
-                    color: #aaa;
-                    cursor: default;
-                }
-
-            .CommitSteps ul {
-                padding: 0;
-                margin: 0;
-            }
-
-            .CommitSteps > ul > li {
-                float: none;
-                width: 100%;
-            }
-
-            .CommitSteps a {
-                display: block;
-                width: auto;
-                margin: 0 0.5em 0.5em;
-                padding: 1em 1em;
-                text-decoration: none;
-            }
-
-            .CommitSteps .number {
-                font-size: 1.429em;
-            }
-
-            .CommitSteps .current a {
-                background-color: #25418e;
-                color: #fff;
-                cursor: default;
-            }
-
-                .CommitSteps .current a:hover, .CommitSteps .current a:active {
-                    background: #0a4bff;
-                    color: #fff;
-                    cursor: default;
-                }
-
-            .CommitSteps .done a {
-                background: #9dc8e2;
-                color: #fff;
-            }
-
-                .CommitSteps .done a:hover, .CommitSteps .done a:active {
-                    background: #9dc8e2;
-                    color: #fff;
-                }
-
-            .CommitSteps .error a {
-                background: #ff3111;
-                color: #fff;
-            }
-
-                .CommitSteps .error a:hover, .CommitSteps .error a:active {
-                    background: #ff3111;
-                    color: #fff;
-                }
-
-
-        .CommitContent {
-            float: right;
-            margin: 0 0 0.5em 0;
-            width: 70%;
-            min-height: 450px;
-            border: 1px solid #ddd;
-            display: block;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .CommitContentRow {
-            margin-right: 15px !important;
-            margin-left: -15px !important;
-        }
-
-        .Margin-b {
-            margin-bottom: 0px !important;
-        }
-
-        .Margin-t {
-            margin-top: 5px !important;
-        }
-
-
-        .CommitAction {
-            float: right;
-            width: 100%;
-            text-align: left;
-        }
-
-            .CommitAction > ul {
-                display: inline-block;
-                text-align: right !important;
-            }
-
-                .CommitAction > ul > li {
-                    margin: 0 0 0 1em;
-                }
-
-                .CommitAction > ul > li {
-                    float: right;
-                }
-
-            .CommitAction .disabled a {
-                background: #eee;
-                color: #aaa;
-            }
-
-            .CommitAction a {
-                background: #25418e;
-                color: #fff;
-                display: block;
-                padding: 0.5em 1em;
-                text-decoration: none;
-                -webkit-border-radius: 0;
-                -moz-border-radius: 0;
-                -ms-border-radius: 0;
-                border-radius: 0;
-            }
-
-                .CommitAction a:hover, .CommitAction a:active {
-                    background: #0a4bff;
-                    color: #fff;
-                    display: block;
-                    padding: 0.5em 1em;
-                    text-decoration: none;
-                    -webkit-border-radius: 0;
-                    -moz-border-radius: 0;
-                    -ms-border-radius: 0;
-                    border-radius: 0;
-                }
-
-            .CommitAction .disabled a {
-                background: #eee;
-                color: #aaa;
-            }
-
-                .CommitAction .disabled a:hover, .CommitAction .disabled a:active {
-                    background: #eee;
-                    color: #aaa;
-                }
-
-
-
-        .ShowDisplay {
-            display: block;
-        }
-
-        .hideDisplay {
-            display: none;
-        }
-
-        .VerticalSubmit {
-            display: block;
-            width: 100%;
-            overflow: hidden;
-        }
-    </style>
+    <!-- Show Tabs Css -->
+    <link href="~/css/InsertTabs.css" rel="stylesheet" />
 }
 
 <div class="card">
@@ -223,47 +42,47 @@
 
                 <form id="ContentForm">
                     <div id="FirstContent" class="ShowDisplay">
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="TestType" class="control-label"></label>
-                                            <select id="Type" class="form-control show-tick" asp-for="TestType" asp-items="Html.GetEnumSelectList<TestType>()">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="TestType" class="text-danger"></span>
-                                        </div>
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-8 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="TestType" class="control-label"></label>
+                                        <select id="Type" class="form-control show-tick" asp-for="TestType" asp-items="Html.GetEnumSelectList<TestType>()">
+                                            <option value="">--انتخاب نمایید--</option>
+                                        </select>
+                                        <span asp-validation-for="TestType" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="TitleId" class="control-label"></label>
-                                            
-                                            <select id="TestTitle" class="form-control show-tick" asp-for="TitleId" asp-items="@(ViewBag.TestTitle)">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="TitleId" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row clearfix CommitContentRow">
-                                <div class="col-sm-8 Margin-b">
-                                    <div class="form-group Margin-b Margin-t">
-                                        <div class="form-line">
-                                            <label asp-for="ProjectId" class="control-label"></label>
-                                            <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
-                                                <option value="">--انتخاب نمایید--</option>
-                                            </select>
-                                            <span asp-validation-for="ProjectId" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-8 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="TitleId" class="control-label"></label>
 
+                                        <select id="TestTitle" class="form-control show-tick" asp-for="TitleId" asp-items="@(ViewBag.TestTitle)">
+                                            <option value="">--انتخاب نمایید--</option>
+                                        </select>
+                                        <span asp-validation-for="TitleId" class="text-danger"></span>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <div class="row clearfix CommitContentRow">
+                            <div class="col-sm-8 Margin-b">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="ProjectId" class="control-label"></label>
+                                        <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
+                                            <option value="">--انتخاب نمایید--</option>
+                                        </select>
+                                        <span asp-validation-for="ProjectId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
 
@@ -353,110 +172,10 @@
 
 @section Scripts
 {
+    @await Html.PartialAsync("_DuplicateInsertTabs")
+
+
     <script>
-
-        function FirstStep() {
-            if ($('#FirstStep').hasClass('done')) {
-
-                // Steps
-                $('#FirstStep').removeClass();
-                $('#FirstStep').addClass("current");
-
-                $('#SecondStep').removeClass();
-                $('#SecondStep').addClass("done");
-
-                // Contents
-
-                $('#FirstContent').removeClass();
-                $('#FirstContent').addClass("ShowDisplay");
-
-                $('#SecondContent').removeClass();
-                $('#SecondContent').addClass("hideDisplay");
-
-                // Actions
-
-                $('#previous').removeClass();
-                $('#previous').addClass("ShowDisplay disabled");
-
-                $('#next').removeClass();
-                $('#next').addClass("waves-effect ShowDisplay");
-
-                $('#Finish').removeClass();
-                $('#Finish').addClass("waves-effect hideDisplay");
-
-
-            }
-        }
-
-
-        function SecondStep() {
-            if ($('#SecondStep').hasClass('done')) {
-
-                // Steps
-
-                $('#FirstStep').removeClass();
-                $('#FirstStep').addClass("done");
-
-                $('#SecondStep').removeClass();
-                $('#SecondStep').addClass("current");
-
-                // Contents
-
-                $('#FirstContent').removeClass();
-                $('#FirstContent').addClass("hideDisplay");
-
-                $('#SecondContent').removeClass();
-                $('#SecondContent').addClass("ShowDisplay");
-
-                // Actions
-
-                $('#previous').removeClass();
-                $('#previous').addClass("waves-effect ShowDisplay");
-
-                $('#next').removeClass();
-                $('#next').addClass("waves-effect hideDisplay");
-
-                $('#Finish').removeClass();
-                $('#Finish').addClass("waves-effect ShowDisplay");
-
-            }
-        }
-
-
-        function previousStep() {
-            FirstStep();
-        }
-
-
-        function nextStep() {
-
-
-            $('#FirstStep').removeClass();
-            $('#FirstStep').addClass("done");
-
-            $('#SecondStep').removeClass();
-            $('#SecondStep').addClass("current");
-
-            // Contents
-
-            $('#FirstContent').removeClass();
-            $('#FirstContent').addClass("hideDisplay");
-
-            $('#SecondContent').removeClass();
-            $('#SecondContent').addClass("ShowDisplay");
-
-            // Actions
-
-            $('#previous').removeClass();
-            $('#previous').addClass("waves-effect ShowDisplay");
-
-            $('#next').removeClass();
-            $('#next').addClass("waves-effect hideDisplay");
-
-            $('#Finish').removeClass();
-            $('#Finish').addClass("waves-effect ShowDisplay");
-        }
-
 
         function finish() {
 

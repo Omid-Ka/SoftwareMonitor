@@ -19,5 +19,6 @@ namespace Core.Interfaces
         void DeleteCode(int codeId, ClaimsPrincipal user);
         void UpdateHeader(TestHeader testHeader, ClaimsPrincipal user);
         void DeleteStressTest(int testId, ClaimsPrincipal user);
+        List<TestHeader> GetTestListByProjectId(int projectId);
     }
 }

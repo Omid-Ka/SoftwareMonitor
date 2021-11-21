@@ -4,6 +4,16 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@section Styles
+{
+    <style>
+        .ShowReportButtom {
+            text-align: center;
+            bottom: -25px;
+        }
+    </style>
+}
+
 <div class="card">
     <div class="header bg-blue-grey">
         <h2>
@@ -12,7 +22,53 @@
     </div>
     <div class="body">
         
-        
+        <div class="row clearfix">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="form-line">
+                        <label class="control-label"> پروژه منتخب </label>
+                        <select id="Projects" class="form-control show-tick" asp-items="@(ViewBag.Projects)">
+                            <option value="">--انتخاب نمایید--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 ShowReportButtom">
+                <div class="form-group">
+                    <a class="btn bg-indigo waves-effect" onclick="ShowProjectInfo()">
+                        <i class="material-icons">trending_up</i>
+                        <span>نمایش</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 </div>
+<div id="ShowReport"></div>
+
+
+
+
+
+
+
+@section Scripts
+{
+    <script>
+        function ShowProjectInfo() {
+            var Project = $("#Projects").val();
+
+            $.ajax({
+                url: "@Url.Action("ShowProjectInfo", "Reports")?ProjectId=" + Project  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowReport").html(result);
+                }
+            });
+
+
+        }
+    </script>
+}

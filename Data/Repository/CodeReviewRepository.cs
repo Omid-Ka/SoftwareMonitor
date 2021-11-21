@@ -64,7 +64,6 @@ namespace Data.Repository
                 _SMContext.SaveChanges();
             }
         }
-
         public CodeReview GetCodeReviewsByHeaderId(int codeId)
         {
             return _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == codeId);
@@ -81,5 +80,17 @@ namespace Data.Repository
             _SMContext.Update(codeReview);
             _SMContext.SaveChanges();
         }
+
+
+
+        public CodeReview GetByProjectId(int projectId)
+        {
+            var head = _SMContext.TestHeaders
+                .Where(x => x.IsActive && x.ProjectId == projectId && x.EntityType == "CodeReview")
+                .OrderByDescending(x => x.Id).FirstOrDefault();
+
+            return _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == head.Id);
+        }
+
     }
 }

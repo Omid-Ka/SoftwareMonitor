@@ -94,5 +94,10 @@ namespace Data.Repository
             _SMContext.Update(model);
             _SMContext.SaveChanges();
         }
+
+        public List<TestHeader> GetTestListByProjectId(int projectId)
+        {
+            return _SMContext.TestHeaders.Where(x => x.IsActive && x.ProjectId == projectId).ToList();
+        }
     }
 }

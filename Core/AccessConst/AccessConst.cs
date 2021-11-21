@@ -35,6 +35,8 @@ namespace Core.AccessConst
 
         // گزارشات
         public const string FunctionalReport = "گزارشات عملکردی";
+        public const string NonFunctionalReport = "گزارشات غیر عملکردی";
+        public const string ApiReport = "گزارشات سرویس ها";
 
 
 
