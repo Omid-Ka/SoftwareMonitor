@@ -162,10 +162,7 @@
                         <a>ثبت</a>
                     </li>
                 </ul>
-
             </div>
-
-
         </div>
     </div>
 </div>
@@ -175,7 +172,7 @@
     @await Html.PartialAsync("_DuplicateInsertTabs")
 
 
-    <script>
+<script>
 
         function finish() {
 
@@ -189,9 +186,10 @@
                 /* contentType: 'application/x-www-form-urlencoded; charset=UTF-8',*/
                 success: function(result) {
                     if (result.succeed) {
-                        toastr["success"](result.Message);
+                        toastr["success"]("با موفقیت ثبت گردید");
+                        window.location.href = '@Url.Action("DocReview", "ProjectInfo")';
                     } else {
-                        toastr["error"](result.Message);
+                        toastr["error"]("ثبت نگردید");
                     }
                 }
             });
@@ -199,5 +197,5 @@
 
         }
 
-    </script>
+</script>
 }

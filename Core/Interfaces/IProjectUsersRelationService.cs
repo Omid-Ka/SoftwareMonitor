@@ -11,6 +11,6 @@ namespace Core.Interfaces
 {
     public interface IProjectUsersRelationService
     {
-
+        bool ChangeUserprojectRelations(int[] vs, int userid, ClaimsPrincipal user);
     }
 }

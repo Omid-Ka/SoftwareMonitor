@@ -13,5 +13,7 @@ namespace Domain.Interfaces
     public interface IProjectUsersRelationRepository
     {
         List<ProjectUsersRelation> GetAllProjectByUserId(int userId);
+        void RemoveAccess(int projectId, int userid, ClaimsPrincipal user);
+        void AddedAccess(int projectId, int userid, ClaimsPrincipal user);
     }
 }

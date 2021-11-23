@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -20,14 +21,16 @@ namespace SM.MVC.Web.Controllers
         private IAccessService _accessService;
         private IUserAccessService _userAccessService;
         private IProjectService _projectService;
+        private IProjectUsersRelationService _projectUsersRelationService;
 
-        public AccessController(IAccessGroupService accessGroupService, IAccessGroupDetailService accessGroupDetailService, IAccessService accessService, IUserAccessService userAccessService, IProjectService projectService)
+        public AccessController(IAccessGroupService accessGroupService, IAccessGroupDetailService accessGroupDetailService, IAccessService accessService, IUserAccessService userAccessService, IProjectService projectService, IProjectUsersRelationService projectUsersRelationService)
         {
             _accessGroupService = accessGroupService;
             _accessGroupDetailService = accessGroupDetailService;
             _accessService = accessService;
             _userAccessService = userAccessService;
             _projectService = projectService;
+            _projectUsersRelationService = projectUsersRelationService;
         }
 
         public IActionResult Index()
@@ -287,23 +290,53 @@ namespace SM.MVC.Web.Controllers
         }
 
 
-        public IActionResult FinalAccessModal(string Ids,int userid)
+        public IActionResult FinalAccessModal(int userid, ListAccessGroupVM model)
         {
-            if (!string.IsNullOrEmpty(Ids))
+            //if (!string.IsNullOrEmpty(Ids))
+            if (true)
             {
+                //var IdsArray = Ids.Split(",").ToArray();
 
-                var IdsArray = Ids.Split(",").ToArray();
+                //var intIds = IdsArray.Where(x=>x != "").Select(int.Parse).ToArray();
 
-                var intIds = IdsArray.Where(x=>x != "").Select(int.Parse).ToArray();
+                List<int> IdsList = new List<int>();
+                foreach (var item in model.GroupList)
+                {
+                    foreach (var itemAccess in item.Accesses)
+                    {
+                        if (itemAccess.Selected)
+                        {
+                            IdsList.Add(itemAccess.AccessId);
+                        }
+                    }
+                }
 
-                var Result = _userAccessService.ChangeUserAccess(intIds, userid,User);
+                //var intIds = model.GroupList.Where(x=>x.)
+                var AccessResult = _userAccessService.ChangeUserAccess(IdsList.ToArray(), userid,User);
 
+
+                List<int> ProjectIdsList = new List<int>();
+                foreach (var item in model.Projects)
+                {
+                        if (item.Selected)
+                        {
+                            ProjectIdsList.Add(item.Id);
+                        }
+                }
+
+                //var intIds = model.GroupList.Where(x=>x.)
+                var ProjectResult = _projectUsersRelationService.ChangeUserprojectRelations(ProjectIdsList.ToArray(), userid, User);
+
+
+
+
+                ViewBag.UserId = userid;
                 NotifySuccess("با موفقیت ثبت گردید");
 
-                return PartialView("_UserAccessModal");
+                return PartialView("_UserAccessModal", model);
             }
 
-            return PartialView("_UserAccessModal");
+            return PartialView("_UserAccessModal", model); 
         }
 
 

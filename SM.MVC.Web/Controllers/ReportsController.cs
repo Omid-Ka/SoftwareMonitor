@@ -80,8 +80,9 @@ namespace SM.MVC.Web.Controllers
 
             }
 
-
+            /// تست بار و استرس
             ViewBag.HasLoad = ReportTypes.Contains("StressAndLoad"); 
+
 
 
 

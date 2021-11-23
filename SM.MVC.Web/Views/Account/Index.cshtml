@@ -174,30 +174,25 @@
         }*@
 
         function FinalAccessModal() {
+            
 
-            debugger;
-            //$("#UserAccessFrom").find("checkbox").each(function(){
-            //    if ($(this).prop('checked')==true) {
-            //        console.log($(this).val());
+            var data = $("#UserAccessFrom").serialize();
+            //debugger;
+            //var Ids = "";
+            var user = $("#UserId").val();
+            //$('input[type=checkbox]').each(function () {
+            //    if (this.checked) {
+            //        Ids += $(this).val() + ",";
             //    }
             //});
-            var Ids = "";
-            var user = $("#UserId").val();
-            $('input[type=checkbox]').each(function () {
-                if (this.checked) {
-                    Ids += $(this).val() + ",";
-                }
-            });
 
-
-            //var data = $("#UserAccessFrom").serialize();
             $.ajax({
-                url: "@Url.Action("FinalAccessModal", "Access")?Ids=" + Ids + "&userid=" + user ,
-                //data: data,
+                url: "@Url.Action("FinalAccessModal", "Access")?userid=" + user  ,
+                data: data,
                 type: "POST",
                 success: function (result) {
                     $("#ShowAccessModal").html("");
-                    $("#BtnClose").click();
+                    location.reload();
                 }
             });
         }
