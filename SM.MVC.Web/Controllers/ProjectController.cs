@@ -45,14 +45,14 @@ namespace SM.MVC.Web.Controllers
             ViewBag.Users = new SelectList(_usersService.GetAllUsers(), "Id",
                 "FullName");
 
-            ViewBag.Teams = new SelectList(_teamService.GetAll() , "Id",
+            ViewBag.Teams = new SelectList(_teamService.GetAll(), "Id",
                 "Name");
 
 
             var model = new CreateProjectVM();
             model.Partners = new List<PartnerVM>();
             model.Partners.Add(null);
-            
+
             return View(model);
         }
 
@@ -135,7 +135,7 @@ namespace SM.MVC.Web.Controllers
                 NotifyError("خطا در ثبت اطلاعات");
                 return View("CreateProject");
             }
-            
+
             _projectService.EditProject(model.Project, User);
 
             //if (model.Partners.Count > 0)
@@ -170,12 +170,12 @@ namespace SM.MVC.Web.Controllers
 
             model.Partners = _partnersService.GetAllPartnerInProjectByProjectId(ProjectId);
 
-            
 
-            return PartialView("_ProjectSummaryStatus",model);
+
+            return PartialView("_ProjectSummaryStatus", model);
         }
 
-        public IActionResult DeletePartners (int PartnerId)
+        public IActionResult DeletePartners(int PartnerId)
         {
             return null;
         }
@@ -187,15 +187,15 @@ namespace SM.MVC.Web.Controllers
 
             ViewBag.Teams = new SelectList(_teamService.GetAll(), "Id",
                 "Name");
-            
+
             var model = new CreateProjectVM();
-            model.Project = new Project() {Id = ProjectId};
+            model.Project = new Project() { Id = ProjectId };
             model.Partners = _partnersService.GetAllPartnerVMByProjectId(ProjectId);
             model.Partners.Add(new PartnerVM()
             {
                 ProjectId = ProjectId
             });
-            return PartialView("_AddPartners",model);
+            return PartialView("_AddPartners", model);
         }
 
         public IActionResult FinalAddPartners(CreateProjectVM model)
@@ -249,8 +249,21 @@ namespace SM.MVC.Web.Controllers
 
             Model.Partners.Add(null);
 
-            return PartialView("_SubPartner",Model);
+            return PartialView("_SubPartner", Model);
         }
 
+        public IActionResult AddAttachment(int ProjectId)
+        {
+            var model = new Attachment()
+            {
+                ProjectId = ProjectId
+            };
+            return PartialView("_AddAttachment", model);
+        }
+
+        public IActionResult FinalAddAttachment()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

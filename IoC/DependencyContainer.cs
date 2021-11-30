@@ -79,6 +79,10 @@ namespace IoC
 
             service.AddScoped<ILoadAndSterssService, LoadAndSterssService>();
             service.AddScoped<ILoadAndSterssRepository, LoadAndSterssRepository>();
+
+
+            service.AddScoped<IAttachmentService, AttachmentService>();
+            service.AddScoped<IAttachmentRepository, AttachmentRepository>();
         }
     }
 }
