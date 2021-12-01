@@ -283,7 +283,8 @@ namespace SM.MVC.Web.Controllers
                         Length = res.Length,
                         FileName = formFile.FileName,
                         ContentType = formFile.ContentType,
-                        ProjectId = model.ProjectId
+                        ProjectId = model.ProjectId,
+                        Type = AttachmentType.Other
                     });
                 }
 

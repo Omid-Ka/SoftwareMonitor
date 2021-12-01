@@ -167,15 +167,51 @@ namespace Domain.Models.Enum
         Close = 2
     }
 
-    public enum CommentType
+    public enum AttachmentType
     {
-        [Display(Name = "باز")]
-        [Description("باز")]
-        Open = 1,
+        [Display(Name = "نمودار توالی")]
+        [Description("نمودار توالی")]
+        SequenceDiagram = 1,
 
-        [Display(Name = "بسته")]
-        [Description("بسته")]
-        Close = 2
+        [Display(Name = "نمودار فعالیت")]
+        [Description("نمودار فعالیت")]
+        ActivityDiagram = 2,
+
+        [Display(Name = "نمودار کاربرد")]
+        [Description("نمودار کاربرد")]
+        ApplicationDiagram = 3,
+
+        [Display(Name = "نمودار کلاس")]
+        [Description("نمودار کلاس")]
+        ClassDiagram = 4,
+
+        [Display(Name = "ماژول ها")]
+        [Description("ماژول ها")]
+        Modules = 5,
+
+        [Display(Name = "شرح فعالیت")]
+        [Description("شرح فعالیت")]
+        ActivityDescription = 6,
+
+        [Display(Name = "مرور سند")]
+        [Description("مرور سند")]
+        DocReview = 7,
+
+        [Display(Name = "مرور کد")]
+        [Description("مرور کد")]
+        CodeReview = 8,
+
+        [Display(Name = "آزمون فشار")]
+        [Description("آزمون فشار")]
+        StressTest = 9,
+
+        [Display(Name = "آزمون بار")]
+        [Description("آزمون بار")]
+        LoadTest = 10,
+
+        [Display(Name = "سایر")]
+        [Description("سایر")]
+        Other = 11
     }
 
 

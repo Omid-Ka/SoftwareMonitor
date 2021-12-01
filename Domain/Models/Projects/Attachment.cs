@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.Models.Enum;
 
 namespace Domain.Models.Projects
 {
@@ -13,6 +14,7 @@ namespace Domain.Models.Projects
         public string FileName { get; set; }
         public int Length { get; set; }
 
+        public AttachmentType Type { get; set; }
 
         public virtual  Project Project { get; set; }
     }
