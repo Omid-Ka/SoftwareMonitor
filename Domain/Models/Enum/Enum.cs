@@ -156,4 +156,27 @@ namespace Domain.Models.Enum
     }
 
 
+    public enum VersionStatus
+    {
+        [Display(Name = "باز")]
+        [Description("باز")]
+        Open = 1,
+
+        [Display(Name = "بسته")]
+        [Description("بسته")]
+        Close = 2
+    }
+
+    public enum CommentType
+    {
+        [Display(Name = "باز")]
+        [Description("باز")]
+        Open = 1,
+
+        [Display(Name = "بسته")]
+        [Description("بسته")]
+        Close = 2
+    }
+
+
 }

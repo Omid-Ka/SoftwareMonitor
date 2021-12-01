@@ -13,6 +13,7 @@ namespace Domain.Models.Projects
         public string FileName { get; set; }
         public int Length { get; set; }
 
+
         public virtual  Project Project { get; set; }
     }
 }

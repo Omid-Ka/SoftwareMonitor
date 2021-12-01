@@ -56,7 +56,8 @@
                                                     <a class="btn bg-light-green waves-effect" onclick="EditProject(@item.Id)"> ویرایش پروژه </a>
                                                     <a class="btn bg-light-green waves-effect" onclick="AddPartners(@item.Id)"> افزودن همکاران </a>
                                                     <a class="btn bg-grey waves-effect" onclick="SummaryStatus(@item.Id)"> خلاصه وضعیت </a>
-                                                    <a class="btn bg-grey waves-effect" onclick="Attachment(@item.Id)"> خلاصه وضعیت </a>
+                                                    <a class="btn bg-grey waves-effect" onclick="Attachment(@item.Id)"> افزودن پیوست ها </a>
+                                                    <a class="btn bg-grey waves-effect" href="@Url.Action("DownloadAttachment", "Project")?ProjectId=@item.Id"> پیوست ها </a>
                                                 </th>
                                             </tr>
                                         }
@@ -202,20 +203,9 @@
 
 
         function FinalAddAttachment() {
-            var data = $("#AddAttachmentForm").serialize();
-            debugger;
-            $.ajax({
-                url: "@Url.Action("FinalAddAttachment", "Project")",
-                data: data,
-                type: "POST",
-                success: function (result) {
-                    $("#SubUser").html("");
-                    $("#BtnClose").click();
-                }
-            });
+            $("#AttachmentForm").submit();
         }
-
-
+        
     </script>
 
 

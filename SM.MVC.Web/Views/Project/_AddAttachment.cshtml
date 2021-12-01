@@ -1,3 +1,130 @@
 ﻿@model Domain.Models.Projects.Attachment
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: left;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+
+    .btn-azure,
+    .btn-azure:focus {
+        background-color: #2dc3e8 !important;
+        border-color: #2dc3e8;
+        color: #ffffff;
+    }
+
+        .btn-azure:hover {
+            color: #ffffff;
+        }
+
+        .btn-azure.dropdown-toggle {
+            border-right-color: #3ecdf1 !important;
+        }
+
+        .btn-azure.active {
+            background-color: #2badce !important;
+            border-color: #2badce;
+        }
+
+        .btn-azure:hover,
+        .open .btn-azure.dropdown-toggle {
+            background-color: #3ecdf1 !important;
+            border-color: #3ecdf1;
+            color: #fff;
+        }
+
+        .btn-azure.disabled,
+        .btn-azure[disabled],
+        fieldset[disabled] .btn-azure,
+        .btn-azure.disabled:hover,
+        .btn-azure[disabled]:hover,
+        fieldset[disabled] .btn-azure:hover,
+        .btn-azure.disabled:focus,
+        .btn-azure[disabled]:focus,
+        fieldset[disabled] .btn-azure:focus,
+        .btn-azure.disabled:active,
+        .btn-azure[disabled]:active,
+        fieldset[disabled] .btn-azure:active,
+        .btn-azure.disabled.active,
+        .btn-azure[disabled].active,
+        fieldset[disabled] .btn-azure.active {
+            background-color: #2dc3e8 !important;
+            border-color: #2dc3e8;
+            zoom: 1;
+            filter: alpha(opacity=50);
+            -webkit-opacity: 0.5;
+            -moz-opacity: 0.5;
+            opacity: 0.5;
+        }
+
+    .TextInputFile {
+        border: 1px solid !important;
+        border-radius: 30px !important;
+    }
+
+    .InputFileBorder {
+        border-radius: 30px !important;
+    }
+</style>
+
+<form asp-action="FinalAddAttachment" id="AttachmentForm" method="post" enctype="multipart/form-data">
+    <div class="row clearfix">
+        @Html.HiddenFor(x => x.ProjectId)
+
+        <div class="col-sm-2">
+        </div>
+
+        <div class="col-sm-8">
+            <div class="form-group">
+                <label> ضمائم </label>
+
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-azure btn-file InputFileBorder">
+                            Browse <input type="file" id="Files" multiple="multiple" name="Files" value="Image...">
+                        </span>
+                    </span>
+                    <input  type="text" id="SecondFileText" class="form-control TextInputFile" readonly="">
+                </div>
 
 
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+
+        $("#Files").change(function (e) {
+            var fileName = e.target.files[0].name;
+            var count = e.target.files.length;
+            if (count > 1) {
+                $("#SecondFileText").val(count + " فایل انتخابی ");
+            } else {
+                $("#SecondFileText").val(fileName);
+            }
+
+        });
+
+
+    });
+</script>

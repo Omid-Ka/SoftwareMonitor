@@ -9,9 +9,8 @@ using Domain.Models.Projects;
 
 namespace Domain.Interfaces
 {
-    public interface IAttachmentRepository
+    public interface IProjectVersionRepository
     {
-        void AddAttachment(Attachment attachment, ClaimsPrincipal user);
-        List<Attachment> GetAllFilesByProjectId(int projectId);
+
     }
 }

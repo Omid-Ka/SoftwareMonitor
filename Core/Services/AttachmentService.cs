@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Security.Claims;
+using Domain.Models.Projects;
 
 namespace Core.Services
 {
@@ -17,6 +18,19 @@ namespace Core.Services
         public AttachmentService(IAttachmentRepository attachmentRepository)
         {
             _attachmentRepository = attachmentRepository;
+        }
+
+        public void AddAttachment(List<Attachment> fileList, ClaimsPrincipal user)
+        {
+            foreach (var attachment in fileList)
+            {
+                _attachmentRepository.AddAttachment(attachment, user);
+            }
+        }
+
+        public List<Attachment> GetAllFilesByProjectId(int projectId)
+        {
+            return _attachmentRepository.GetAllFilesByProjectId(projectId);
         }
     }
 }

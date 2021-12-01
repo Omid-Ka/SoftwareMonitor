@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.DTO;
@@ -10,6 +12,7 @@ using Domain.Models;
 using Domain.Models.Enum;
 using Domain.Models.Projects;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
@@ -24,13 +27,16 @@ namespace SM.MVC.Web.Controllers
         private IUsersService _usersService;
         private ITeamService _teamService;
         private IPartnersService _partnersService;
+        private IAttachmentService _attachmentService;
 
-        public ProjectController(IProjectService projectService, IUsersService usersService, ITeamService teamService, IPartnersService partnersService)
+
+        public ProjectController(IProjectService projectService, IUsersService usersService, ITeamService teamService, IPartnersService partnersService, IAttachmentService attachmentService)
         {
             _projectService = projectService;
             _usersService = usersService;
             _teamService = teamService;
             _partnersService = partnersService;
+            _attachmentService = attachmentService;
         }
 
         // GET: /<controller>/
@@ -261,9 +267,72 @@ namespace SM.MVC.Web.Controllers
             return PartialView("_AddAttachment", model);
         }
 
-        public IActionResult FinalAddAttachment()
+        [HttpPost]
+        public IActionResult FinalAddAttachment(List<IFormFile> Files, Attachment model)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                var FileList = new List<Attachment>();
+                foreach (var formFile in Files)
+                {
+                    var res = Upload(formFile);
+                    FileList.Add(new Attachment()
+                    {
+                        File = res,
+                        Length = res.Length,
+                        FileName = formFile.FileName,
+                        ContentType = formFile.ContentType,
+                        ProjectId = model.ProjectId
+                    });
+                }
+
+                _attachmentService.AddAttachment(FileList, User);
+
+                NotifySuccess("با موفقیت ثبت گردید");
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception e)
+            {
+                NotifyError("خطا در ثبت فایل");
+                return RedirectToAction("Index");
+            }
+
+
+        }
+
+        private byte[] Upload(IFormFile File)
+        {
+
+            using (MemoryStream fileStream = new MemoryStream())
+            {
+                File.CopyTo(fileStream);
+                var fileBytes = fileStream.ToArray();
+                //string s = Convert.ToBase64String(fileBytes);
+                return fileBytes;
+            }
+        }
+
+        public IActionResult DownloadAttachment(int ProjectId)
+        {
+            var Files = _attachmentService.GetAllFilesByProjectId(ProjectId);
+            var memoryStream = new MemoryStream();
+            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            {
+                foreach (var file in Files)
+                {
+                    var demoFile = archive.CreateEntry(file.FileName);
+
+                    using (var entryStream = demoFile.Open())
+                    using (var b = new BinaryWriter(entryStream))
+                    {
+                        b.Write(file.File);
+                    }
+                }
+            }
+
+            return File(memoryStream.ToArray(), "Attachment.zip");
         }
     }
 }

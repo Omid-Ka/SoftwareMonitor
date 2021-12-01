@@ -38,6 +38,7 @@ namespace Data
         public DbSet<UserAccess> UserAccesses { set; get; }
         public DbSet<ProjectUsersRelation> ProjectUsersRelations { set; get; }
         public DbSet<Attachment> Attachment { set; get; }
+        public DbSet<ProjectVersion> ProjectVersion { set; get; }
 
     }
 }
