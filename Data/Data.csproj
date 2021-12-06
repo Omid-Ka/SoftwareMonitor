@@ -13,6 +13,12 @@
     <Compile Remove="Migrations\20211109063612_AddNonFunctionalTestTbl.Designer.cs" />
     <Compile Remove="Migrations\20211109073020_AddAccessTbls.cs" />
     <Compile Remove="Migrations\20211109073020_AddAccessTbls.Designer.cs" />
+    <Compile Remove="Migrations\20211205095403_AddVertion.cs" />
+    <Compile Remove="Migrations\20211205095403_AddVertion.Designer.cs" />
+    <Compile Remove="Migrations\20211205100039_AddVertion.cs" />
+    <Compile Remove="Migrations\20211205100039_AddVertion.Designer.cs" />
+    <Compile Remove="Migrations\20211205100407_AddVertion.cs" />
+    <Compile Remove="Migrations\20211205100407_AddVertion.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

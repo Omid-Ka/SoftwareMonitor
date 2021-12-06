@@ -20,6 +20,7 @@ namespace Core.AccessConst
 
         //پروژه ها
         public const string TeamInfo = "اطلاعات تیم ها";
+        public const string VersionInfo = "نسخه پروژه ها";
         public const string ProjectList = "لیست پروژه ها";
         public const string CreateProject = "ثبت پروژه";
         public const string EditProject = "ویرایش پروژه";

@@ -94,7 +94,7 @@ namespace Domain.Models.Enum
         [Description("خوانایی کد")]
         Readability = 1,
         [Display(Name = "شی گرایی")]
-        [Description("شی گرایی")]  
+        [Description("شی گرایی")]
         ObjectOriented = 2,
         [Display(Name = "ایمنی کد")]
         [Description("ایمنی کد")]
@@ -214,5 +214,36 @@ namespace Domain.Models.Enum
         Other = 11
     }
 
+    public enum PriorityType
+    {
+        [Display(Name = "کم")]
+        [Description("کم")]
+        Low = 1,
+        [Display(Name = "متوسط")]
+        [Description("متوسط")]
+        Medium = 2,
+        [Display(Name = "زیاد")]
+        [Description("زیاد")]
+        High = 3
+    }
+
+    public enum TypeOfCommand
+    {
+        [Display(Name = "سایر")]
+        [Description("سایر")]
+        Other = 1,
+        [Display(Name = "مرور کد")]
+        [Description("مرور کد")]
+        CodeReview = 2,
+        [Display(Name = "بررسی سند")]
+        [Description("بررسی سند")]
+        DocReview = 3,
+        [Display(Name = "آزمون بار")]
+        [Description("آزمون بار")]
+        Load = 4,
+        [Display(Name = "آزمون فشار")]
+        [Description("آزمون فشار")]
+        Stress = 5
+    }
 
 }

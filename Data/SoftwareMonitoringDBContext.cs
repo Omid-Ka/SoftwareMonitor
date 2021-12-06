@@ -39,6 +39,8 @@ namespace Data
         public DbSet<ProjectUsersRelation> ProjectUsersRelations { set; get; }
         public DbSet<Attachment> Attachment { set; get; }
         public DbSet<ProjectVersion> ProjectVersion { set; get; }
+        public DbSet<ProjectComment> ProjectComment { set; get; }
+        public DbSet<Notification> Notifications { set; get; }
 
     }
 }

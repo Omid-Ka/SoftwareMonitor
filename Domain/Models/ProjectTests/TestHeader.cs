@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Domain.Models.BaseInformation;
 using Domain.Models.Enum;
+using Domain.Models.Projects;
 
 namespace Domain.Models.ProjectTests
 {
@@ -15,15 +16,15 @@ namespace Domain.Models.ProjectTests
         [Display(Name = "نوع عنوان تست")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int TitleId { get; set; }
-
         public virtual Lookup Title { get; set; }
-        
         public int? EntityId { get; set; }
         public string EntityType { get; set; }
-
         [Display(Name = "پروژه")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }
+        [Display(Name = "ورژن پروژه")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
+        public int? ProjectVersionId { get; set; }
     }
 }

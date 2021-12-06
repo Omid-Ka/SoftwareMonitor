@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Domain.Models.BaseInformation;
-using Domain.Models.Teams;
+using Domain.Models.Log;
+using Domain.Models.Enum;
 using System.Security.Claims;
-using Domain.Models.Projects;
+using Domain.Models.Access;
 
 namespace Domain.Interfaces
 {
-    public interface IProjectVersionRepository
+    public interface INotificationRepository
     {
-        IEnumerable<ProjectVersion> GetAllVertion();
+
     }
 }

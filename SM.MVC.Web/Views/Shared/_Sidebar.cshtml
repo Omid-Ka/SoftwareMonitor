@@ -94,13 +94,16 @@
                 <span>مدیریت پروژه ها</span>
             </a>
             <ul class="ml-menu">
-                <li  user-access ="@AccessConst.TeamInfo">
-                    <a asp-controller="BasicInformation" asp-action="TeamInformation">اطلاعات پایه</a>
+                <li user-access="@AccessConst.TeamInfo">
+                    <a asp-controller="BasicInformation" asp-action="TeamInformation">تیم ها</a>
                 </li>
-                <li  user-access ="@AccessConst.ProjectList">
+                <li user-access="@AccessConst.TeamInfo">
+                    <a asp-controller="Versions" asp-action="Index">نسخه های پروژه ها</a>
+                </li>
+                <li user-access="@AccessConst.ProjectList">
                     <a asp-controller="Project" asp-action="Index">لیست پروژه ها</a>
                 </li>
-                
+
             </ul>
         </li>
         <li>
@@ -113,7 +116,7 @@
                     <a asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
                 </li>
                 <li  user-access ="@AccessConst.AddCodeReview">
-                    <a asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
+                    <a asp-controller="ProjectInfo" asp-action="CodeReview">مرور کد</a>
                 </li>
                 <li   user-access ="@AccessConst.AddLoadAndStress">
                     <a asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>

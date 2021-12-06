@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(SoftwareMonitoringDBContext))]
-    partial class SoftwareMonitoringDBContextModelSnapshot : ModelSnapshot
+    [Migration("20211205101304_AddVertion")]
+    partial class AddVertion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,48 +165,6 @@ namespace Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserAccesses");
-                });
-
-            modelBuilder.Entity("Domain.Models.Account.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CreatorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateInserted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("EntityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EntityType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ReciverUserId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Seen")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("UpdatedUser")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Domain.Models.Account.Users", b =>
@@ -752,56 +712,6 @@ namespace Data.Migrations
                     b.ToTable("Partners");
                 });
 
-            modelBuilder.Entity("Domain.Models.Projects.ProjectComment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CommandType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CreatorID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateInserted")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UpdatedUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VersionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("VersionId");
-
-                    b.ToTable("ProjectComment");
-                });
-
             modelBuilder.Entity("Domain.Models.Projects.ProjectUsersRelation", b =>
                 {
                     b.Property<int>("Id")
@@ -1086,21 +996,6 @@ namespace Data.Migrations
                     b.HasOne("Domain.Models.Account.Users", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Domain.Models.Projects.ProjectComment", b =>
-                {
-                    b.HasOne("Domain.Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Models.Projects.ProjectVersion", "Version")
-                        .WithMany()
-                        .HasForeignKey("VersionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Models.Projects.ProjectUsersRelation", b =>

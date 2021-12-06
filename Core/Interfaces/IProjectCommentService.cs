@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Core.ViewModels;
-using Domain.Models.Teams;
+using Domain.Models.Log;
+using Domain.Models.Enum;
 using System.Security.Claims;
-using Domain.Models.Projects;
+using Domain.Models.Access;
 
 namespace Core.Interfaces
 {
-    public interface IProjectVersionService
+    public interface IProjectCommentService
     {
-        IEnumerable<ProjectVersionDTO> GetAllVertion(); 
+
     }
 }
