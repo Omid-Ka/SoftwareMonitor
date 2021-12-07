@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Enum;
+using Domain.Models.Projects;
 using Domain.Models.ProjectTests;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SM.MVC.Web.Modules;
 
@@ -24,8 +26,9 @@ namespace SM.MVC.Web.Controllers
         private ICodeReviewService _codeReviewService;
         private ICodeReviewDetailService _codeReviewDetailService;
         private ILoadAndSterssService _loadAndSterssService;
+        private IProjectVersionService _projectVersionService;
 
-        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService, ILoadAndSterssService loadAndSterssService)
+        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService, ILoadAndSterssService loadAndSterssService, IProjectVersionService projectVersionService)
         {
             _lookupService = lookupService;
             _projectService = projectService;
@@ -34,6 +37,7 @@ namespace SM.MVC.Web.Controllers
             _codeReviewService = codeReviewService;
             _codeReviewDetailService = codeReviewDetailService;
             _loadAndSterssService = loadAndSterssService;
+            _projectVersionService = projectVersionService;
         }
 
         public IActionResult Index()
@@ -60,6 +64,8 @@ namespace SM.MVC.Web.Controllers
             ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
                 "ProjectName");
 
+            ViewBag.Version = new SelectList(new List<ProjectVersion>());
+
 
             var result = new List<DocReviewVM>();
             foreach (DocReviewTitle type in Enum.GetValues(typeof(DocReviewTitle)))
@@ -78,7 +84,7 @@ namespace SM.MVC.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostCreateDocReview(GetTestHeaderVM Head, CreateTestVM model)
+        public IActionResult PostCreateDocReview(GetTestHeaderVM Head, CreateTestVM model,List<IFormFile> SequenceDiagram)
         {
             if (Head.ProjectId <= 0)
             {
@@ -93,12 +99,23 @@ namespace SM.MVC.Web.Controllers
                 return Json(new { succeed = false, Message = "نوع تست مشخص نمی باشد" });
             }
 
+            if (Head.VersionId <= 0)
+            {
+                return Json(new { succeed = false, Message = "نسخه پروژه مشخص نمی باشد" });
+            }
+
+            if (!_projectVersionService.VersionHasValid(Head.ProjectId , Head.VersionId))
+            {
+                return Json(new { succeed = false, Message = "نسخه پروژه معتبر نمی باشد" });
+            }
+
             var TestHeader = new TestHeader();
 
             TestHeader.ProjectId = Head.ProjectId;
             TestHeader.TitleId = Head.TitleId;
             TestHeader.TestType = Head.TestType;
             TestHeader.EntityType = "DocReview";
+            TestHeader.ProjectVersionId = Head.VersionId;
 
             _testHeaderService.AddHeader(TestHeader, User);
 
@@ -215,12 +232,24 @@ namespace SM.MVC.Web.Controllers
                 return Json(new { succeed = false, Message = "پروژه انتخاب نشده است" });
             }
 
+
+            if (Head.VersionId <= 0)
+            {
+                return Json(new { succeed = false, Message = "نسخه پروژه مشخص نمی باشد" });
+            }
+
+            if (!_projectVersionService.VersionHasValid(Head.ProjectId, Head.VersionId))
+            {
+                return Json(new { succeed = false, Message = "نسخه پروژه معتبر نمی باشد" });
+            }
+
             var TestHeader = new TestHeader();
 
             TestHeader.ProjectId = Head.ProjectId;
             TestHeader.TitleId = 16;
             TestHeader.TestType = TestType.Finctional;
             TestHeader.EntityType = "CodeReview";
+            TestHeader.ProjectVersionId = Head.VersionId;
 
             _testHeaderService.AddHeader(TestHeader, User);
 
@@ -405,12 +434,25 @@ namespace SM.MVC.Web.Controllers
                 return View("CreateStressOrLoadTest");
             }
 
+            if (model.VersionId <= 0)
+            {
+                NotifyError("نسخه پروژه مشخص نمی باشد");
+                return View("CreateStressOrLoadTest");
+            }
+
+            if (!_projectVersionService.VersionHasValid(model.ProjectId, model.VersionId))
+            {
+                NotifyError("نسخه پروژه معتبر نمی باشد");
+                return View("CreateStressOrLoadTest");
+            }
+
             var TestHeader = new TestHeader();
 
             TestHeader.ProjectId = model.ProjectId;
             TestHeader.TitleId = model.TitleId;
             TestHeader.TestType = TestType.Finctional;
             TestHeader.EntityType = "StressAndLoad";
+            TestHeader.ProjectVersionId = model.VersionId;
 
             _testHeaderService.AddHeader(TestHeader,User);
 

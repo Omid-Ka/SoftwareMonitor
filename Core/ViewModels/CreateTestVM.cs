@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Domain.Models.Enum;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.ViewModels
 {
@@ -15,6 +16,10 @@ namespace Core.ViewModels
         public int TitleId { get; set; }
         [Display(Name = "پروژه")]
         public int ProjectId { get; set; }
+
+        [Display(Name = "نسخه")]
+        public int VersionId { get; set; }
+
         public List<DocReviewVM> DocReviewList { get; set; }
     }
 
@@ -26,6 +31,8 @@ namespace Core.ViewModels
         public int TitleId { get; set; }
         [Display(Name = "پروژه")]
         public int ProjectId { get; set; }
+        [Display(Name = "نسخه")]
+        public int VersionId { get; set; }
     }
 
 
@@ -38,6 +45,8 @@ namespace Core.ViewModels
         public DocReviewAnswer DocReviewAnswer { get; set; }
         [Display(Name = "توضیحات")]
         public string Description { get; set; }
+
+        public List<IFormFile> Files { get; set; }
     }
 
 }

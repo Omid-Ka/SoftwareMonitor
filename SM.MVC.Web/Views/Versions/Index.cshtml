@@ -57,6 +57,7 @@
                                                 <th class="align-right">
                                                     <a class="btn bg-amber waves-effect" onclick="DeleteVersion(@item.Id)"> حذف </a>
                                                     <a class="btn bg-light-green waves-effect" onclick="EditVersion(@item.Id)"> ویرایش </a>
+                                                    <a class="btn bg-light-blue waves-effect" onclick="CloseVersion(@item.Id)"> بستن </a>
                                                 </th>
                                             </tr>
                                         }
@@ -72,72 +73,14 @@
     </div>
 </div>
 
-<button id="ModalSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#largeModal"></button>
-<button id="ModalAddPartnersSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#AddMember"></button>
-<button id="ModalAddAttachment" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#AddAttachment"></button>
-
-<!-- Large Size -->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="largeModalLabel">خلاصه وضعیت</h2>
-            </div>
-            <div id="ShowModal" class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Large Size -->
-<div class="modal fade" id="AddMember" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="AddMemberLabel">افزودن همکاران</h2>
-            </div>
-            <div id="ShowAddPartnersModal" class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <a class="btn bg-green waves-effect" onclick="FinalAddPartners()"> ثبت تغییرات </a>
-                <button id="BtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Attachment -->
-<div class="modal fade" id="AddAttachment" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="AddAttachmentLabel">افزودن ضمائم</h2>
-            </div>
-            <div id="ShowAddAttachmentModal" class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <a class="btn bg-green waves-effect" onclick="FinalAddAttachment()"> ثبت  </a>
-                <button id="AttachmentBtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 @section Scripts
 {
 
     <script>
-        function DeleteProject(id) {
+        function DeleteVersion(id) {
             $.ajax({
-                url: "@Url.Action("DeleteProject", "Project")?ProjectId=" + id  ,
+                url: "@Url.Action("DeleteVersion", "Versions")?VersionId=" + id  ,
                 type: "POST",
                 success: function (result) {
                     $("#GridView").html(result );
@@ -146,63 +89,19 @@
             });
         }
 
-        function EditProject(id) {
-            window.location.href = "@Url.Action("EditProject", "Project")?ProjectId=" + id;
-        }
-
-
-        function SummaryStatus(id) {
+        function CloseVersion(id) {
             $.ajax({
-                url: "@Url.Action("SummaryStatus", "Project")?ProjectId=" + id  ,
+                url: "@Url.Action("CloseVersion", "Versions")?VersionId=" + id  ,
                 type: "POST",
                 success: function (result) {
-                    $("#ShowModal").html(result);
-                    $("#ModalSubmit").click();
+                    $("#GridView").html(result );
+
                 }
             });
         }
 
-        function AddPartners(id) {
-            $.ajax({
-                url: "@Url.Action("AddPartners", "Project")?ProjectId=" + id  ,
-                type: "POST",
-                success: function (result) {
-                    $("#ShowAddPartnersModal").html(result);
-                    $("#ModalAddPartnersSubmit").click();
-                }
-            });
-        }
-
-
-        function FinalAddPartners() {
-            var data = $("#AddForm").serialize();
-            debugger;
-            $.ajax({
-                url: "@Url.Action("FinalAddPartners", "Project")",
-                data: data,
-                type: "POST",
-                success: function (result) {
-                    $("#SubUser").html("");
-                    $("#BtnClose").click();
-                }
-            });
-        }
-
-
-        function Attachment(id) {
-            $.ajax({
-                url: "@Url.Action("AddAttachment", "Project")?ProjectId=" + id  ,
-                type: "POST",
-                success: function (result) {
-                    $("#ShowAddAttachmentModal").html(result);
-                    $("#ModalAddAttachment").click();
-                }
-            });
-        }
-
-
-        function FinalAddAttachment() {
-            $("#AttachmentForm").submit();
+        function EditVersion(id) {
+            window.location.href = "@Url.Action("EditVersion", "Versions")?VersionId=" + id;
         }
 
     </script>

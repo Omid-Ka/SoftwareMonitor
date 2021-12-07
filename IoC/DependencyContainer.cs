@@ -83,6 +83,19 @@ namespace IoC
 
             service.AddScoped<IAttachmentService, AttachmentService>();
             service.AddScoped<IAttachmentRepository, AttachmentRepository>();
+
+
+            service.AddScoped<IProjectVersionService, ProjectVersionService>();
+            service.AddScoped<IProjectVersionRepository, ProjectVersionRepository>();
+
+
+            service.AddScoped<IProjectCommentService, ProjectCommentService>();
+            service.AddScoped<IProjectCommentRepository, ProjectCommentRepository>();
+
+
+            service.AddScoped<INotificationService, NotificationService>();
+            service.AddScoped<INotificationRepository, NotificationRepository>();
+
         }
     }
 }

@@ -82,9 +82,9 @@ namespace Core.Services
             _testHeaderRepository.DeleteHeader(testId, user);
         }
 
-        public List<TestHeader> GetTestListByProjectId(int projectId)
+        public List<TestHeader> GetTestListByProjectId(int projectId, int version)
         {
-            return _testHeaderRepository.GetTestListByProjectId(projectId);
+            return _testHeaderRepository.GetTestListByProjectId(projectId).Where(x=>x.ProjectVersionId == version).ToList();
         }
         
     }

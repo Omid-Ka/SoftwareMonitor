@@ -19,9 +19,57 @@ namespace Data.Repository
             this._SMContext = SMContext;
         }
 
+        public void AddVersion(ProjectVersion model, ClaimsPrincipal user)
+        {
+
+            model.IsActive = true;
+            model.CreatorID = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            model.DateInserted = DateTime.Now;
+            model.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
+                .FirstOrDefault();
+
+
+            _SMContext.Add(model);
+            _SMContext.SaveChanges();
+        }
+
+        public void DeleteVersion(int versionId, ClaimsPrincipal user)
+        {
+            var model = _SMContext.ProjectVersion.Find(versionId);
+            model.IsActive = false;
+            model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            model.DateModified = DateTime.Now;
+            //model.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
+            //    .FirstOrDefault();
+
+
+            _SMContext.Update(model);
+            _SMContext.SaveChanges();
+        }
+
         public IEnumerable<ProjectVersion> GetAllVertion()
         {
             return _SMContext.ProjectVersion.Where(x => x.IsActive);
         }
+
+        public ProjectVersion GetByPK(int versionId)
+        {
+            return _SMContext.ProjectVersion.Find(versionId);
+        }
+
+        public void EditVersion(ProjectVersion model, ClaimsPrincipal user)
+        {
+
+            model.IsActive = true;
+            model.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            model.DateModified = DateTime.Now;
+
+            _SMContext.Update(model);
+            _SMContext.SaveChanges();
+        }
+
     }
 }

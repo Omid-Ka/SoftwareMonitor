@@ -15,6 +15,6 @@ namespace Core.Interfaces
         void AddCodeReview(CodeReview codeReview, ClaimsPrincipal user);
         CodeReview GetCodeReviewsByHeaderId(int codeId);
         void UpdateCodeReview(CodeReview codeReview, ClaimsPrincipal user);
-        CodeReview GetByProjectId(int projectId);
+        CodeReview GetByProjectId(int projectId, int version);
     }
 }

@@ -10,7 +10,7 @@
 {
     <!-- Show Tabs Css -->
     <link href="~/css/InsertTabs.css" rel="stylesheet" />
-    
+
 }
 
 <div class="card">
@@ -45,7 +45,7 @@
                     <div id="FirstContent" class="ShowDisplay">
 
                         <div class="row clearfix CommitContentRow">
-                            <div class="col-sm-8 Margin-b">
+                            <div class="col-sm-6 Margin-b">
                                 <div class="form-group Margin-b Margin-t">
                                     <div class="form-line">
                                         <label asp-for="ProjectId" class="control-label"></label>
@@ -56,8 +56,19 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-sm-6 Margin-b" id="VersionDropdown">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="VersionId" class="control-label"></label>
+                                        <select id="version" class="form-control show-tick" asp-for="VersionId" asp-items="@(ViewBag.Version)">
+                                            <option value="">--انتخاب نمایید--</option>
+                                        </select>
+                                        <span asp-validation-for="VersionId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="row clearfix CommitContentRow">
                             <div class="col-sm-6 Margin-b">
                                 <div class="form-group Margin-b Margin-t">
@@ -222,7 +233,28 @@
 {
     @await Html.PartialAsync("_DuplicateInsertTabs")
 
-<script>
+    <script>
+
+        $(document).ready(function() {
+
+            $('#Projects').change(function () {
+
+                var ProjectId = $('#Projects').val();
+
+                $.ajax({
+                    url: "@Url.Action("VersionDropDownItem", "Versions")?ProjectId=" + ProjectId  ,
+                    type: "POST",
+                    success: function (result) {
+                        $("#VersionDropdown").html(result );
+
+                    }
+                });
+
+
+            });
+
+        });
+
 
         function finish() {
 
@@ -248,7 +280,7 @@
 
         }
 
-</script>
+    </script>
 }
 
 

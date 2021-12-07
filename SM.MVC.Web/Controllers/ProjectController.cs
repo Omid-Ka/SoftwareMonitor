@@ -28,15 +28,17 @@ namespace SM.MVC.Web.Controllers
         private ITeamService _teamService;
         private IPartnersService _partnersService;
         private IAttachmentService _attachmentService;
+        private IProjectVersionService _projectVersionService;
 
 
-        public ProjectController(IProjectService projectService, IUsersService usersService, ITeamService teamService, IPartnersService partnersService, IAttachmentService attachmentService)
+        public ProjectController(IProjectService projectService, IUsersService usersService, ITeamService teamService, IPartnersService partnersService, IAttachmentService attachmentService, IProjectVersionService projectVersionService)
         {
             _projectService = projectService;
             _usersService = usersService;
             _teamService = teamService;
             _partnersService = partnersService;
             _attachmentService = attachmentService;
+            _projectVersionService = projectVersionService;
         }
 
         // GET: /<controller>/
@@ -264,6 +266,7 @@ namespace SM.MVC.Web.Controllers
             {
                 ProjectId = ProjectId
             };
+            ViewBag.Version = new SelectList(_projectVersionService.GetAllVertionByProjectId(ProjectId), "Id", "Name");
             return PartialView("_AddAttachment", model);
         }
 
@@ -284,6 +287,7 @@ namespace SM.MVC.Web.Controllers
                         FileName = formFile.FileName,
                         ContentType = formFile.ContentType,
                         ProjectId = model.ProjectId,
+                        VersionId = model.VersionId,
                         Type = AttachmentType.Other
                     });
                 }

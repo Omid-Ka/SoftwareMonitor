@@ -16,6 +16,6 @@ namespace Domain.Interfaces
         void DeleteItemsByCodeId(int codeId, ClaimsPrincipal user);
         CodeReview GetCodeReviewsByHeaderId(int codeId);
         void UpdateCodeReview(CodeReview codeReview, ClaimsPrincipal user);
-        CodeReview GetByProjectId(int projectId);
+        CodeReview GetByProjectId(int projectId, int version);
     }
 }

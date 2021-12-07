@@ -83,10 +83,10 @@ namespace Data.Repository
 
 
 
-        public CodeReview GetByProjectId(int projectId)
+        public CodeReview GetByProjectId(int projectId, int version)
         {
             var head = _SMContext.TestHeaders
-                .Where(x => x.IsActive && x.ProjectId == projectId && x.EntityType == "CodeReview")
+                .Where(x => x.IsActive && x.ProjectId == projectId && x.EntityType == "CodeReview" && x.ProjectVersionId == version)
                 .OrderByDescending(x => x.Id).FirstOrDefault();
 
             return _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == head.Id);

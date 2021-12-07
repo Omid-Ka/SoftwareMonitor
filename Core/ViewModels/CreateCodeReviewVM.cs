@@ -13,6 +13,8 @@ namespace Core.ViewModels
         public int CodeId { get; set; }
         [Display(Name = "پروژه")]
         public int ProjectId { get; set; }
+        [Display(Name = "نسخه")]
+        public int VersionId { get; set; }
         [Display(Name = "تعداد کل خطوط")]
         public int AllCountRow { get; set; }
         [Display(Name = "گروه های تطابق")]
@@ -37,6 +39,8 @@ namespace Core.ViewModels
         public int CodeId { get; set; }
         [Display(Name = "پروژه")]
         public int ProjectId { get; set; }
+        [Display(Name = "نسخه")]
+        public int VersionId { get; set; }
         [Display(Name = "تعداد کل خطوط")]
         public int AllCountRow { get; set; }
         [Display(Name = "گروه های تطابق")]

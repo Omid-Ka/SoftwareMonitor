@@ -12,6 +12,8 @@ namespace Core.ViewModels
         public int TitleId { get; set; }
         [Display(Name = "پروژه")]
         public int ProjectId { get; set; }
+        [Display(Name = "نسخه")]
+        public int VersionId { get; set; }
         [Display(Name = "کل درخواست ها")]
         public int TotalRequest { get; set; }
         [Display(Name = "درخواست های موفق")]

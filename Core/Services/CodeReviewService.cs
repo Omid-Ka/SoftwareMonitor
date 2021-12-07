@@ -35,9 +35,9 @@ namespace Core.Services
             _codeReviewRepository.UpdateCodeReview(codeReview, user);
         }
 
-        public CodeReview GetByProjectId(int projectId)
+        public CodeReview GetByProjectId(int projectId, int version)
         {
-            return _codeReviewRepository.GetByProjectId(projectId);
+            return _codeReviewRepository.GetByProjectId(projectId,version);
         }
 
     }

@@ -12,5 +12,9 @@ namespace Domain.Interfaces
     public interface IProjectVersionRepository
     {
         IEnumerable<ProjectVersion> GetAllVertion();
+        void AddVersion(ProjectVersion model, ClaimsPrincipal user);
+        void DeleteVersion(int versionId, ClaimsPrincipal user);
+        ProjectVersion GetByPK(int versionId);
+        void EditVersion(ProjectVersion model, ClaimsPrincipal user);
     }
 }

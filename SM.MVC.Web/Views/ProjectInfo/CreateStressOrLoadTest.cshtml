@@ -29,10 +29,21 @@
                     <div class="form-group">
                         <div class="form-line">
                             <label asp-for="ProjectId" class="control-label"></label>
-                            <select id="Gender" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
+                            <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
                                 <option value="">--انتخاب نمایید--</option>
                             </select>
                             <span asp-validation-for="ProjectId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4" id="VersionDropdown">
+                    <div class="form-group" >
+                        <div class="form-line">
+                            <label asp-for="VersionId" class="control-label"></label>
+                            <select id="Version" class="form-control show-tick" asp-for="VersionId" asp-items="@(ViewBag.Version)">
+                                <option value="">--انتخاب نمایید--</option>
+                            </select>
+                            <span asp-validation-for="VersionId" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
@@ -121,3 +132,28 @@
     </div>
 </div>
 
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function() {
+
+            $('#Projects').change(function () {
+
+                var ProjectId = $('#Projects').val();
+
+                $.ajax({
+                    url: "@Url.Action("VersionDropDownItem", "Versions")?ProjectId=" + ProjectId  ,
+                    type: "POST",
+                    success: function (result) {
+                        $("#VersionDropdown").html(result );
+
+                    }
+                });
+
+
+            });
+
+        });
+    </script>
+}

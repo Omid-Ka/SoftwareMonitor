@@ -40,7 +40,7 @@
 
             <div id="Content" class="CommitContent">
 
-                <form id="ContentForm">
+                <form id="ContentForm" asp-action="PostCreateDocReview" method="post" enctype="multipart/form-data">
                     <div id="FirstContent" class="ShowDisplay">
                         <div class="row clearfix CommitContentRow">
                             <div class="col-sm-8 Margin-b">
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                         <div class="row clearfix CommitContentRow">
-                            <div class="col-sm-8 Margin-b">
+                            <div class="col-sm-4 Margin-b">
                                 <div class="form-group Margin-b Margin-t">
                                     <div class="form-line">
                                         <label asp-for="ProjectId" class="control-label"></label>
@@ -78,6 +78,18 @@
                                             <option value="">--انتخاب نمایید--</option>
                                         </select>
                                         <span asp-validation-for="ProjectId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 Margin-b" id="VersionDropdown">
+                                <div class="form-group Margin-b Margin-t">
+                                    <div class="form-line">
+                                        <label asp-for="VersionId" class="control-label"></label>
+                                        <select id="version" class="form-control show-tick" asp-for="VersionId" asp-items="@(ViewBag.Version)">
+                                            <option value="">--انتخاب نمایید--</option>
+                                        </select>
+                                        <span asp-validation-for="VersionId" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
@@ -142,6 +154,24 @@
                                 </div>
                             </div>
 
+                            <div class="row clearfix CommitContentRow">
+
+                                <div class="form-group">
+                                    <label> ضمائم </label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-azure btn-file InputFileBorder">
+                                                Browse <input type="file" id="@(Model.DocReviewList[i].DocReviewTitle)" multiple="multiple" name="@(Model.DocReviewList[i].DocReviewTitle)" value="Image...">
+                                            </span>
+                                        </span>
+                                        <input  type="text" id="SecondFileText" class="form-control TextInputFile" readonly="">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         }
 
                     </div>
@@ -173,6 +203,28 @@
 
 
 <script>
+
+    $(document).ready(function() {
+
+        $('#Projects').change(function () {
+
+            var ProjectId = $('#Projects').val();
+
+            $.ajax({
+                url: "@Url.Action("VersionDropDownItem", "Versions")?ProjectId=" + ProjectId  ,
+                type: "POST",
+                success: function (result) {
+                    $("#VersionDropdown").html(result );
+
+                }
+            });
+
+
+        });
+
+    });
+
+
 
         function finish() {
 

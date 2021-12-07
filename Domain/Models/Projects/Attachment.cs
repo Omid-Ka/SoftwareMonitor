@@ -9,6 +9,7 @@ namespace Domain.Models.Projects
     {
 
         public int ProjectId { get; set; }
+        public int? VersionId { get; set; }  
         public byte[] File { get; set; }
         public string ContentType { get; set; }
         public string FileName { get; set; }

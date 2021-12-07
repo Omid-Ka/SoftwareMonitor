@@ -86,7 +86,16 @@
     <div class="row clearfix">
         @Html.HiddenFor(x => x.ProjectId)
 
-        <div class="col-sm-2">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class="form-line">
+                    <label asp-for="VersionId" class="control-label"></label>
+                    <select id="version" class="form-control show-tick" asp-for="VersionId" asp-items="@(ViewBag.Version)">
+                        <option value="">--انتخاب نمایید--</option>
+                    </select>
+                    <span asp-validation-for="VersionId" class="text-danger"></span>
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-8">
@@ -105,9 +114,7 @@
 
             </div>
         </div>
-
-        <div class="col-sm-2">
-        </div>
+        
     </div>
 </form>
 

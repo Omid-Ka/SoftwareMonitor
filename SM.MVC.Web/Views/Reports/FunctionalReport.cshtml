@@ -21,13 +21,23 @@
         </h2>
     </div>
     <div class="body">
-        
+
         <div class="row clearfix">
             <div class="col-sm-6">
                 <div class="form-group">
                     <div class="form-line">
                         <label class="control-label"> پروژه منتخب </label>
                         <select id="Projects" class="form-control show-tick" asp-items="@(ViewBag.Projects)">
+                            <option value="">--انتخاب نمایید--</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="form-line">
+                        <label class="control-label"> نسخه پروژه </label>
+                        <select id="Version" class="form-control show-tick" asp-items="@(ViewBag.Version)">
                             <option value="">--انتخاب نمایید--</option>
                         </select>
                     </div>
@@ -50,18 +60,41 @@
 
 
 
-
-
-
-
 @section Scripts
 {
+    
+    <script>
+
+        $(document).ready(function() {
+
+            $('#Projects').change(function () {
+
+                var ProjectId = $('#Projects').val();
+
+                $.ajax({
+                    url: "@Url.Action("VersionDropDownItem", "Versions")?ProjectId=" + ProjectId  ,
+                    type: "POST",
+                    success: function (result) {
+                        $("#VersionDropdown").html(result );
+
+                    }
+                });
+
+
+            });
+
+        });
+    </script>
+    
+
     <script>
         function ShowProjectInfo() {
             var Project = $("#Projects").val();
+            var Version = $("#Version").val();
+
 
             $.ajax({
-                url: "@Url.Action("ShowProjectInfo", "Reports")?ProjectId=" + Project  ,
+                url: "@Url.Action("ShowProjectInfo", "Reports")?ProjectId=" + Project + "&Version=" + Version  ,
                 type: "POST",
                 success: function (result) {
                     $("#ShowReport").html(result);
