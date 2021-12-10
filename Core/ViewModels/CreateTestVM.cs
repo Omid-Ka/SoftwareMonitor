@@ -20,6 +20,9 @@ namespace Core.ViewModels
         [Display(Name = "نسخه")]
         public int VersionId { get; set; }
 
+        [Display(Name = "نظرات")]
+        public string ExpertComment { get; set; }
+
         public List<DocReviewVM> DocReviewList { get; set; }
     }
 
@@ -33,6 +36,8 @@ namespace Core.ViewModels
         public int ProjectId { get; set; }
         [Display(Name = "نسخه")]
         public int VersionId { get; set; }
+        [Display(Name = "نظرات")]
+        public string ExpertComment { get; set; }
     }
 
 

@@ -29,7 +29,9 @@ namespace Core.ViewModels
         public int Deviation { get; set; }
 
         public int HeaderId { get; set; }
-        public int TestId { get; set; } 
+        public int TestId { get; set; }
+        [Display(Name = "نظرات")]
+        public string ExpertComment { get; set; }
 
     }
 }
