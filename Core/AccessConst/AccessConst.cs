@@ -26,6 +26,7 @@ namespace Core.AccessConst
         public const string EditProject = "ویرایش پروژه";
         public const string AddPartners = "افزودن پروژه";
         public const string DeleteProject = "حذف پروژه";
+        public const string ProjectComments = "نظرات پروژه ها";
 
 
 

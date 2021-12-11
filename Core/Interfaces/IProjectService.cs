@@ -10,7 +10,7 @@ namespace Core.Interfaces
 {
     public interface IProjectService
     {
-        IEnumerable<ProjectDTO> GetAllProject();
+        IEnumerable<ProjectDTO> GetAllProject(ClaimsPrincipal user);
         bool HasProjectWithName(string projectName);
         void AddProject(Project model, ClaimsPrincipal user);
         void DeleteProject(int ProjectId, ClaimsPrincipal user);

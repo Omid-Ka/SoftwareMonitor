@@ -12,6 +12,7 @@ namespace Core.Interfaces
 {
     public interface IProjectCommentService
     {
-
+        void AddComment(int projectId, int versionId, string comment, TypeOfCommand type, ClaimsPrincipal user);
+        int CountOfComments(int id);
     }
 }

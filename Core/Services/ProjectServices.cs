@@ -21,9 +21,11 @@ namespace Core.Services
             _projectUsersRelationRepository = projectUsersRelationRepository;
         }
 
-        public IEnumerable<ProjectDTO> GetAllProject()
+        public IEnumerable<ProjectDTO> GetAllProject(ClaimsPrincipal user)
         {
-            return _projectRepository.GetAllProject().Select(x=>new ProjectDTO()
+            var UserId = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            return _projectRepository.GetAllProjectAssignedByUserId(UserId).Select(x => new ProjectDTO()
             {
                 Id = x.Id,
                 CreatorID = x.CreatorID,
@@ -31,6 +33,15 @@ namespace Core.Services
                 ProjectName = x.ProjectName,
                 ProjectDescription = x.ProjectDescription
             });
+
+            //return _projectRepository.GetAllProject().Select(x=>new ProjectDTO()
+            //{
+            //    Id = x.Id,
+            //    CreatorID = x.CreatorID,
+            //    DateInserted = x.DateInserted,
+            //    ProjectName = x.ProjectName,
+            //    ProjectDescription = x.ProjectDescription
+            //});
         }
 
         public bool HasProjectWithName(string projectName)
@@ -71,6 +82,8 @@ namespace Core.Services
             return AllProject.Select(x => new ProjectDTO()
             {
                 Id = x.Id,
+                CreatorID = x.CreatorID,
+                DateInserted = x.DateInserted,
                 ProjectName = x.ProjectName,
                 ProjectDescription = x.ProjectDescription,
                 Selected = (AllUserProject.Any(z=>z.ProjectId == x.Id)) ? true : false

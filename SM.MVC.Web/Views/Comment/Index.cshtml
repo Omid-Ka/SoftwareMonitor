@@ -1,0 +1,215 @@
+﻿@using Core.Helper
+@model IEnumerable<Core.DTO.ProjectDTO>
+@{
+    ViewData["Title"] = "آخرین نظرات";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles
+{
+    @await Html.PartialAsync("_DatabaseLinks")
+
+}
+<div class="card">
+    <div class="header bg-blue-grey">
+        <h2>
+            آخرین نظرات
+        </h2>
+    </div>
+    <div class="body">
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="GridView">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="align-right">نام پروژه</th>
+                                            <th class="align-right">تاریخ ثبت</th>
+                                            <th class="align-right">توضیحات پروژه</th>
+                                            <th class="align-right">تعداد نظرات</th>
+                                            <th class="align-right">عملیات</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="align-right">نام پروژه</th>
+                                            <th class="align-right">تاریخ ثبت</th>
+                                            <th class="align-right">توضیحات پروژه</th>
+                                            <th class="align-right">تعداد نظرات</th>
+                                            <th class="align-right">عملیات</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <th class="align-right">@item.ProjectName </th>
+                                                <th class="align-right">@item.DateInserted.GetPrsianDate()</th>
+                                                <th class="align-right">@item.ProjectDescription</th>
+                                                <th class="align-right">@item.Comments</th>
+                                                <th class="align-right">
+                                                    <a class="btn bg-grey waves-effect" onclick="Attachment(@item.Id)"> افزودن پیوست ها </a>
+                                                    <a class="btn bg-grey waves-effect" href="@Url.Action("DownloadAttachment", "Project")?ProjectId=@item.Id"> پیوست ها </a>
+                                                </th>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<button id="ModalSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#largeModal"></button>
+<button id="ModalAddPartnersSubmit" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#AddMember"></button>
+<button id="ModalAddAttachment" type="button" class="btn btn-default waves-effect m-r-20" style="display: none;" data-toggle="modal" data-target="#AddAttachment"></button>
+
+<!-- Large Size -->
+<div class="modal fade" id="largeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="largeModalLabel">خلاصه وضعیت</h2>
+            </div>
+            <div id="ShowModal" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Large Size -->
+<div class="modal fade" id="AddMember" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="AddMemberLabel">افزودن همکاران</h2>
+            </div>
+            <div id="ShowAddPartnersModal" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn bg-green waves-effect" onclick="FinalAddPartners()"> ثبت تغییرات </a>
+                <button id="BtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Attachment -->
+<div class="modal fade" id="AddAttachment" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="AddAttachmentLabel">افزودن ضمائم</h2>
+            </div>
+            <div id="ShowAddAttachmentModal" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn bg-green waves-effect" onclick="FinalAddAttachment()"> ثبت  </a>
+                <button id="AttachmentBtnClose" type="button" class="btn btn-link waves-effect" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts
+{
+
+
+    <script>
+        function DeleteProject(id) {
+            $.ajax({
+                url: "@Url.Action("DeleteProject", "Project")?ProjectId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#GridView").html(result );
+
+                }
+            });
+        }
+
+        function EditProject(id) {
+            window.location.href = "@Url.Action("EditProject", "Project")?ProjectId=" + id;
+        }
+
+
+        function SummaryStatus(id) {
+            $.ajax({
+                url: "@Url.Action("SummaryStatus", "Project")?ProjectId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowModal").html(result);
+                    $("#ModalSubmit").click();
+                }
+            });
+        }
+
+        function AddPartners(id) {
+            $.ajax({
+                url: "@Url.Action("AddPartners", "Project")?ProjectId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowAddPartnersModal").html(result);
+                    $("#ModalAddPartnersSubmit").click();
+                }
+            });
+        }
+
+
+        function FinalAddPartners() {
+            var data = $("#AddForm").serialize();
+            debugger;
+            $.ajax({
+                url: "@Url.Action("FinalAddPartners", "Project")",
+                data: data,
+                type: "POST",
+                success: function (result) {
+                    $("#SubUser").html("");
+                    $("#BtnClose").click();
+                }
+            });
+        }
+
+
+        function Attachment(id) {
+            $.ajax({
+                url: "@Url.Action("AddAttachment", "Project")?ProjectId=" + id  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowAddAttachmentModal").html(result);
+                    $("#ModalAddAttachment").click();
+                }
+            });
+        }
+
+
+        function FinalAddAttachment() {
+            $("#AttachmentForm").submit();
+        }
+    </script>
+
+    @await Html.PartialAsync("_DatatableScripts")
+
+
+
+}
+

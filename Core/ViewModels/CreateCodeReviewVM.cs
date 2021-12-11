@@ -29,7 +29,7 @@ namespace Core.ViewModels
         public int PoorMatch { get; set; }
         [Display(Name = "پیشنهادات")]
         public string Offers { get; set; }
-        [Display(Name = "نظرات")]
+        [Display(Name = "نظرات کارشناسان")]
         public string ExpertComment { get; set; }
         public List<CodeReviewDetailVM> CodeReviewDetailList { get; set; }
     }
@@ -57,7 +57,7 @@ namespace Core.ViewModels
         public int PoorMatch { get; set; }
         [Display(Name = "پیشنهادات")]
         public string Offers { get; set; }
-        [Display(Name = "نظرات")]
+        [Display(Name = "نظرات کارشناسان")]
         public string ExpertComment { get; set; }
     }
 

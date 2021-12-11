@@ -27,8 +27,9 @@ namespace SM.MVC.Web.Controllers
         private ICodeReviewDetailService _codeReviewDetailService;
         private ILoadAndSterssService _loadAndSterssService;
         private IProjectVersionService _projectVersionService;
+        private IProjectCommentService _projectCommentService;
 
-        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService, ILoadAndSterssService loadAndSterssService, IProjectVersionService projectVersionService)
+        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService, ILoadAndSterssService loadAndSterssService, IProjectVersionService projectVersionService, IProjectCommentService projectCommentService)
         {
             _lookupService = lookupService;
             _projectService = projectService;
@@ -38,6 +39,7 @@ namespace SM.MVC.Web.Controllers
             _codeReviewDetailService = codeReviewDetailService;
             _loadAndSterssService = loadAndSterssService;
             _projectVersionService = projectVersionService;
+            _projectCommentService = projectCommentService;
         }
 
         public IActionResult Index()
@@ -133,6 +135,9 @@ namespace SM.MVC.Web.Controllers
                 _docReviewService.AdddocReview(detail, User);
 
             }
+
+
+            AddCommentOnProject(model.ProjectId, model.VersionId, model.ExpertComment, TypeOfCommand.DocReview);
 
             return Json(new { succeed = true, Message = "با موفقیت ثبت شد" });
 
@@ -287,6 +292,7 @@ namespace SM.MVC.Web.Controllers
 
 
 
+            AddCommentOnProject(model.ProjectId, model.VersionId, model.ExpertComment, TypeOfCommand.CodeReview);
 
 
             return Json(new { succeed = true, Message = "با موفقیت ثبت شد" });
@@ -403,13 +409,10 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult CreateStressOrLoadTest()
         {
-            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
-                "ProjectName");
+            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier)
+                    .Select(x => x.Value).FirstOrDefault())), "Id", "ProjectName");
 
-            ViewBag.TestTitle = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Test), "Id",
-                "Description");
-
-            //var model = new CreateLoadOrStrssTest();
+            ViewBag.TestTitle = new SelectList(_lookupService.GetAllByCategory(LookupCategory.Test), "Id", "Description");
 
             return View();
         }
@@ -468,6 +471,7 @@ namespace SM.MVC.Web.Controllers
             };
             _loadAndSterssService.AddLoadAndStress(LoadAndStress,User);
             
+            AddCommentOnProject(model.ProjectId, model.VersionId, model.ExpertComment, TypeOfCommand.Load);
 
             NotifySuccess("با موفقیت ثبت شد");
             return RedirectToAction("LoadAndStress");
@@ -558,5 +562,23 @@ namespace SM.MVC.Web.Controllers
 
 
         #endregion
+
+
+        public void AddCommentOnProject(int ProjectId , int VersionId , string Comment , TypeOfCommand type )
+        {
+
+            try
+            {
+
+                _projectCommentService.AddComment(ProjectId, VersionId, Comment, type , User);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
     }
 }

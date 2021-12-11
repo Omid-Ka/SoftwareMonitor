@@ -30,7 +30,7 @@ namespace Core.ViewModels
 
         public int HeaderId { get; set; }
         public int TestId { get; set; }
-        [Display(Name = "نظرات")]
+        [Display(Name = "نظرات کارشناسان")]
         public string ExpertComment { get; set; }
 
     }

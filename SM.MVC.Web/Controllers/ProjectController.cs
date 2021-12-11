@@ -44,7 +44,7 @@ namespace SM.MVC.Web.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var data = _projectService.GetAllProject();
+            var data = _projectService.GetAllProject(User);
             return View(data);
         }
 
@@ -110,7 +110,7 @@ namespace SM.MVC.Web.Controllers
         {
             _projectService.DeleteProject(ProjectId, User);
 
-            var data = _projectService.GetAllProject();
+            var data = _projectService.GetAllProject(User);
 
             return PartialView("_ProjectGrid", data);
         }

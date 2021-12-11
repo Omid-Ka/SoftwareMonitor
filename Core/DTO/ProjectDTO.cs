@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using System.Text;
 
 namespace Core.DTO
@@ -9,5 +10,7 @@ namespace Core.DTO
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
         public bool Selected { get; set; }
+
+        public int Comments { get; set; }
     }
 }
