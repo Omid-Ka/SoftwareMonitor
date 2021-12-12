@@ -1,0 +1,71 @@
+﻿@model Core.ViewModels.ConversationDTO
+
+
+<div class="contact-profile">
+    <img src="~/images/ProjectIcon.jpg" alt="" />
+    <p>@Model.ProjectName</p>
+</div>
+<div class="messages">
+    <ul>
+        @for (int i = 0; i < Model.ConversationDetails.Count; i++)
+        {
+
+            if (Model.ConversationDetails[i].IsMine)
+            {
+                <li class="replies">
+                    <img src="~/images/ProjectIcon.jpg" alt="" />
+                    <p>
+                        @Model.ConversationDetails[i].Description
+                    </p>
+                </li>
+            }
+            else
+            {
+                @Model.ConversationDetails[i].SendedUser @Model.ConversationDetails[i].SendDate
+                <li class="sent">
+                    <img src="~/images/ProjectIcon.jpg" alt="" />
+                    <p>
+                        @Model.ConversationDetails[i].Description
+                    </p>
+                </li>
+            }
+        }
+    </ul>
+</div>
+@*<input type="hidden" id="ProjectCode" value="@Model.ProjectId"/>*@
+
+<div class="message-input">
+    <div class="wrap">
+        <input id="CommentTxt" type="text" placeholder="پیام ...." />
+        <button class="submit" onclick="SendComment(@Model.ProjectId,@Model.versionId)"><i class="material-icons">send</i></button>
+    </div>
+</div>
+
+<script>
+    
+
+    function SendComment(id, versionid) {
+
+        var txt = $("#CommentTxt").val();
+
+        $.ajax({
+            url: "@Url.Action("SendComment", "Comment")?Text=" + txt + "&ProjectId=" + id + "&VersionId=" + versionid ,
+            type: "POST",
+            success: function (result) {
+                ShowConversation(id, versionid);
+            }
+        });
+
+    }
+
+    function ShowConversation(id, versionid ) {
+        $.ajax({
+            url: "@Url.Action("ShowConversation", "Comment")?ProjectId=" + id + "&VersionId=" + versionid ,
+            type: "POST",
+            success: function (result) {
+                $("#ProjectConversation").html(result);
+            }
+        });
+    }
+
+</script>

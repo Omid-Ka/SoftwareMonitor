@@ -12,6 +12,6 @@ namespace Core.Interfaces
     public interface IAttachmentService
     {
         void AddAttachment(List<Attachment> fileList, ClaimsPrincipal user);
-        List<Attachment> GetAllFilesByProjectId(int projectId);
+        List<Attachment> GetAllFilesByProjectId(int projectId, int versionId);
     }
 }

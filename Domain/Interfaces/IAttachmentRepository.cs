@@ -12,6 +12,6 @@ namespace Domain.Interfaces
     public interface IAttachmentRepository
     {
         void AddAttachment(Attachment attachment, ClaimsPrincipal user);
-        List<Attachment> GetAllFilesByProjectId(int projectId);
+        List<Attachment> GetAllFilesByProjectId(int projectId, int versionId);
     }
 }

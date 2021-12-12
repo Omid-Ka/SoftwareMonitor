@@ -34,17 +34,23 @@ namespace Core.Services
 
         public List<TestHeaderVM> GetTestHeaders(TestType TestType, int testId)
         {
-            return _testHeaderRepository.GetTestHeaders(TestType, testId).Select(x=>new TestHeaderVM()
+            var data = _testHeaderRepository.GetTestHeaders(TestType, testId);
+            var Result = data.Select(x => new TestHeaderVM()
             {
                 DateInserted = x.DateInserted,
                 EntityId = x.EntityId,
                 EntityType = x.EntityType,
                 Id = x.Id,
                 TestType = x.TestType,
-                ProjectName = _projectRepository.GetProjectById(x.Id).ProjectName,
+                ProjectName = (_projectRepository.GetProjectById(x.ProjectId) != null)
+                    ? _projectRepository.GetProjectById(x.ProjectId).ProjectName
+                    : "",
                 Title = _lookupRepository.GetByLookupId(x.TitleId).Description
 
-            }).ToList();
+            });
+            return Result.ToList();
+
+
         }
 
         public void AddHeader(TestHeader testHeader, ClaimsPrincipal user)
@@ -55,8 +61,8 @@ namespace Core.Services
         public void DeleteDoc(int docId, ClaimsPrincipal user)
         {
             _docReviewRepository.DeleteItemsByDocId(docId, user);
-                
-            _testHeaderRepository.DeleteHeader(docId,user);
+
+            _testHeaderRepository.DeleteHeader(docId, user);
         }
 
         public TestHeader GetByPk(int docId)
@@ -84,8 +90,8 @@ namespace Core.Services
 
         public List<TestHeader> GetTestListByProjectId(int projectId, int version)
         {
-            return _testHeaderRepository.GetTestListByProjectId(projectId).Where(x=>x.ProjectVersionId == version).ToList();
+            return _testHeaderRepository.GetTestListByProjectId(projectId).Where(x => x.ProjectVersionId == version).ToList();
         }
-        
+
     }
 }

@@ -1,25 +1,26 @@
-﻿@model Domain.Models.Projects.Attachment
+﻿@using Domain.Models.Enum
+@model Core.ViewModels.AttachmentDTO
 <style>
     .btn-file {
         position: relative;
         overflow: hidden;
     }
 
-        .btn-file input[type=file] {
-            position: absolute;
-            top: 0;
-            left: 0;
-            min-width: 100%;
-            min-height: 100%;
-            font-size: 100px;
-            text-align: left;
-            filter: alpha(opacity=0);
-            opacity: 0;
-            outline: none;
-            background: white;
-            cursor: inherit;
-            display: block;
-        }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: left;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
 
     .btn-azure,
     .btn-azure:focus {
@@ -28,49 +29,49 @@
         color: #ffffff;
     }
 
-        .btn-azure:hover {
-            color: #ffffff;
-        }
+    .btn-azure:hover {
+        color: #ffffff;
+    }
 
-        .btn-azure.dropdown-toggle {
-            border-right-color: #3ecdf1 !important;
-        }
+    .btn-azure.dropdown-toggle {
+        border-right-color: #3ecdf1 !important;
+    }
 
-        .btn-azure.active {
-            background-color: #2badce !important;
-            border-color: #2badce;
-        }
+    .btn-azure.active {
+        background-color: #2badce !important;
+        border-color: #2badce;
+    }
 
-        .btn-azure:hover,
-        .open .btn-azure.dropdown-toggle {
-            background-color: #3ecdf1 !important;
-            border-color: #3ecdf1;
-            color: #fff;
-        }
+    .btn-azure:hover,
+    .open .btn-azure.dropdown-toggle {
+        background-color: #3ecdf1 !important;
+        border-color: #3ecdf1;
+        color: #fff;
+    }
 
-        .btn-azure.disabled,
-        .btn-azure[disabled],
-        fieldset[disabled] .btn-azure,
-        .btn-azure.disabled:hover,
-        .btn-azure[disabled]:hover,
-        fieldset[disabled] .btn-azure:hover,
-        .btn-azure.disabled:focus,
-        .btn-azure[disabled]:focus,
-        fieldset[disabled] .btn-azure:focus,
-        .btn-azure.disabled:active,
-        .btn-azure[disabled]:active,
-        fieldset[disabled] .btn-azure:active,
-        .btn-azure.disabled.active,
-        .btn-azure[disabled].active,
-        fieldset[disabled] .btn-azure.active {
-            background-color: #2dc3e8 !important;
-            border-color: #2dc3e8;
-            zoom: 1;
-            filter: alpha(opacity=50);
-            -webkit-opacity: 0.5;
-            -moz-opacity: 0.5;
-            opacity: 0.5;
-        }
+    .btn-azure.disabled,
+    .btn-azure[disabled],
+    fieldset[disabled] .btn-azure,
+    .btn-azure.disabled:hover,
+    .btn-azure[disabled]:hover,
+    fieldset[disabled] .btn-azure:hover,
+    .btn-azure.disabled:focus,
+    .btn-azure[disabled]:focus,
+    fieldset[disabled] .btn-azure:focus,
+    .btn-azure.disabled:active,
+    .btn-azure[disabled]:active,
+    fieldset[disabled] .btn-azure:active,
+    .btn-azure.disabled.active,
+    .btn-azure[disabled].active,
+    fieldset[disabled] .btn-azure.active {
+        background-color: #2dc3e8 !important;
+        border-color: #2dc3e8;
+        zoom: 1;
+        filter: alpha(opacity=50);
+        -webkit-opacity: 0.5;
+        -moz-opacity: 0.5;
+        opacity: 0.5;
+    }
 
     .TextInputFile {
         border: 1px solid !important;
@@ -82,18 +83,62 @@
     }
 </style>
 
+<style>
+    .AccessDiv {
+        border: 1px solid;
+        border-radius: 30px;
+        border-color: #376bff;
+        margin-bottom: 0px !important;
+        font-size: 25px;
+    }
+
+    .AccessLable {
+        width: 75%;
+        float: right;
+    }
+
+    .AccessSpan {
+        width: 25%;
+        float: right;
+    }
+
+</style>
+
+
 <form asp-action="FinalAddAttachment" id="AttachmentForm" method="post" enctype="multipart/form-data">
+
+
     <div class="row clearfix">
-        @Html.HiddenFor(x => x.ProjectId)
+        @for (int i = 0; i < Model.Types.Count; i++)
+        {
+            if (Model.Types[i] != null)
+            {
+                @*@Html.Hidden("Model.Types["+i+"].Type", Model.Types[i].Type)*@
+                @Html.HiddenFor(x=>x.Types[i].Type)
+
+                <div class="col-sm-4 AccessDiv">
+                    <div class="demo-switch-title AccessLable">@Model.Types[i].Type.ToDescription()</div>
+                    <div class="switch AccessSpan">
+                        <label><input asp-for="Types[i].IsSelected" type="checkbox"><span class="lever switch-col-blue-Custom"></span></label>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+
+
+    <div class="row clearfix">
+        @Html.HiddenFor(x => x.Attachment.ProjectId)
 
         <div class="col-sm-4">
             <div class="form-group">
                 <div class="form-line">
-                    <label asp-for="VersionId" class="control-label"></label>
-                    <select id="version" class="form-control show-tick" asp-for="VersionId" asp-items="@(ViewBag.Version)">
+                    <label asp-for="Attachment.VersionId" class="control-label"></label>
+                    <select id="version" class="form-control show-tick" asp-for="Attachment.VersionId" asp-items="@(ViewBag.Version)">
                         <option value="">--انتخاب نمایید--</option>
                     </select>
-                    <span asp-validation-for="VersionId" class="text-danger"></span>
+                    <span asp-validation-for="Attachment.VersionId" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -108,13 +153,13 @@
                             Browse <input type="file" id="Files" multiple="multiple" name="Files" value="Image...">
                         </span>
                     </span>
-                    <input  type="text" id="SecondFileText" class="form-control TextInputFile" readonly="">
+                    <input type="text" id="SecondFileText" class="form-control TextInputFile" readonly="">
                 </div>
 
 
             </div>
         </div>
-        
+
     </div>
 </form>
 

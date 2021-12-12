@@ -1,0 +1,27 @@
+﻿@model List<Domain.Models.Projects.ProjectVersion>
+
+
+<div class="row clearfix">
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+
+        <div class="col-sm-4">
+            <div class="form-group">
+                <button type="button" class="btn btn-primary waves-effect" onclick="DownloadVersion(@Model[i].ProjectId,@Model[i].Id)">
+                    <i class="material-icons">save</i>
+                    <span>نسخه : @Model[i].Name</span>
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+
+<script>
+
+    function DownloadVersion(id,Vid) {
+        window.location.href = "@Url.Action("DownloadAttachment", "Project")?ProjectId=" + id + "&VersionId=" + Vid;
+    }
+
+</script>

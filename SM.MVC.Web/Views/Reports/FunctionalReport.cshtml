@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6" id="VersionDropdown" >
                 <div class="form-group">
                     <div class="form-line">
                         <label class="control-label"> نسخه پروژه </label>
@@ -90,7 +90,7 @@
     <script>
         function ShowProjectInfo() {
             var Project = $("#Projects").val();
-            var Version = $("#Version").val();
+            var Version = $("#version").val();
 
 
             $.ajax({

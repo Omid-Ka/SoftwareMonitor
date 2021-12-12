@@ -48,40 +48,46 @@ namespace SM.MVC.Web.Controllers
             return View();
         }
 
-        public IActionResult ShowProjectInfo(int ProjectId , int Version)
+        public IActionResult ShowProjectInfo(int ProjectId, int Version)
         {
-            var ReportTypes = _testHeaderService.GetTestListByProjectId(ProjectId,Version).Select(x => x.EntityType).Distinct().ToArray();
+            var ReportTypes = _testHeaderService.GetTestListByProjectId(ProjectId, Version).Select(x => x.EntityType).Distinct().ToArray();
             ViewBag.ProjectId = ProjectId;
 
             //// بررسی کد
 
-            ViewBag.hasCode = ReportTypes.Contains("CodeReview");
-            ViewBag.Accurate = CodeReviewMatch(ProjectId, "Accurate",Version);
-            ViewBag.High= CodeReviewMatch(ProjectId, "High", Version);
-            ViewBag.Normal= CodeReviewMatch(ProjectId, "Normal", Version);
-            ViewBag.Poor= CodeReviewMatch(ProjectId, "Poor", Version);
+            if (ReportTypes.Contains("CodeReview"))
+            {
 
-            ViewBag.PercentAccurate = CodeReviewMatchPercent(ProjectId, "Accurate", Version);
-            ViewBag.PercentHigh= CodeReviewMatchPercent(ProjectId, "High", Version);
-            ViewBag.PercentNormal= CodeReviewMatchPercent(ProjectId, "Normal", Version);
-            ViewBag.PercentPoor= CodeReviewMatchPercent(ProjectId, "Poor", Version);
 
+                ViewBag.hasCode = ReportTypes.Contains("CodeReview");
+                ViewBag.Accurate = CodeReviewMatch(ProjectId, "Accurate", Version);
+                ViewBag.High = CodeReviewMatch(ProjectId, "High", Version);
+                ViewBag.Normal = CodeReviewMatch(ProjectId, "Normal", Version);
+                ViewBag.Poor = CodeReviewMatch(ProjectId, "Poor", Version);
+
+                ViewBag.PercentAccurate = CodeReviewMatchPercent(ProjectId, "Accurate", Version);
+                ViewBag.PercentHigh = CodeReviewMatchPercent(ProjectId, "High", Version);
+                ViewBag.PercentNormal = CodeReviewMatchPercent(ProjectId, "Normal", Version);
+                ViewBag.PercentPoor = CodeReviewMatchPercent(ProjectId, "Poor", Version);
+
+            }
 
             //// بررسی سند
 
+
             ViewBag.hasDoc = ReportTypes.Contains("DocReview");
 
-            var TestHeader = _testHeaderService.GetTestListByProjectId(ProjectId,Version)
+            var TestHeader = _testHeaderService.GetTestListByProjectId(ProjectId, Version)
                 .Where(x => x.EntityType == "DocReview").ToList();
             var model = new List<DocReviewVM>();
             if (TestHeader.Any())
             {
-                 model = _docReviewService.GetDocReviewsByDocId(TestHeader.FirstOrDefault().Id);
+                model = _docReviewService.GetDocReviewsByDocId(TestHeader.FirstOrDefault().Id);
             }
 
             /// تست بار و استرس
-            
-            ViewBag.HasLoad = ReportTypes.Contains("StressAndLoad"); 
+
+            ViewBag.HasLoad = ReportTypes.Contains("StressAndLoad");
 
 
 
@@ -153,7 +159,7 @@ namespace SM.MVC.Web.Controllers
 
             var round = Math.Round(result);
 
-            return  round ;
+            return round;
         }
     }
 }

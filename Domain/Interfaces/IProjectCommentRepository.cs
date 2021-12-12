@@ -15,5 +15,6 @@ namespace Domain.Interfaces
     {
         void AddComment(ProjectComment model, ClaimsPrincipal user);
         int CountOfComments(int id);
+        List<ProjectComment> GetAllCommentByProjectId(int projectId);
     }
 }

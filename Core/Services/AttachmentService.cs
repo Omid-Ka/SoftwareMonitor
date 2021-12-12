@@ -28,9 +28,9 @@ namespace Core.Services
             }
         }
 
-        public List<Attachment> GetAllFilesByProjectId(int projectId)
+        public List<Attachment> GetAllFilesByProjectId(int projectId, int versionId)
         {
-            return _attachmentRepository.GetAllFilesByProjectId(projectId);
+            return _attachmentRepository.GetAllFilesByProjectId(projectId, versionId);
         }
     }
 }

@@ -86,7 +86,7 @@ namespace SM.MVC.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostCreateDocReview(GetTestHeaderVM Head, CreateTestVM model,List<IFormFile> SequenceDiagram)
+        public IActionResult PostCreateDocReview(GetTestHeaderVM Head, CreateTestVM model)
         {
             if (Head.ProjectId <= 0)
             {
@@ -137,7 +137,7 @@ namespace SM.MVC.Web.Controllers
             }
 
 
-            AddCommentOnProject(model.ProjectId, model.VersionId, model.ExpertComment, TypeOfCommand.DocReview);
+            AddCommentOnProject(Head.ProjectId, Head.VersionId, Head.ExpertComment, TypeOfCommand.DocReview);
 
             return Json(new { succeed = true, Message = "با موفقیت ثبت شد" });
 
@@ -292,7 +292,7 @@ namespace SM.MVC.Web.Controllers
 
 
 
-            AddCommentOnProject(model.ProjectId, model.VersionId, model.ExpertComment, TypeOfCommand.CodeReview);
+            AddCommentOnProject(Head.ProjectId, Head.VersionId, Head.ExpertComment, TypeOfCommand.CodeReview);
 
 
             return Json(new { succeed = true, Message = "با موفقیت ثبت شد" });

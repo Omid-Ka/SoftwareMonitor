@@ -33,9 +33,9 @@ namespace Data.Repository
             _SMContext.SaveChanges();
         }
 
-        public List<Attachment> GetAllFilesByProjectId(int projectId)
+        public List<Attachment> GetAllFilesByProjectId(int projectId, int versionId)
         {
-            return _SMContext.Attachment.Where(x => x.IsActive && x.ProjectId == projectId).ToList();
+            return _SMContext.Attachment.Where(x => x.IsActive && x.ProjectId == projectId && x.VersionId == versionId).ToList();
         }
     }
 }

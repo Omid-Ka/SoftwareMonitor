@@ -66,7 +66,7 @@ namespace Data.Repository
         }
         public CodeReview GetCodeReviewsByHeaderId(int codeId)
         {
-            return _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == codeId);
+            return _SMContext.CodeReviews.Any(x => x.IsActive && x.TestHeaderId == codeId) ? _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == codeId) : new CodeReview();
         }
 
         public void UpdateCodeReview(CodeReview codeReview, ClaimsPrincipal user)
@@ -88,8 +88,14 @@ namespace Data.Repository
             var head = _SMContext.TestHeaders
                 .Where(x => x.IsActive && x.ProjectId == projectId && x.EntityType == "CodeReview" && x.ProjectVersionId == version)
                 .OrderByDescending(x => x.Id).FirstOrDefault();
-
-            return _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == head.Id);
+            if (head != null)
+            {
+                return _SMContext.CodeReviews.Any(x => x.IsActive && x.TestHeaderId == head.Id) ? _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == head.Id) : new CodeReview();
+            }
+            else
+            {
+                return new CodeReview();
+            }
         }
 
     }

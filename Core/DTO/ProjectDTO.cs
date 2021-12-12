@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Security.AccessControl;
 using System.Text;
+using Core.ViewModels;
+using Domain.Models.Projects;
 
 namespace Core.DTO
 {
@@ -12,5 +14,7 @@ namespace Core.DTO
         public bool Selected { get; set; }
 
         public int Comments { get; set; }
+
+        public List<ProjectVersionDTO> VersionList { get; set; }
     }
 }

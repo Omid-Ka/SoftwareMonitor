@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Domain.Models.Enum;
 
@@ -9,6 +10,7 @@ namespace Domain.Models.Projects
     {
 
         public int ProjectId { get; set; }
+        [Display(Name = "نسخه")]
         public int? VersionId { get; set; }  
         public byte[] File { get; set; }
         public string ContentType { get; set; }

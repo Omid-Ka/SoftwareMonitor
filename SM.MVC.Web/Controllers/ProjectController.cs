@@ -262,16 +262,33 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult AddAttachment(int ProjectId)
         {
-            var model = new Attachment()
+            var Attachment = new Attachment()
             {
                 ProjectId = ProjectId
             };
+            var result = new List<AttachTypes>();
+            foreach (AttachmentType type in Enum.GetValues(typeof(AttachmentType)))
+            {
+                result.Add(new AttachTypes()
+                {
+                    IsSelected = false,
+                    Type = type
+                });
+            }
+
+            var model = new AttachmentDTO()
+            {
+                Attachment = Attachment,
+                Types = result
+            };
+
+
             ViewBag.Version = new SelectList(_projectVersionService.GetAllVertionByProjectId(ProjectId), "Id", "Name");
             return PartialView("_AddAttachment", model);
         }
 
         [HttpPost]
-        public IActionResult FinalAddAttachment(List<IFormFile> Files, Attachment model)
+        public IActionResult FinalAddAttachment(List<IFormFile> Files, AttachmentDTO model)
         {
             try
             {
@@ -280,16 +297,25 @@ namespace SM.MVC.Web.Controllers
                 foreach (var formFile in Files)
                 {
                     var res = Upload(formFile);
-                    FileList.Add(new Attachment()
+                    foreach (var modelType in model.Types)
                     {
-                        File = res,
-                        Length = res.Length,
-                        FileName = formFile.FileName,
-                        ContentType = formFile.ContentType,
-                        ProjectId = model.ProjectId,
-                        VersionId = model.VersionId,
-                        Type = AttachmentType.Other
-                    });
+                        if (modelType.IsSelected)
+                        {
+
+                            FileList.Add(new Attachment()
+                            {
+                                File = res,
+                                Length = res.Length,
+                                FileName = formFile.FileName,
+                                ContentType = formFile.ContentType,
+                                ProjectId = model.Attachment.ProjectId,
+                                VersionId = model.Attachment.VersionId,
+                                Type = modelType.Type
+                            });
+
+                        }
+                    }
+
                 }
 
                 _attachmentService.AddAttachment(FileList, User);
@@ -319,25 +345,37 @@ namespace SM.MVC.Web.Controllers
             }
         }
 
-        public IActionResult DownloadAttachment(int ProjectId)
+        public IActionResult DownloadAttachment(int ProjectId,int VersionId)
         {
-            var Files = _attachmentService.GetAllFilesByProjectId(ProjectId);
-            var memoryStream = new MemoryStream();
-            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+            var Files = _attachmentService.GetAllFilesByProjectId(ProjectId,VersionId);
+            if (Files.Count > 0)
             {
-                foreach (var file in Files)
+                var memoryStream = new MemoryStream();
+                using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
                 {
-                    var demoFile = archive.CreateEntry(file.FileName);
-
-                    using (var entryStream = demoFile.Open())
-                    using (var b = new BinaryWriter(entryStream))
+                    foreach (var file in Files)
                     {
-                        b.Write(file.File);
+                        var demoFile = archive.CreateEntry(file.FileName);
+
+                        using (var entryStream = demoFile.Open())
+                        using (var b = new BinaryWriter(entryStream))
+                        {
+                            b.Write(file.File);
+                        }
                     }
                 }
+
+                return File(memoryStream.ToArray(), "application/zip", "Attachment.zip");
             }
 
-            return File(memoryStream.ToArray(), "Attachment.zip");
+            return null;
+        }
+
+        public IActionResult ShowAttachmentList(int ProjectId)
+        {
+            var model = _projectVersionService.GetAllVertionByProjectId(ProjectId).ToList();
+
+            return PartialView("_ShowAttachmentList", model);
         }
     }
 }

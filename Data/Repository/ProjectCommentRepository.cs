@@ -40,5 +40,10 @@ namespace Data.Repository
         {
             return _SMContext.ProjectComment.Count(x => x.IsActive && x.ProjectId == id);
         }
+
+        public List<ProjectComment> GetAllCommentByProjectId(int projectId)
+        {
+            return _SMContext.ProjectComment.Where(x => x.IsActive && x.ProjectId == projectId).ToList();
+        }
     }
 }

@@ -42,5 +42,10 @@ namespace Core.Services
         {
             return _projectCommentRepository.CountOfComments(id);
         }
+
+        public List<ProjectComment> GetAllCommentByProjectId(int projectId)
+        {
+            return _projectCommentRepository.GetAllCommentByProjectId(projectId);
+        }
     }
 }

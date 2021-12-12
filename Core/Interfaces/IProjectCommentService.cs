@@ -7,6 +7,7 @@ using Domain.Models.Log;
 using Domain.Models.Enum;
 using System.Security.Claims;
 using Domain.Models.Access;
+using Domain.Models.Projects;
 
 namespace Core.Interfaces
 {
@@ -14,5 +15,6 @@ namespace Core.Interfaces
     {
         void AddComment(int projectId, int versionId, string comment, TypeOfCommand type, ClaimsPrincipal user);
         int CountOfComments(int id);
+        List<ProjectComment> GetAllCommentByProjectId(int projectId);
     }
 }
