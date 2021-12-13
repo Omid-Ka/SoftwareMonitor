@@ -14,6 +14,7 @@
             {
                 <li class="replies">
                     <img src="~/images/ProjectIcon.jpg" alt="" />
+                    @Model.ConversationDetails[i].SendDate
                     <p>
                         @Model.ConversationDetails[i].Description
                     </p>
@@ -21,9 +22,9 @@
             }
             else
             {
-                @Model.ConversationDetails[i].SendedUser @Model.ConversationDetails[i].SendDate
-                <li class="sent">
+                <li class="sent" style="text-align: left;">
                     <img src="~/images/ProjectIcon.jpg" alt="" />
+                    @Model.ConversationDetails[i].SendedUser @Model.ConversationDetails[i].SendDate
                     <p>
                         @Model.ConversationDetails[i].Description
                     </p>
