@@ -115,7 +115,6 @@ namespace SM.MVC.Web.Controllers
             return PartialView("_ProjectGrid", data);
         }
 
-
         public IActionResult EditProject(int ProjectId)
         {
             var data = _projectService.GetProjectById(ProjectId);
@@ -168,7 +167,6 @@ namespace SM.MVC.Web.Controllers
             NotifyError("با موفقیت ویرایش شد");
             return RedirectToAction("Index");
         }
-
 
         public IActionResult SummaryStatus(int ProjectId)
         {
