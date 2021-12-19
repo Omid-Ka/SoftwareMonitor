@@ -16,5 +16,6 @@ namespace Domain.Interfaces
         void DeleteVersion(int versionId, ClaimsPrincipal user);
         ProjectVersion GetByPK(int versionId);
         void EditVersion(ProjectVersion model, ClaimsPrincipal user);
+        IEnumerable<ProjectVersion> GetSearchedVertion(string comment);
     }
 }

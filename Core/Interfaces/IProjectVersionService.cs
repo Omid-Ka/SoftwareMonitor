@@ -20,5 +20,6 @@ namespace Core.Interfaces
         void CloseVersion(int versionId, ClaimsPrincipal user);
         IEnumerable<ProjectVersion> GetAllVertionByProjectId(int projectId);
         bool VersionHasValid(int projectId, int versionId);
+        IEnumerable<ProjectVersionDTO> GetSearchedVertion(string comment);
     }
 }

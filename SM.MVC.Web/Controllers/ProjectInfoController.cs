@@ -28,8 +28,9 @@ namespace SM.MVC.Web.Controllers
         private ILoadAndSterssService _loadAndSterssService;
         private IProjectVersionService _projectVersionService;
         private IProjectCommentService _projectCommentService;
+        private INotificationService _notificationService;
 
-        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService, ILoadAndSterssService loadAndSterssService, IProjectVersionService projectVersionService, IProjectCommentService projectCommentService)
+        public ProjectInfoController(ILookupService lookupService, IProjectService projectService, ITestHeaderService testHeaderService, IDocReviewService docReviewService, ICodeReviewService codeReviewService, ICodeReviewDetailService codeReviewDetailService, ILoadAndSterssService loadAndSterssService, IProjectVersionService projectVersionService, IProjectCommentService projectCommentService, INotificationService notificationService)
         {
             _lookupService = lookupService;
             _projectService = projectService;
@@ -40,6 +41,7 @@ namespace SM.MVC.Web.Controllers
             _loadAndSterssService = loadAndSterssService;
             _projectVersionService = projectVersionService;
             _projectCommentService = projectCommentService;
+            _notificationService = notificationService;
         }
 
         public IActionResult Index()
@@ -121,6 +123,7 @@ namespace SM.MVC.Web.Controllers
 
             _testHeaderService.AddHeader(TestHeader, User);
 
+            _notificationService.AddNotification(Head.VersionId, User);
 
             foreach (var item in model.DocReviewList)
             {
@@ -257,6 +260,9 @@ namespace SM.MVC.Web.Controllers
             TestHeader.ProjectVersionId = Head.VersionId;
 
             _testHeaderService.AddHeader(TestHeader, User);
+
+
+            _notificationService.AddNotification(Head.VersionId, User);
 
 
             var CodeReview = new CodeReview()
@@ -458,6 +464,10 @@ namespace SM.MVC.Web.Controllers
             TestHeader.ProjectVersionId = model.VersionId;
 
             _testHeaderService.AddHeader(TestHeader,User);
+
+
+            _notificationService.AddNotification(model.VersionId, User);
+
 
             var LoadAndStress = new LoadAndSterss()
             {

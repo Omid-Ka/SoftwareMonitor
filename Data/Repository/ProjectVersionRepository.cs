@@ -71,5 +71,21 @@ namespace Data.Repository
             _SMContext.SaveChanges();
         }
 
+        public IEnumerable<ProjectVersion> GetSearchedVertion(string comment)
+        {
+            var CommentList = _SMContext.ProjectComment.Where(x => x.IsActive && x.Comment.Contains(comment))
+                .Select(x => x.VersionId).Distinct();
+
+
+            var version = _SMContext.ProjectVersion.Where(x => x.IsActive && x.Name.Contains(comment)).Select(x => x.Id)
+                .Distinct();
+
+            var VIds = CommentList.Union(version).Distinct().ToArray();
+
+            var data = _SMContext.ProjectVersion.Where(x => x.IsActive && VIds.Contains(x.Id));
+
+            return data;
+
+        }
     }
 }

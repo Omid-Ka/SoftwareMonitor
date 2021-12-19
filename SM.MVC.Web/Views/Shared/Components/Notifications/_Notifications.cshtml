@@ -1,0 +1,34 @@
+﻿@model List<Core.ViewModels.ShowNotification>
+
+    <li class="dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+            <i class="material-icons">notifications</i>
+            <span class="label-count">@ViewBag.CountOfNotifications</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="header">اعلان ها</li>
+            <li >
+                <ul class="menu">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <li>
+                            <a asp-controller="Comment" asp-action="Comments">
+                                <div class="icon-circle bg-light-green" style=" float: left;">
+                                    <i class="material-icons">notifications_active</i>
+                                </div>
+                                <div class="menu-info" style=" max-width: 82%;">
+                                    <h4>@Model[i].Description</h4>
+                                    <p>
+                                        <i class="material-icons">access_time</i> @Model[i].Time
+                                    </p>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+            @*<li class="footer">
+                <a href="javascript:void(0);">View All Notifications</a>
+            </li>*@
+        </ul>
+    </li>

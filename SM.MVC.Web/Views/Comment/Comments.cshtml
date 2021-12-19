@@ -45,8 +45,8 @@
             </div>
         </div>
         <div id="search">
-            <input type="text" placeholder="جستجو" />
-            <label for=""><i class="material-icons">search</i></label>
+            <input id="searchComment" type="text" placeholder="جستجو" />
+            <a onclick="SearchComment()" style="float: left;padding: 10px 0 6px 0px;"><i class="material-icons">search</i></a>
         </div>
         <div id="contacts">
             <ul>
@@ -108,6 +108,20 @@
 
     <script>
 
+        function SearchComment() {
+            var Comment = $("#searchComment").val();
+
+                $.ajax({
+                    url: "@Url.Action("SearchComment", "Comment")?Comment=" + Comment ,
+                    type: "POST",
+                    success: function (result) {
+                        $("#contacts").html(result);
+                    }
+                });
+
+
+        }
+
         function ShowConversation(id, versionid ) {
             $.ajax({
                 url: "@Url.Action("ShowConversation", "Comment")?ProjectId=" + id + "&VersionId=" + versionid ,
@@ -117,7 +131,6 @@
                 }
             });
         }
-
 
 
     </script>

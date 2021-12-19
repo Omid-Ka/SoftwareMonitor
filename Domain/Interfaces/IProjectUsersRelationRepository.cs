@@ -15,5 +15,6 @@ namespace Domain.Interfaces
         List<ProjectUsersRelation> GetAllProjectByUserId(int userId);
         void RemoveAccess(int projectId, int userid, ClaimsPrincipal user);
         void AddedAccess(int projectId, int userid, ClaimsPrincipal user);
+        int[] GetAllUserByProjectId(int projectId);
     }
 }

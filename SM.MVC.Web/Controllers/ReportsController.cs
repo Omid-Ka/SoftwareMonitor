@@ -161,5 +161,24 @@ namespace SM.MVC.Web.Controllers
 
             return round;
         }
+
+        public IActionResult ShowAllVersionProjectInfo(int ProjectId)
+        {
+            //var ReportTypes = _testHeaderService.GetTestListByProjectId(ProjectId, Version).Select(x => x.EntityType).Distinct().ToArray();
+            //ViewBag.ProjectId = ProjectId;
+
+            //ViewBag.hasCode = ReportTypes.Contains("CodeReview");
+            //ViewBag.Accurate = CodeReviewMatch(ProjectId, "Accurate", Version);
+            //ViewBag.High = CodeReviewMatch(ProjectId, "High", Version);
+            //ViewBag.Normal = CodeReviewMatch(ProjectId, "Normal", Version);
+            //ViewBag.Poor = CodeReviewMatch(ProjectId, "Poor", Version);
+
+            //ViewBag.PercentAccurate = CodeReviewMatchPercent(ProjectId, "Accurate", Version);
+            //ViewBag.PercentHigh = CodeReviewMatchPercent(ProjectId, "High", Version);
+            //ViewBag.PercentNormal = CodeReviewMatchPercent(ProjectId, "Normal", Version);
+            //ViewBag.PercentPoor = CodeReviewMatchPercent(ProjectId, "Poor", Version);
+
+            return PartialView("_ShowAllVersionProjectInfo");
+        }
     }
 }

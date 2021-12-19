@@ -82,5 +82,18 @@ namespace Core.Services
             return data.Any(x => x.Id == versionId);
 
         }
+
+        public IEnumerable<ProjectVersionDTO> GetSearchedVertion(string comment)
+        {
+            return _projectVersionRepository.GetSearchedVertion(comment).Select(x => new ProjectVersionDTO()
+            {
+                DateInserted = x.DateInserted,
+                Id = x.Id,
+                Name = x.Name,
+                ProjectId = x.ProjectId,
+                Status = x.Status,
+                ProjectName = _projectRepository.GetProjectById(x.ProjectId).ProjectName
+            });
+        }
     }
 }

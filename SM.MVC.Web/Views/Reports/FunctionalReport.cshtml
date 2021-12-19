@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6" id="VersionDropdown" >
+            <div class="col-sm-6" id="VersionDropdown">
                 <div class="form-group">
                     <div class="form-line">
                         <label class="control-label"> نسخه پروژه </label>
@@ -43,6 +43,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row clearfix">
             <div class="col-sm-2 ShowReportButtom">
                 <div class="form-group">
                     <a class="btn bg-indigo waves-effect" onclick="ShowProjectInfo()">
@@ -51,10 +54,20 @@
                     </a>
                 </div>
             </div>
+            <div class="col-sm-2 ShowReportButtom">
+                <div class="form-group">
+                    <a class="btn bg-indigo waves-effect" onclick="ShowAllVersionProjectInfo()">
+                        <i class="material-icons">trending_up</i>
+                        <span>گزارش جامع</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-8 ShowReportButtom">
+            </div>
 
         </div>
 
-    </div>
+</div>
 </div>
 <div id="ShowReport"></div>
 
@@ -62,7 +75,6 @@
 
 @section Scripts
 {
-    
     <script>
 
         $(document).ready(function() {
@@ -85,7 +97,7 @@
 
         });
     </script>
-    
+
 
     <script>
         function ShowProjectInfo() {
@@ -97,11 +109,30 @@
                 url: "@Url.Action("ShowProjectInfo", "Reports")?ProjectId=" + Project + "&Version=" + Version  ,
                 type: "POST",
                 success: function (result) {
+                    $("#ShowReport").empty();
                     $("#ShowReport").html(result);
                 }
             });
 
 
         }
+
+        function ShowAllVersionProjectInfo() {
+            var Project = $("#Projects").val();
+
+
+            $.ajax({
+                url: "@Url.Action("ShowAllVersionProjectInfo", "Reports")?ProjectId=" + Project  ,
+                type: "POST",
+                success: function (result) {
+                    $("#ShowReport").empty();
+                    $("#ShowReport").html(result);
+                }
+            });
+
+
+        }
+
+
     </script>
 }

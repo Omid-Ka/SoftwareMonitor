@@ -8,7 +8,7 @@
         var warning = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Warning"]))';    //'@TempData["Warning"]';
         var info = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Info"]))';          //'@TempData["Info"]';
         var error = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["Error"]))';        //'@TempData["Error"]';
-            
+
         if (success.length > 0) {
             toastr["success"](success);
         } else if (warning.length > 0) {
@@ -66,3 +66,13 @@
 <!-- notifications Js -->
 <script src="~/Admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
 <script src="~/Admin/js/pages/ui/notifications.js"></script>
+
+
+<!-- Charts Js -->
+
+<!--<script src="~/js/HighChart/highcharts.js"></script>
+<script src="~/js/HighChart/accessibility.js"></script>
+<script src="~/js/HighChart/export-data.js"></script>
+<script src="~/js/HighChart/exporting.js"></script>
+<script src="~/js/HighChart/variable-pie.js"></script>-->
+

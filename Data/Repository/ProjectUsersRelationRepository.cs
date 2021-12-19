@@ -71,5 +71,13 @@ namespace Data.Repository
 
 
         }
+
+        public int[] GetAllUserByProjectId(int projectId)
+        {
+            var list = _SMContext.ProjectUsersRelations.Where(x => x.IsActive && x.ProjectId == projectId)
+                .Select(x => x.UserId).Distinct().ToArray();
+
+            return list;
+        }
     }
 }

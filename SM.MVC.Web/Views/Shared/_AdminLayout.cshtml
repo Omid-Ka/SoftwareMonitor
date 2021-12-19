@@ -66,7 +66,8 @@
                     <!-- #END# Call Search -->
                     <!-- Notifications -->
 
-                    @await Html.PartialAsync("_Notifications")
+                    @*@await Html.PartialAsync("_Notifications")*@
+                    @await Component.InvokeAsync("Notifications");
 
                     <!-- #END# Notifications -->
                     <!-- Tasks -->
