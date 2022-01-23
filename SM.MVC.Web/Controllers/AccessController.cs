@@ -32,7 +32,7 @@ namespace SM.MVC.Web.Controllers
             _projectService = projectService;
             _projectUsersRelationService = projectUsersRelationService;
         }
-
+        
         public IActionResult Index()
         {
             return View();
