@@ -2,6 +2,7 @@ using Core.Interfaces;
 using Core.Services;
 using Data.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SM.MVC.Web.Controllers;
@@ -146,18 +147,64 @@ namespace UnitTestMonitoring
         [TestMethod]
         public void HomeTest()
         {
+            var Logger = new Mock<ILogger<HomeController>>();
+            var UserLogService = new Mock<IUserLogService>();
+
+            //Arrange
+            HomeController controller = new HomeController(Logger.Object, UserLogService.Object);
+
+            // Act
+            ViewResult result = controller.Index() as ViewResult;
+
+
+            //Assert
+            Assert.IsNotNull(result);
         }
 
 
         [TestMethod]
         public void LoginTest()
         {
+            var UsersService = new Mock<IUsersService>();
+            var UserLogService = new Mock<IUserLogService>();
+            var UserAccessService = new Mock<IUserAccessService>();
+            var AccessService = new Mock<IAccessService>();
+
+            //Arrange
+            LoginController controller = new LoginController(UsersService.Object, UserLogService.Object,
+                UserAccessService.Object, AccessService.Object);
+
+            // Act
+            ViewResult result = controller.Index() as ViewResult;
+
+
+            //Assert
+            Assert.IsNotNull(result);
+
         }
 
 
         [TestMethod]
         public void ProjectTest()
         {
+            var projectService = new Mock<IProjectService>();
+            var usersService = new Mock<IUsersService>();
+            var teamService = new Mock<ITeamService>();
+            var partnersService = new Mock<IPartnersService>();
+            var attachmentService = new Mock<IAttachmentService>();
+            var projectVersionService = new Mock<IProjectVersionService>();
+
+            //Arrange
+            ProjectController controller = new ProjectController(projectService.Object, usersService.Object,
+                teamService.Object, partnersService.Object, attachmentService.Object, projectVersionService.Object);
+
+            // Act
+            ViewResult result = controller.CreateProject() as ViewResult;
+
+
+            //Assert
+            Assert.IsNotNull(result);
+
         }
 
 
