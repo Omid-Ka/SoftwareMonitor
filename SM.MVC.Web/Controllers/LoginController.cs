@@ -36,7 +36,7 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User != null && User.Identity.IsAuthenticated)
             {
                 if (_usersService.IsDisable(User))
                 {

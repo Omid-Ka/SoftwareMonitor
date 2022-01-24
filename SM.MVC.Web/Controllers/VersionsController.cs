@@ -32,10 +32,16 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult CreateVersion()
         {
-
-            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
+            if (User != null)
+            {
+                ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
                 "ProjectName");
-            return View();
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -50,7 +56,7 @@ namespace SM.MVC.Web.Controllers
                 NotifyError("در ثبت اطلاعات دقت فرمایید");
                 return View("CreateVersion", model);
             }
-            if (model.ProjectId == 0 )
+            if (model.ProjectId == 0)
             {
                 NotifyError("انتخاب پروژه الزامیست");
                 return View("CreateVersion", model);
@@ -74,9 +80,9 @@ namespace SM.MVC.Web.Controllers
         }
 
         public IActionResult DeleteVersion(int VersionId)
-        { 
-            
-            _projectVersionService.DeleteVersion(VersionId,User);
+        {
+
+            _projectVersionService.DeleteVersion(VersionId, User);
 
             var date = _projectVersionService.GetAllVertion();
 
@@ -136,9 +142,9 @@ namespace SM.MVC.Web.Controllers
             return PartialView("_VersionGrid", date);
         }
 
-        public IActionResult VersionDropDownItem(int ProjectId)         
+        public IActionResult VersionDropDownItem(int ProjectId)
         {
-            ViewBag.Version = new SelectList( _projectVersionService.GetAllVertionByProjectId(ProjectId) , "Id", "Name");
+            ViewBag.Version = new SelectList(_projectVersionService.GetAllVertionByProjectId(ProjectId), "Id", "Name");
 
             return PartialView("_VersionDropDownItem");
         }

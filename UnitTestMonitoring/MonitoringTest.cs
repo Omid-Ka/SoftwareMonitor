@@ -211,18 +211,71 @@ namespace UnitTestMonitoring
         [TestMethod]
         public void ProjectInfoTest()
         {
+
+            var lookupService = new Mock<ILookupService>();
+            var projectService = new Mock<IProjectService>();
+            var testHeaderService = new Mock<ITestHeaderService>();
+            var docReviewService = new Mock<IDocReviewService>();
+            var codeReviewService = new Mock<ICodeReviewService>();
+            var codeReviewDetailService = new Mock<ICodeReviewDetailService>();
+            var loadAndSterssService = new Mock<ILoadAndSterssService>();
+            var projectVersionService = new Mock<IProjectVersionService>();
+            var projectCommentService = new Mock<IProjectCommentService>();
+            var notificationService = new Mock<INotificationService>();
+
+            //Arrange
+            ProjectInfoController controller = new ProjectInfoController( lookupService.Object,
+                 projectService.Object,  testHeaderService.Object,
+                 docReviewService.Object,  codeReviewService.Object,
+                 codeReviewDetailService.Object,  loadAndSterssService.Object,
+                 projectVersionService.Object,  projectCommentService.Object,
+                 notificationService.Object);
+
+            // Act
+            ViewResult result = controller.DocReview() as ViewResult;
+
+
+            //Assert
+            Assert.IsNotNull(result);
         }
 
 
         [TestMethod]
         public void ReportsTest()
         {
+            var projectService = new Mock<IProjectService>();
+            var testHeaderService = new Mock<ITestHeaderService>();
+            var docReviewService = new Mock<IDocReviewService>();
+            var codeReviewService = new Mock<ICodeReviewService>();
+
+            //Arrange
+            ReportsController controller = new ReportsController( projectService.Object,
+                 codeReviewService.Object,  testHeaderService.Object, docReviewService.Object);
+
+            // Act
+            ViewResult result = controller.FunctionalReport() as ViewResult;
+
+
+            //Assert
+            Assert.IsNotNull(result);
         }
 
 
         [TestMethod]
         public void VersionsTest()
         {
+            var projectService = new Mock<IProjectService>();
+            var projectVersionService = new Mock<IProjectVersionService>();
+
+            //Arrange
+            VersionsController controller = new VersionsController(projectVersionService.Object, projectService.Object);
+
+            // Act
+            ViewResult result = controller.CreateVersion() as ViewResult;
+
+
+            //Assert
+            Assert.IsNotNull(result);
         }
     }
 }

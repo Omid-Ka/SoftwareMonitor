@@ -36,11 +36,19 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult FunctionalReport()
         {
+            if (User != null)
+            {
+                ViewBag.Projects = new SelectList(
+                    _projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims
+                        .Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
+                    "ProjectName");
 
-            ViewBag.Projects = new SelectList(_projectService.GetAllProjectAssignedByUserId(Convert.ToInt32(User.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value).FirstOrDefault())), "Id",
-                "ProjectName");
-
-            return View();
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult Test()
