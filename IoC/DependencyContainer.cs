@@ -2,10 +2,12 @@
 using Core.Services;
 using Data.Repository;
 using Domain.Interfaces;
+using EmailService.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using EmailService.Repository;
 
 namespace IoC
 {
@@ -96,6 +98,8 @@ namespace IoC
             service.AddScoped<INotificationService, NotificationService>();
             service.AddScoped<INotificationRepository, NotificationRepository>();
 
+
+            service.AddScoped<IEmailSender, EmailSender>();
         }
     }
 }

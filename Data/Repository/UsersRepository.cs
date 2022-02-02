@@ -110,5 +110,25 @@ namespace Data.Repository
         {
             return _SMContext.Users.Where(x => x.IsActive && userArray.Contains(x.Id)).ToList();
         }
+
+        public bool ExistsEmail(string email)
+        {
+            return _SMContext.Users.Any(x => x.Email == email);
+        }
+
+        public Users GetUserByEmail(string email)
+        {
+            return _SMContext.Users.First(x => x.Email == email);
+        }
+
+        public void UpdateUserPassword(Users currentUser)
+        {
+            var user = _SMContext.Users.Find(currentUser.Id);
+
+            _SMContext.Users.Update(user);
+
+            _SMContext.SaveChanges();
+
+        }
     }
 }

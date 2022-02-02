@@ -21,5 +21,8 @@ namespace Core.Interfaces
         Users GetUserById(int userId);
         void EditUser(Users model, ClaimsPrincipal user);
         bool IsDisable(ClaimsPrincipal user);
+        bool ExistsEmail(string email);
+        Users GetUserByEmail(string email);
+        void UpdateUserPassword(Users currentUser);
     }
 }

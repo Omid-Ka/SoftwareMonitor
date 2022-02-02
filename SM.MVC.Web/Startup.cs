@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Data;
+using EmailService;
 using IoC;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -30,6 +31,11 @@ namespace SM.MVC.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var emailConfig = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+
+            services.AddSingleton(emailConfig);
+
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("SoftwareMonitorIdentityDBConnection")));

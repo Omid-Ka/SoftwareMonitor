@@ -85,5 +85,20 @@ namespace Core.Services
         {
             return _usersRepository.IsDisable(user);
         }
+
+        public bool ExistsEmail(string email)
+        {
+            return _usersRepository.ExistsEmail(email);
+        }
+
+        public Users GetUserByEmail(string email)
+        {
+            return _usersRepository.GetUserByEmail(email);
+        }
+
+        public void UpdateUserPassword(Users currentUser)
+        {
+            _usersRepository.UpdateUserPassword(currentUser);
+        }
     }
 }

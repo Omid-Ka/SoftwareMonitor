@@ -22,5 +22,8 @@ namespace Domain.Interfaces
         bool IsDisable(ClaimsPrincipal user);
         string GetFullNameById(int userid);
         List<Users> GetAllUsersByIds(int[] userArray);
+        bool ExistsEmail(string email);
+        Users GetUserByEmail(string email);
+        void UpdateUserPassword(Users currentUser);
     }
 }

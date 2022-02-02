@@ -54,8 +54,10 @@ h1, h2, h3, h4, h5 {
 
 /* start all section */
 #work, #about, #portfolio, #contact {
-    padding-top: 100px;
-    padding-bottom: 120px;
+    /*padding-top: 100px;
+    padding-bottom: 120px;*/
+    padding-top: 60px;
+    padding-bottom: 87px;
 }
 /* end all section */
 
@@ -241,7 +243,7 @@ h1, h2, h3, h4, h5 {
 
         #work .media .media-heading {
             font-weight: 600;
-            font-size: 20px;
+            font-size: 22px;
             padding-bottom: 10px;
         }
 /* end work */
@@ -249,6 +251,7 @@ h1, h2, h3, h4, h5 {
 /* start about */
 #about h4 {
     padding: 15px 0;
+    font-size: 25px;
     color: #D43F52;
 }
 

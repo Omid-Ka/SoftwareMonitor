@@ -1,7 +1,20 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@section Styles
+{
+    <style>
+        .DescriptionColor {
+            color: #8e8e8e;
+            font-size: 18px;
+        }
 
+        .TeamHeader {
+            color: #827f7f;
+        }
+
+    </style>
+}
     <div id="fullpage">
 
         <!-- start home -->
@@ -12,7 +25,7 @@
                         <h3>سامانه پایش سیستم های نرم افزاری</h3>
                         <h1>SQCA</h1>
                         <h2 class="rotate">پایش عملکرد سامانه ها, پیاده سازی داشبورد های مدیریت , مشاور سیستم های سازمانی</h2>
-                        <p>توضیحات</p>
+                        <p class="DescriptionColor">توضیحات</p>
                         <a asp-controller="Login" asp-action="Index" class="btn btn-default smoothScroll wow fadeInUp" data-wow-delay="1s">ورود به سامانه</a>
                     </div>
                     <div class="col-md-2"></div>
@@ -38,7 +51,7 @@
                             </div>
                             <div class="media-body">
                                 <h3 class="media-heading">نظارت بر پروژه ها</h3>
-                                <p style="text-align: justify;" >تجربه طولانی تیم SQCA در مشاوره و نظارت بر پروژه های نرم افزاری، حاصل مشارکت در پروژه های متعدد نرم افزاری در سطح ملی است</p>
+                                <p class="DescriptionColor" style="text-align: justify;" >تجربه طولانی تیم SQCA در مشاوره و نظارت بر پروژه های نرم افزاری، حاصل مشارکت در پروژه های متعدد نرم افزاری در سطح ملی است</p>
                             </div>
                         </div>
                     </div>
@@ -50,7 +63,7 @@
                             </div>
                             <div class="media-body">
                                 <h3 class="media-heading">پایش عملکرد سیستم ها</h3>
-                                <p style="text-align: justify;">پایش عملکرد سیستم ها مهمترین فعالیت حساس یک تیم نرم افزاری در یک سازمان محسوب می شود که به تنهایی می تواند باعث بالا رفتن کارایی سرویس ها ، صرفه جویی در هزینه های سازمان شود.</p>
+                                <p class="DescriptionColor" style="text-align: justify;">پایش عملکرد سیستم ها مهمترین فعالیت حساس یک تیم نرم افزاری در یک سازمان محسوب می شود که به تنهایی می تواند باعث بالا رفتن کارایی سرویس ها ، صرفه جویی در هزینه های سازمان شود.</p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +75,7 @@
                             </div>
                             <div class="media-body">
                                 <h3 class="media-heading">کنترل تضمین کیفیت </h3>
-                                <p style="text-align: justify;">تیم SQCA با انجام انواع تست های عملکردی و غیرعملکردی کیفیت سامانه های سازمانی را بررسی می نماید.</p>
+                                <p  class="DescriptionColor" style="text-align: justify;">تیم SQCA با انجام انواع تست های عملکردی و غیرعملکردی کیفیت سامانه های سازمانی را بررسی می نماید.</p>
                             </div>
                         </div>
                     </div>
@@ -95,10 +108,10 @@
                     </div>*@
 
                     <div class="col-md-12 col-xs-11 wow fadeInRight" data-wow-delay="0.9s">
-                        <h2>تیم SQCA</h2>
+                        <h2 class="TeamHeader">تیم SQCA</h2>
                         <h4>کنترل تضمین کیفیت نرم افزار</h4>
-                        <p style="text-align: justify;">تضمین کیفیت نرم افزار (SQA) فرایندی است که اطمینان می دهد کلیه فرایندها ، روش ها ، فعالیت ها و موارد مهندسی نرم افزار تحت نظارت بوده و مطابق با استانداردهای تعریف شده است. این استانداردهای تعریف شده می تواند یکی یا ترکیبی از ISO 9000 ، مدل CMMI ، ISO15504 و غیره باشد.</p>
-                        <p style="text-align: justify;">تیم SQCA به شرکت ها کمک می کند تا خطاهای پنهان و نقص برنامه ها را تشخیص دهند. شناسایی و تشخیص این مشکلات قبل از راه اندازی محصول برای موفقیت آن ضروری است. بدون وجود تیم آزمایش پروژه ، این نقص ها می توانند به محصول نهایی نفوذ کرده و عملکرد آن را در محیط زنده تحت تأثیر قرار دهند.</p>
+                        <p class="DescriptionColor" style="text-align: justify;">تضمین کیفیت نرم افزار (SQA) فرایندی است که اطمینان می دهد کلیه فرایندها ، روش ها ، فعالیت ها و موارد مهندسی نرم افزار تحت نظارت بوده و مطابق با استانداردهای تعریف شده است. این استانداردهای تعریف شده می تواند یکی یا ترکیبی از ISO 9000 ، مدل CMMI ، ISO15504 و غیره باشد.</p>
+                        <p class="DescriptionColor" style="text-align: justify;">تیم SQCA به شرکت ها کمک می کند تا خطاهای پنهان و نقص برنامه ها را تشخیص دهند. شناسایی و تشخیص این مشکلات قبل از راه اندازی محصول برای موفقیت آن ضروری است. بدون وجود تیم آزمایش پروژه ، این نقص ها می توانند به محصول نهایی نفوذ کرده و عملکرد آن را در محیط زنده تحت تأثیر قرار دهند.</p>
                     </div>
 
                 </div>
@@ -116,8 +129,8 @@
                         <div class="portfolio-thumb">
                             <img src="images/portfolio-img1.jpg" class="img-responsive" alt="portfolio img">
                             <div class="portfolio-overlay">
-                                @*<h4>Web Design</h4>
-                                <h5>Author: Cindy</h5>*@
+                                <h4>تحقیق و شناخت بهترین روشهای جهانی</h4>
+                                @*<h5>Author: Cindy</h5>*@
                             </div>
                         </div>
                     </div>
@@ -125,8 +138,8 @@
                         <div class="portfolio-thumb">
                             <img src="images/portfolio-img2.jpg" class="img-responsive" alt="portfolio img">
                             <div class="portfolio-overlay">
-                                @*<h4>Web App</h4>
-                                <h5>Author: Linda</h5>*@
+                                <h4>اتنخاب مناسبترین پیمانکاران</h4>
+                                @*<h5>Author: Linda</h5>*@
                             </div>
                         </div>
                     </div>
@@ -134,8 +147,8 @@
                         <div class="portfolio-thumb">
                             <img src="images/portfolio-img3.jpg" class="img-responsive" alt="portfolio img">
                             <div class="portfolio-overlay">
-                                @*<h4>Mobile App</h4>
-                                <h5>Author: Kate</h5>*@
+                                <h4>پیاده سازی و توسعه سامانه ها و راه های ارتباطی آنان</h4>
+                                @*<h5>Author: Kate</h5>*@
                             </div>
                         </div>
                     </div>
@@ -143,8 +156,8 @@
                         <div class="portfolio-thumb">
                             <img src="images/portfolio-img4.jpg" class="img-responsive" alt="portfolio img">
                             <div class="portfolio-overlay">
-                                @*<h4>Old Artwork</h4>
-                                <h5>Author: Catherine</h5>*@
+                                <h4>کنترل منابع مورد نیاز</h4>
+                                @*<h5>Author: Catherine</h5>*@
                             </div>
                         </div>
                     </div>
@@ -152,8 +165,8 @@
                         <div class="portfolio-thumb">
                             <img src="images/portfolio-img5.jpg" class="img-responsive" alt="portfolio img">
                             <div class="portfolio-overlay">
-                                @*<h4>New Animation</h4>
-                                <h5>Author: Kathy</h5>*@
+                                <h4>پایش لحظه ای سامانه های درحال اجرا</h4>
+                                @*<h5>Author: Kathy</h5>*@
                             </div>
                         </div>
                     </div>
@@ -177,10 +190,10 @@
 
                     <div class="col-lg-5 col-lg-offset-1 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                         <address>
-                            <p class="contact-title">ارتباط با ما</p>
-                            <p><i class="fa fa-phone"></i> 3631 - 3624 - 3629 - 3623 </p>
-                            <p><i class="fa fa-envelope-o"></i> SQCA@pdnco.com</p>
-                            <p><i class="fa fa-map-marker"></i> ساختمان هفت تیر - طبقه چهار - اتاق 404</p>
+                            <p class="contact-title DescriptionColor">ارتباط با ما</p>
+                            <p class="DescriptionColor"><i class="fa fa-phone"></i> 3631 - 3624 - 3629 - 3623 </p>
+                            <p class="DescriptionColor"><i class="fa fa-envelope-o"></i> SQCA@pdnco.com</p>
+                            <p class="DescriptionColor"><i class="fa fa-map-marker"></i> ساختمان هفت تیر - طبقه چهار - اتاق 404</p>
                         </address>
                     </div>
 
