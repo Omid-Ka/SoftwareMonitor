@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-SM.MVC.Web-92F64045-90DE-4984-987E-88D6DF7E6D19</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     <PackageReference Include="datatables.net" Version="1.11.3" />

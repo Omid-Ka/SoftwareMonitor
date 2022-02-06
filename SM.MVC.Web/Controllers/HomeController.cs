@@ -108,8 +108,8 @@ namespace SM.MVC.Web.Controllers
                     _usersService.UpdateUserPassword(CurrentUser);
 
                     var Content = string.Format("باسلام و احترام /n " +
-                                                "کلمه عبور شما /n" +
-                                                "{0} /n" +
+                                                "کلمه عبور شما \n" +
+                                                "{0} \n" +
                                                 " می باشد.", NewPassword);
 
                     var message = new Message(new string[] { Model.Email }, "بازیابی کلمه عبور", Content);

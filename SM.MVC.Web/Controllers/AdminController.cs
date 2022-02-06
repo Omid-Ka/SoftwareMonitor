@@ -21,5 +21,16 @@ namespace SM.MVC.Web.Controllers
         {
             return View();
         }
+
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        public IActionResult PostChangePassword()
+        {
+            return null;
+        }
     }
 }
