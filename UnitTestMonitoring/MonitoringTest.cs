@@ -1,6 +1,7 @@
 using Core.Interfaces;
 using Core.Services;
 using Data.Repository;
+using EmailService.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -149,9 +150,11 @@ namespace UnitTestMonitoring
         {
             var Logger = new Mock<ILogger<HomeController>>();
             var UserLogService = new Mock<IUserLogService>();
+            var UserService = new Mock<IUsersService>();
+            var EmailSender = new Mock<IEmailSender>();
 
             //Arrange
-            HomeController controller = new HomeController(Logger.Object, UserLogService.Object);
+            HomeController controller = new HomeController(Logger.Object, UserLogService.Object , UserService.Object, EmailSender.Object);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;

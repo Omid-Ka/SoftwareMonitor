@@ -131,5 +131,9 @@ namespace SM.MVC.Web.Controllers
             return View("ForgotPassword");
         }
 
+        //public IActionResult SelectedLink(string Access)
+        //{
+            
+        //}
     }
 }

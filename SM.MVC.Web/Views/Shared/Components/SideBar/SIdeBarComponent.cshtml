@@ -70,6 +70,15 @@
         });
     });
 
+    function SideBarClick(Access) {
+        $.ajax({
+            url: "@Url.Action("SelectedLink", "Home")?Access=" + Access  ,
+            type: "POST",
+            success: function (result) 
+        });
+    }
+
+
 </script>
 
 
@@ -88,34 +97,35 @@
                 <span>مدیریت کاربران</span>
             </a>
             <ul class="ml-menu">
-                <li user-access="@AccessConst.BaseInfo">
+                <li user-access="@AccessConst.BaseInfo" onclick="SideBarClick(@AccessConst.BaseInfo)">
                     <a asp-controller="BasicInformation" asp-action="Index">اطلاعات پایه</a>
                 </li>
-                <li user-access="@AccessConst.UserList">
+                <li user-access="@AccessConst.UserList" onclick="SideBarClick(@AccessConst.UserList)">
                     <a asp-controller="Account" asp-action="Index">لیست کاربران</a>
                 </li>
                 <li>
-                <li user-access="@AccessConst.AddAccessGroup">
+                <li user-access="@AccessConst.AddAccessGroup" onclick="SideBarClick(@AccessConst.AddAccessGroup)">
                     <a asp-controller="Access" asp-action="AccessGroups">گروه های کاربری</a>
                 </li>
             </ul>
         </li>
+
         <li>
             <a href="javascript:void(0);" class="menu-toggle">
                 <i class="material-icons">assignment</i>
                 <span>مدیریت پروژه ها</span>
             </a>
             <ul class="ml-menu">
-                <li user-access="@AccessConst.TeamInfo">
+                <li user-access="@AccessConst.TeamInfo" onclick="SideBarClick(@AccessConst.TeamInfo)">
                     <a asp-controller="BasicInformation" asp-action="TeamInformation">اطلاعات پایه</a>
                 </li>
-                <li user-access="@AccessConst.VersionInfo">
+                <li user-access="@AccessConst.VersionInfo" onclick="SideBarClick(@AccessConst.VersionInfo)">
                     <a asp-controller="Versions" asp-action="Index">نسخه های پروژه ها</a>
                 </li>
-                <li user-access="@AccessConst.ProjectList">
+                <li user-access="@AccessConst.ProjectList" onclick="SideBarClick(@AccessConst.ProjectList)">
                     <a asp-controller="Project" asp-action="Index">لیست پروژه ها</a>
                 </li>
-                <li user-access="@AccessConst.ProjectComments">
+                <li user-access="@AccessConst.ProjectComments" onclick="SideBarClick(@AccessConst.ProjectComments)">
                     <a asp-controller="Comment" asp-action="Comments">نظرات</a>
                 </li>
 
@@ -127,13 +137,13 @@
                 <span>ثبت نتایج آزمون ها</span>
             </a>
             <ul class="ml-menu">
-                <li user-access="@AccessConst.AddDocReview">
+                <li user-access="@AccessConst.AddDocReview" onclick="SideBarClick(@AccessConst.AddDocReview)">
                     <a asp-controller="ProjectInfo" asp-action="DocReview">اطلاعات بررسی سند</a>
                 </li>
-                <li user-access="@AccessConst.AddCodeReview">
+                <li user-access="@AccessConst.AddCodeReview" onclick="SideBarClick(@AccessConst.AddCodeReview)">
                     <a asp-controller="ProjectInfo" asp-action="CodeReview">اطلاعات بررسی کد</a>
                 </li>
-                <li user-access="@AccessConst.AddLoadAndStress">
+                <li user-access="@AccessConst.AddLoadAndStress" onclick="SideBarClick(@AccessConst.AddLoadAndStress)">
                     <a asp-controller="ProjectInfo" asp-action="LoadAndStress">آزمایش های بار / فشار</a>
                 </li>
             </ul>
@@ -144,13 +154,13 @@
                 <span>گزارشات</span>
             </a>
             <ul class="ml-menu">
-                <li user-access="@AccessConst.FunctionalReport">
+                <li user-access="@AccessConst.FunctionalReport" onclick="SideBarClick(@AccessConst.FunctionalReport)">
                     <a asp-controller="Reports" asp-action="FunctionalReport">گزارشات عملکردی</a>
                 </li>
-                <li user-access="@AccessConst.NonFunctionalReport">
+                <li user-access="@AccessConst.NonFunctionalReport" onclick="SideBarClick(@AccessConst.NonFunctionalReport)">
                     <a href="#">گزارشات غیر عملکردی</a>
                 </li>
-                <li user-access="@AccessConst.ApiReport">
+                <li user-access="@AccessConst.ApiReport" onclick="SideBarClick(@AccessConst.ApiReport)">
                     <a href="#">گزارشات سرویس ها</a>
                 </li>
             </ul>

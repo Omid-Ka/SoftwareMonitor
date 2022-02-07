@@ -10954,6 +10954,7 @@ fieldset[disabled] .form-control {
 /* Jquery DataTable ============================ */
 .dataTables_wrapper {
     position: relative;
+    width: 98%;
 }
 
     .dataTables_wrapper select {
