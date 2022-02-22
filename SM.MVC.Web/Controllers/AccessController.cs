@@ -336,7 +336,7 @@ namespace SM.MVC.Web.Controllers
                 return PartialView("_UserAccessModal", model);
             }
 
-            return PartialView("_UserAccessModal", model); 
+            //return PartialView("_UserAccessModal", model); 
         }
 
 

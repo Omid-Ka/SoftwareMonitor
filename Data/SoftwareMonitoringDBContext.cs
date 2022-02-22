@@ -41,7 +41,7 @@ namespace Data
         public DbSet<ProjectVersion> ProjectVersion { set; get; }
         public DbSet<ProjectComment> ProjectComment { set; get; }
         public DbSet<Notification> Notifications { set; get; }
-        public DbSet<SelectedAccess> SelectedAccess { set; get; }
+        //public DbSet<SelectedAccess> SelectedAccess { set; get; }
 
     }
 }
