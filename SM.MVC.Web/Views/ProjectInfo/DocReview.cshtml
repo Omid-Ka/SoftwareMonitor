@@ -36,6 +36,8 @@
                                             <th class="align-right">عنوان تست</th>
                                             <th class="align-right">تاریخ ثبت</th>
                                             <th class="align-right">نام پروژه</th>
+                                            <th class="align-right">نسخه پروژه</th>
+                                            <th class="align-right">وضعیت نمودارها</th>
                                             <th class="align-right">عملیات</th>
                                         </tr>
                                     </thead>
@@ -45,6 +47,8 @@
                                             <th class="align-right">عنوان تست</th>
                                             <th class="align-right">تاریخ ثبت</th>
                                             <th class="align-right">نام پروژه</th>
+                                            <th class="align-right">نسخه پروژه</th>
+                                            <th class="align-right">وضعیت نمودارها</th>
                                             <th class="align-right">عملیات</th>
                                         </tr>
                                     </tfoot>
@@ -56,6 +60,8 @@
                                                 <th class="align-right">@item.Title</th>
                                                 <th class="align-right">@item.DateInserted.GetPrsianDate()</th>
                                                 <th class="align-right">@item.ProjectName</th>
+                                                <th class="align-right">@item.StatusOfCharts</th>
+                                                <th class="align-right">@item.Version</th>
                                                 <th class="align-right">
                                                     <a class="btn bg-amber waves-effect" onclick="DeleteDoc(@item.Id)"> حذف سند </a>
                                                     <a class="btn bg-light-green waves-effect" onclick="EditDoc(@item.Id)"> ویرایش سند </a>
@@ -125,7 +131,7 @@
             });
         }
 
-        
+
 
     </script>
 

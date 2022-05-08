@@ -21,7 +21,11 @@ namespace Core.ViewModels
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public DateTime DateInserted { get; set; }
-        
+        public string StatusOfCharts { get; set; }
+        public string Version { get; set; }
+        public string MatchGroups { get; set; }
+        public string AllCountRow { get; set; }
+
     }
 
 

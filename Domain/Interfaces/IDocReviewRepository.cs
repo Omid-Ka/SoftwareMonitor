@@ -16,5 +16,6 @@ namespace Domain.Interfaces
         IEnumerable<DocReview> GetDocReviewsByDocId(int docId);
         void UpdatedocReview(DocReview item, ClaimsPrincipal user);
         void DeleteItemsByDocId(int docId, ClaimsPrincipal user);
+        string StatusOfCharts(int testId);
     }
 }

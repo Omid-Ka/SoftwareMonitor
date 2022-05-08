@@ -73,5 +73,20 @@ namespace Data.Repository
 
         }
 
+        public string StatusOfCharts(int testId)
+        {
+            var data = _SMContext.DocReviews.Where(x => x.TestHeaderId == testId);
+
+            if (data.Any(x => x.DocReviewAnswer == DocReviewAnswer.Incomplete) ||
+                data.Any(x => x.DocReviewAnswer == DocReviewAnswer.Less))
+            {
+                return "ناقص";
+            }
+            else
+            {
+                return "کامل";
+            }
+
+        }
     }
 }

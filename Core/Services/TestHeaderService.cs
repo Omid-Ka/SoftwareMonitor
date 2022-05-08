@@ -21,8 +21,9 @@ namespace Core.Services
         private IDocReviewRepository _docReviewRepository;
         private ICodeReviewRepository _codeReviewRepository;
         private ILoadAndSterssRepository _loadAndSterssRepository;
+        private IProjectVersionRepository _projectVersionRepository;
 
-        public TestHeaderService(ITestHeaderRepository testHeaderRepository, IProjectRepository projectRepository, ILookupRepository lookupRepository, IDocReviewRepository docReviewRepository, ICodeReviewRepository codeReviewRepository, ILoadAndSterssRepository loadAndSterssRepository)
+        public TestHeaderService(ITestHeaderRepository testHeaderRepository, IProjectRepository projectRepository, ILookupRepository lookupRepository, IDocReviewRepository docReviewRepository, ICodeReviewRepository codeReviewRepository, ILoadAndSterssRepository loadAndSterssRepository, IProjectVersionRepository projectVersionRepository)
         {
             _testHeaderRepository = testHeaderRepository;
             _projectRepository = projectRepository;
@@ -30,6 +31,7 @@ namespace Core.Services
             _docReviewRepository = docReviewRepository;
             _codeReviewRepository = codeReviewRepository;
             _loadAndSterssRepository = loadAndSterssRepository;
+            _projectVersionRepository = projectVersionRepository;
         }
 
         public List<TestHeaderVM> GetTestHeaders(TestType TestType, int testId)
@@ -45,7 +47,19 @@ namespace Core.Services
                 ProjectName = (_projectRepository.GetProjectById(x.ProjectId) != null)
                     ? _projectRepository.GetProjectById(x.ProjectId).ProjectName
                     : "",
-                Title = _lookupRepository.GetByLookupId(x.TitleId).Description
+                Version = x.ProjectVersionId != null && (_projectVersionRepository.GetByPK(x.ProjectVersionId.Value) != null)
+                    ? _projectVersionRepository.GetByPK(x.ProjectVersionId.Value).Name
+                    : "",
+
+                Title = _lookupRepository.GetByLookupId(x.TitleId).Description,
+                StatusOfCharts = _docReviewRepository.StatusOfCharts(x.Id),
+                MatchGroups = (_codeReviewRepository.GetCodeReviewsByHeaderId(x.Id) != null)
+                    ? _codeReviewRepository.GetCodeReviewsByHeaderId(x.Id).MatchGroups.ToString()
+                    : "",
+                AllCountRow = (_codeReviewRepository.GetCodeReviewsByHeaderId(x.Id) != null)
+                    ? _codeReviewRepository.GetCodeReviewsByHeaderId(x.Id).AllCountRow.ToString()
+                    : ""
+
 
             });
             return Result.ToList();

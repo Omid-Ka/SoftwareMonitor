@@ -61,13 +61,14 @@ namespace SM.MVC.Web.Controllers
             var model = new ConversationDTO();
 
             var Project = _projectService.GetProjectById(ProjectId);
-            var Comments = _projectCommentService.GetAllCommentByProjectId(ProjectId).Where(x => x.VersionId == VersionId);
+            var Comments = _projectCommentService.GetAllCommentByProjectId(ProjectId).Where(x => x.VersionId == VersionId).OrderByDescending(x=>x.Id);
 
             model.ProjectId = ProjectId;
             model.versionId = VersionId;
             model.ProjectName = Project.ProjectName;
             model.ConversationDetails = new List<ConversationDetail>();
 
+            
             foreach (var projectComment in Comments)
             {
                 var Creator = _usersService.GetUserById(projectComment.CreatorID);
