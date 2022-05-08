@@ -3,10 +3,13 @@
 
 <form asp-action="AddPartners" id="CreateForm">
     <div id="SubPartner">
-        @Html.HiddenFor(x=>x.Project.Id)
+
+        @Html.HiddenFor(x => x.Project.Id)
+
         @for (int i = 0; i < Model.Partners.Count; i++)
         {
-            @Html.HiddenFor(x=>x.Partners[i].Id)
+            @Html.HiddenFor(x => x.Partners[i].Id)
+            @Html.HiddenFor(x => x.Partners[i].ProjectId)
             <div class="row clearfix">
                 @*@Html.Hidden("Model.Partners[" + i + "].PartnerTeam", Model.Partners[i].PartnerTeam)*@
                 <div class="col-sm-3">
@@ -14,7 +17,7 @@
                         <div class="form-line">
                             <label asp-for="Partners[i].PartnerTeam" class="control-label"></label>
                             <br />
-                            @Html.EditorFor(x => x.Partners[i].PartnerTeam, "Enum")
+                            @Html.EditorFor(x => x.Partners[i].PartnerTeam, "Enum",new { selected = @Model.Partners[i].PartnerTeam })
                             <span asp-validation-for="Partners[i].PartnerTeam" class="text-danger"></span>
                         </div>
                     </div>
@@ -60,7 +63,6 @@
 
     function AddSubPartner() {
         var data = $("#CreateForm").serialize();
-        debugger;
         $.ajax({
             url: "@Url.Action("AddSubPartner", "Project")",
             data: data,

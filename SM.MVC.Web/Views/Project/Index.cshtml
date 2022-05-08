@@ -196,8 +196,7 @@
 
 
         function FinalAddPartners() {
-            var data = $("#AddForm").serialize();
-            debugger;
+            var data = $("#CreateForm").serialize();
             $.ajax({
                 url: "@Url.Action("FinalAddPartners", "Project")",
                 data: data,

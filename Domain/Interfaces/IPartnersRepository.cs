@@ -14,5 +14,6 @@ namespace Domain.Interfaces
         List<Partners> GetAllPartnerVMByProjectId(int projectId);
         IEnumerable<Partners> GetAllTeamsByProjectId(int projectId);
         IEnumerable<Partners> GetAllUsersByProjectId(int projectId);
+        void DeletePartnerByPK(int? id, ClaimsPrincipal user);
     }
 }

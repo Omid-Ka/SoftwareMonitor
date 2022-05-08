@@ -107,6 +107,9 @@ namespace Core.Services
             return ShowPartners;
         }
 
-
+        public void DeletePartnerByPK(int? id, ClaimsPrincipal user)
+        {
+            _partnersRepository.DeletePartnerByPK(id,user);
+        }
     }
 }

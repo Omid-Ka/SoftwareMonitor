@@ -89,14 +89,40 @@ namespace SM.MVC.Web.Controllers
             {
                 foreach (var item in model.Partners)
                 {
+                    //if (item.UserId > 0 || item.TeamId > 0)
+                    //{
+                    //    var Partners = new Partners()
+                    //    {
+                    //        Id = item.Id ?? 0 ,
+                    //        ProjectId = model.Project.Id,
+                    //        TeamId = item.TeamId,
+                    //        UserId = item.UserId
+                    //    };
+                    //    _partnersService.AddPartner(Partners, User);
+                    //}
                     if (item.UserId > 0 || item.TeamId > 0)
                     {
-                        var Partners = new Partners()
+                        var Partners = new Partners();
+                        if (item.TeamId > 0)
                         {
-                            ProjectId = model.Project.Id,
-                            TeamId = item.TeamId,
-                            UserId = item.UserId
-                        };
+                            Partners = new Partners()
+                            {
+                                Id = item.Id ?? 0,
+                                ProjectId = model.Project.Id,
+                                TeamId = item.TeamId,
+                                PartnerTeam = item.PartnerTeam
+                            };
+                        }
+                        else
+                        {
+                            Partners = new Partners()
+                            {
+                                Id = item.Id ?? 0,
+                                ProjectId = model.Project.Id,
+                                UserId = item.UserId,
+                                PartnerTeam = item.PartnerTeam
+                            };
+                        }
                         _partnersService.AddPartner(Partners, User);
                     }
                 }
@@ -219,12 +245,14 @@ namespace SM.MVC.Web.Controllers
                     if (item.UserId > 0 || item.TeamId > 0)
                     {
                         var Partners = new Partners();
-                        if (item.UserId > 0 && item.TeamId > 0)
+                        if (item.TeamId > 0)
                         {
                             Partners = new Partners()
                             {
+                                Id = item.Id ?? 0,
                                 ProjectId = model.Project.Id,
-                                TeamId = item.TeamId
+                                TeamId = item.TeamId,
+                                PartnerTeam = item.PartnerTeam
                             };
 
                         }
@@ -232,16 +260,23 @@ namespace SM.MVC.Web.Controllers
                         {
                             Partners = new Partners()
                             {
+                                Id = item.Id ?? 0,
                                 ProjectId = model.Project.Id,
-                                UserId = item.UserId
+                                UserId = item.UserId,
+                                PartnerTeam = item.PartnerTeam
                             };
                         }
                         _partnersService.AddPartner(Partners, User);
                     }
+
+                    if ((!item.UserId.HasValue || !item.TeamId.HasValue) && item.Id.HasValue )
+                    {
+                        _partnersService.DeletePartnerByPK(item.Id,User);
+                    }
                 }
             }
 
-            NotifyError("با موفقیت ثبت شد");
+            NotifySuccess("با موفقیت ثبت شد");
             return PartialView("_AddPartners", model);
         }
 
@@ -252,6 +287,9 @@ namespace SM.MVC.Web.Controllers
 
             ViewBag.Teams = new SelectList(_teamService.GetAll(), "Id",
                 "Name");
+
+
+
 
             Model.Partners.Add(null);
 
@@ -343,9 +381,9 @@ namespace SM.MVC.Web.Controllers
             }
         }
 
-        public IActionResult DownloadAttachment(int ProjectId,int VersionId)
+        public IActionResult DownloadAttachment(int ProjectId, int VersionId)
         {
-            var Files = _attachmentService.GetAllFilesByProjectId(ProjectId,VersionId);
+            var Files = _attachmentService.GetAllFilesByProjectId(ProjectId, VersionId);
             if (Files.Count > 0)
             {
                 var memoryStream = new MemoryStream();

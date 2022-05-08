@@ -71,15 +71,15 @@
 <div class="body">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs tab-col-teal tabStyle" role="tablist">
-        <li role="presentation" class="active"><a href="#Profile" data-toggle="tab" onclick="SystemTab()">سیستم</a></li>
-        <li role="presentation"><a href="#Project" data-toggle="tab" onclick="ProjectTab()">سامانه ها</a></li>
+        <li role="presentation" class="active"><a href="#ProfileAccess" data-toggle="tab" onclick="SystemTab()">سیستم</a></li>
+        <li role="presentation"><a href="#ProjectAccess" data-toggle="tab" onclick="ProjectTab()">سامانه ها</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
 
         <form id="UserAccessFrom">
-            <div role="tabpanel" class="tab-pane fade in active" id="Profile">
+            <div role="tabpanel" class="tab-pane fade in active" id="ProfileAccess">
 
                 <div class="row clearfix">
                     <div class="center">
@@ -141,7 +141,7 @@
 
 
             </div>
-            <div role="tabpanel" class="tab-pane fade hidden" id="Project">
+            <div role="tabpanel" class="tab-pane fade hidden" id="ProjectAccess">
 
                 <div class="row clearfix">
                     <div class="center">
@@ -186,19 +186,19 @@
 <script>
 
     function SystemTab() {
-        $("#Profile").removeClass();
-        $("#Profile").addClass("tab-pane fade in active");
+        $("#ProfileAccess").removeClass();
+        $("#ProfileAccess").addClass("tab-pane fade in active");
 
-        $("#Project").removeClass();
-        $("#Project").addClass("tab-pane fade hidden");
+        $("#ProjectAccess").removeClass();
+        $("#ProjectAccess").addClass("tab-pane fade hidden");
     }
 
     function ProjectTab() {
-        $("#Project").removeClass();
-        $("#Project").addClass("tab-pane fade in active");
+        $("#ProjectAccess").removeClass();
+        $("#ProjectAccess").addClass("tab-pane fade in active");
 
-        $("#Profile").removeClass();
-        $("#Profile").addClass("tab-pane fade hidden");
+        $("#ProfileAccess").removeClass();
+        $("#ProfileAccess").addClass("tab-pane fade hidden");
     }
 
 

@@ -20,23 +20,59 @@ namespace Data.Repository
 
         public void AddPartner(Partners model, ClaimsPrincipal user)
         {
-            var Duplicate = _SMContext.Partners.Any(x =>
-                x.IsActive && x.ProjectId == model.ProjectId && (x.TeamId == model.TeamId || x.UserId == model.UserId));
 
-            if (!Duplicate)
+            if (model.Id > 0 )
             {
-                model.IsActive = true;
-                model.CreatorID = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier)
-                    .Select(x => x.Value)
+
+                var partner = _SMContext.Partners.Find(model.Id);
+                partner.PartnerTeam = model.PartnerTeam;
+                partner.TeamId = model.TeamId;
+                partner.UserId = model.UserId;
+                partner.IsActive = true;
+                partner.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
                     .FirstOrDefault());
-                model.DateInserted = DateTime.Now;
-                model.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
-                    .FirstOrDefault();
+                partner.DateModified = DateTime.Now;
 
-
-                _SMContext.Add(model);
+                _SMContext.Update(partner);
                 _SMContext.SaveChanges();
             }
+            else
+            {
+                var Duplicate = _SMContext.Partners.Any(x =>
+                    x.IsActive && x.ProjectId == model.ProjectId && x.PartnerTeam == model.PartnerTeam &&
+                    ((x.TeamId.HasValue && x.TeamId == model.TeamId) ||
+                     (x.UserId.HasValue && x.UserId == model.UserId)));
+
+
+                if (!Duplicate)
+                {
+                    model.IsActive = true;
+                    model.CreatorID = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier)
+                        .Select(x => x.Value)
+                        .FirstOrDefault());
+                    model.DateInserted = DateTime.Now;
+                    model.IpAddress = user.Claims.Where(x => x.Type == "IpAddress").Select(x => x.Value)
+                        .FirstOrDefault();
+
+
+                    _SMContext.Add(model);
+                    _SMContext.SaveChanges();
+                }
+            }
+            
+        }
+
+        public void DeletePartnerByPK(int? id, ClaimsPrincipal user)
+        {
+            var partner = _SMContext.Partners.Find(id);
+            
+            partner.IsActive = false;
+            partner.UpdatedUser = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
+                .FirstOrDefault());
+            partner.DateModified = DateTime.Now;
+
+            _SMContext.Update(partner);
+            _SMContext.SaveChanges();
         }
 
         public List<Partners> GetAllPartnerVMByProjectId(int projectId)
