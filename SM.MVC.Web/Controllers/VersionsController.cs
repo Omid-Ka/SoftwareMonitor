@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Projects;
@@ -26,6 +27,8 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult Index()
         {
+            SelectedSideBar(AccessConst.VersionInfo);
+
             var date = _projectVersionService.GetAllVertion();
             return View(date);
         }

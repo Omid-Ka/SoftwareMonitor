@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Helper;
 using Core.Interfaces;
 using Core.ViewModels;
@@ -33,6 +34,8 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult Index()
         {
+            SelectedSideBar(AccessConst.UserList);
+
             var data = _usersService.GetAllUsers();
             return View(data);
         }

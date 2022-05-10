@@ -87,7 +87,11 @@
             <!-- #User Info -->
             <!-- Menu -->
             @*@await Html.PartialAsync("_Sidebar")*@
-            @await Component.InvokeAsync("SideBar");
+            @await Component.InvokeAsync("SideBar")
+            @*, new
+            {
+                SelectedSidebar = ViewData["SelectedSidebar"].ToString();
+            });*@
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->

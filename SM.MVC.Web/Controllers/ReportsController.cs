@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Interfaces;
 using Core.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +37,9 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult FunctionalReport()
         {
+
+            SelectedSideBar(AccessConst.FunctionalReport);
+
             if (User != null)
             {
                 ViewBag.Projects = new SelectList(

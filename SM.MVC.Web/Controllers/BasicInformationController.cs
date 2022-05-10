@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Account;
@@ -35,6 +36,7 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult Index()
         {
+            SelectedSideBar(AccessConst.BaseInfo);
             var data = _lookupService.GetAll();
             return View(data);
         }
@@ -135,6 +137,8 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult TeamInformation()
         {
+            SelectedSideBar(AccessConst.TeamInfo);
+
             var data = _teamService.GetAll();
             return View(data);
         }

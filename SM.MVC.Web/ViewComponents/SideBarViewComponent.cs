@@ -15,6 +15,9 @@ namespace SM.MVC.Web.ViewComponents
             ViewBag.Roles = UserClaimsPrincipal.Claims.Where(x => x.Type == ClaimTypes.Role).Select(x => x.Value)
                 .ToArray();
 
+
+            ViewBag.SelectedItem = TempData["SelectedSidebar"] != null ? TempData["SelectedSidebar"].ToString() : "";
+
             return View("SIdeBarComponent");
         }
 

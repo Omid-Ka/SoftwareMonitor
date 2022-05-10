@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Enum;
@@ -135,5 +136,9 @@ namespace SM.MVC.Web.Controllers
         //{
             
         //}
+        public IActionResult SelectedLink(AccessConst Selected)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

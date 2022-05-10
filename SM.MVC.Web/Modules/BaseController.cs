@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SM.MVC.Web.Modules
@@ -33,5 +34,11 @@ namespace SM.MVC.Web.Modules
         {
             TempData[msgType] = msg;
         }
+
+        protected void SelectedSideBar(string Access)
+        {
+            TempData["SelectedSidebar"] = Access;
+        }
+        
     }
 }

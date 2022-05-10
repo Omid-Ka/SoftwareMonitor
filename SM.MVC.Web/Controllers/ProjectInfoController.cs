@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Enum;
@@ -54,6 +55,8 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult DocReview()
         {
+
+            SelectedSideBar(AccessConst.AddDocReview);
 
             var data = _testHeaderService.GetTestHeaders(TestType.Finctional, 15 /*Document Review*/);
 
@@ -196,6 +199,9 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult CodeReview()
         {
+
+            SelectedSideBar(AccessConst.AddCodeReview);
+
             var data = _testHeaderService.GetTestHeaders(TestType.Finctional, 16 /*Document Review*/);
 
             return View(data);
@@ -405,6 +411,9 @@ namespace SM.MVC.Web.Controllers
         
         public IActionResult LoadAndStress()
         {
+            SelectedSideBar(AccessConst.AddLoadAndStress);
+
+
             var Load = _testHeaderService.GetTestHeaders(TestType.Finctional, 9 /*Document Review*/);
             var Stress = _testHeaderService.GetTestHeaders(TestType.Finctional, 10 /*Document Review*/);
 

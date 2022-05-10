@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.DTO;
 using Core.Interfaces;
 using Core.ViewModels;
@@ -44,6 +45,8 @@ namespace SM.MVC.Web.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            SelectedSideBar(AccessConst.ProjectList);
+
             var data = _projectService.GetAllProject(User);
             return View(data);
         }

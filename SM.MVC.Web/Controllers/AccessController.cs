@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Interfaces;
 using Core.ViewModels;
 using Domain.Models.Access;
@@ -42,6 +43,8 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult AccessGroups()
         {
+            SelectedSideBar(AccessConst.AddAccessGroup);
+
             var data = _accessGroupService.GetAllGroups();
             return View(data);
         }

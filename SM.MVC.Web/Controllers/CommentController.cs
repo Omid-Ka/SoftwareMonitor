@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core.AccessConst;
 using Core.Helper;
 using Core.Interfaces;
 using Core.ViewModels;
@@ -47,6 +48,8 @@ namespace SM.MVC.Web.Controllers
 
         public IActionResult Comments()
         {
+            SelectedSideBar(AccessConst.ProjectComments);
+
             var data = _projectVersionService.GetAllVertion().ToList();
             return View(data);
         }
