@@ -26,17 +26,20 @@
         <form asp-action="EditStressOrLoadTest">
 
             <div class="row clearfix">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <label asp-for="ProjectId" class="control-label"></label>
-                            <select id="Gender" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
-                                <option value="">--انتخاب نمایید--</option>
-                            </select>
-                            <span asp-validation-for="ProjectId" class="text-danger"></span>
-                        </div>
-                    </div>
+                @Html.HiddenFor(x => x.ProjectId)
+                @Html.HiddenFor(x => x.HeaderId)
+                @Html.HiddenFor(x => x.TestId)
+                @*<div class="col-sm-4">
+            <div class="form-group">
+                <div class="form-line">
+                    <label asp-for="ProjectId" class="control-label"></label>
+                    <select id="Gender" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
+                        <option value="">--انتخاب نمایید--</option>
+                    </select>
+                    <span asp-validation-for="ProjectId" class="text-danger"></span>
                 </div>
+            </div>
+        </div>*@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="form-line">
@@ -115,7 +118,7 @@
 
             <div class="row clearfix">
                 <div class="form-group">
-                    <input type="submit" value="ثبت تست" class="btn bg-green waves-effect SubmitBtn" />
+                    <input type="submit" value="ویرایش تست" class="btn bg-green waves-effect SubmitBtn" />
                 </div>
             </div>
         </form>

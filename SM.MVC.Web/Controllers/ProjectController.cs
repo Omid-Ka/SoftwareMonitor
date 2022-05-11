@@ -363,7 +363,7 @@ namespace SM.MVC.Web.Controllers
                 return RedirectToAction("Index");
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 NotifyError("خطا در ثبت فایل");
                 return RedirectToAction("Index");

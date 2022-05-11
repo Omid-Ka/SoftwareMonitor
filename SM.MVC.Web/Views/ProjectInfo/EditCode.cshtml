@@ -1,4 +1,5 @@
 ﻿@using Domain.Models.Enum
+@using Org.BouncyCastle.Math.EC.Rfc7748
 @model Core.ViewModels.CreateCodeReviewVM
 
 
@@ -42,24 +43,25 @@
 
             <div id="Content" class="CommitContent">
 
-                <form id="ContentForm">
+                <form id="ContentForm" >
                     <div id="FirstContent" class="ShowDisplay">
+                        @Html.HiddenFor(x => x.ProjectId)
                         @Html.HiddenFor(x => x.HeaderId)
 
-                        <div class="row clearfix CommitContentRow">
-                            <div class="col-sm-8 Margin-b">
-                                <div class="form-group Margin-b Margin-t">
-                                    <div class="form-line">
-                                        <label asp-for="ProjectId" class="control-label"></label>
-                                        <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
-                                            <option value="">--انتخاب نمایید--</option>
-                                        </select>
-                                        <span asp-validation-for="ProjectId" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
+                        @*<div class="row clearfix CommitContentRow">
+            <div class="col-sm-8 Margin-b">
+                <div class="form-group Margin-b Margin-t">
+                    <div class="form-line">
+                        <label asp-for="ProjectId" class="control-label"></label>
+                        <select id="Projects" class="form-control show-tick" asp-for="ProjectId" asp-items="@(ViewBag.Projects)">
+                            <option value="">--انتخاب نمایید--</option>
+                        </select>
+                        <span asp-validation-for="ProjectId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
 
-                        </div>
+        </div>*@
                         <div class="row clearfix CommitContentRow">
                             <div class="col-sm-6 Margin-b">
                                 <div class="form-group Margin-b Margin-t">
@@ -154,9 +156,10 @@
 
                                 if (Model.CodeReviewDetailList[i].DetailType == DetailType)
                                 {
-                                    @Html.Hidden("Model.CodeReviewDetailList[" + i + "].DetailType", Model.CodeReviewDetailList[i].DetailType)
-                                    @Html.Hidden("Model.CodeReviewDetailList[" + i + "].IndicatorId", Model.CodeReviewDetailList[i].IndicatorId)
-                                    @Html.Hidden("Model.CodeReviewDetailList[" + i + "].Id", Model.CodeReviewDetailList[i].Id)
+                                    var i1 = i;
+                                    @Html.HiddenFor(x => x.CodeReviewDetailList[i1].DetailType)
+                                    @Html.HiddenFor(x => x.CodeReviewDetailList[i1].IndicatorId)
+                                    @Html.HiddenFor(x => x.CodeReviewDetailList[i1].Id)
 
                                     <div class="row clearfix CommitContentRow">
                                         <div class="form-group Margin-b Margin-t">
@@ -172,7 +175,8 @@
 
                                             <div class="col-sm-1 Margin-b">
                                                 <div class="form-line">
-                                                    @Html.Editor("Model.CodeReviewDetailList[" + i + "].Score", new { HtmlAttributes = new { @class = "form-control" } })
+                                                   
+                                                    @Html.EditorFor(x => x.CodeReviewDetailList[i1].Score, new { HtmlAttributes = new { @class = "form-control" } })
                                                 </div>
                                             </div>
 
@@ -182,9 +186,11 @@
 
                                             <div class="col-sm-4 Margin-b">
                                                 <div class="form-line">
-                                                    @Html.Editor("Model.CodeReviewDetailList[" + i + "].Description", new { HtmlAttributes = new { @class = "form-control" } })
+                                                    
+                                                    @Html.EditorFor(x => x.CodeReviewDetailList[i1].Description, new { HtmlAttributes = new { @class = "form-control" } })
                                                 </div>
                                             </div>
+
 
 
 
@@ -209,8 +215,8 @@
                     <li id="next" class="waves-effect ShowDisplay" onclick="nextStep()">
                         <a>بعد</a>
                     </li>
-                    <li id="Finish" class="waves-effect hideDisplay" onclick="finish()">
-                        <a>ثبت</a>
+                    <li id="Finish" class="btn bg-green waves-effect ShowDisplay" onclick="finish()">
+                        <a>ویرایش</a>
                     </li>
                 </ul>
 
@@ -224,10 +230,12 @@
 @section Scripts
 {
 
+    @await Html.PartialAsync("_DuplicateInsertTabs")
 
-    <script>
+<script>
 
         function finish() {
+
 
             var content = $("#ContentForm").serialize();
             debugger;
@@ -235,13 +243,15 @@
                 url: "@Url.Action("PostEditCodeReview", "ProjectInfo")",
                 data: content,
                 type: "POST",
-                //dataType: 'json',
-                /* contentType: 'application/x-www-form-urlencoded; charset=UTF-8',*/
+                dataType: 'json',
+                 //contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 success: function(result) {
                     if (result.succeed) {
                         toastr["success"](result.Message);
+                        window.location.href = "@Url.Action("CodeReview", "ProjectInfo")?";
                     } else {
                         toastr["error"](result.Message);
+                        window.location.href = "@Url.Action("CodeReview", "ProjectInfo")?";
                     }
                 }
             });
@@ -249,6 +259,6 @@
 
         }
 
-    </script>
+</script>
 }
 

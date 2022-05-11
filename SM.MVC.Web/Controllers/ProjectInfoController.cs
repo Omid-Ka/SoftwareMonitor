@@ -183,7 +183,7 @@ namespace SM.MVC.Web.Controllers
 
             }
 
-            NotifyError("با موفقیت ویرایش شد");
+            NotifySuccess("با موفقیت ویرایش شد");
             return RedirectToAction("DocReview");
         }
 
@@ -349,7 +349,7 @@ namespace SM.MVC.Web.Controllers
 
 
         [HttpPost]
-        public IActionResult PostEditCodeReview(CodeReviewVM Head, CreateCodeReviewVM model)
+        public IActionResult PostEditCodeReview(CodeReviewVM Head)
         {
             if (Head.ProjectId <= 0)
             {
@@ -380,7 +380,7 @@ namespace SM.MVC.Web.Controllers
             _codeReviewService.UpdateCodeReview(CodeReview, User);
 
 
-            foreach (var item in model.CodeReviewDetailList)
+            foreach (var item in Head.CodeReviewDetailList)
             {
                 var Detail = _codeReviewDetailService.GetByPK(item.Id);
 
@@ -534,7 +534,7 @@ namespace SM.MVC.Web.Controllers
                TotalRequest = Test.TotalRequest
            };
 
-           return View();
+           return View(model);
         }
 
         public IActionResult EditStressOrLoadTest(CreateLoadOrStrssTest model)
@@ -563,7 +563,7 @@ namespace SM.MVC.Web.Controllers
 
             _testHeaderService.UpdateHeader(head,User);
 
-            var Test = _loadAndSterssService.GetByPk(model.TestId);
+            var Test = _loadAndSterssService.GetByHeaderId(model.TestId);
 
             Test.AveTime = model.AveTime;
             Test.Deviation = model.Deviation;

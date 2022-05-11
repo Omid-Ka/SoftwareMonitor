@@ -211,6 +211,7 @@
                 @for (int i = 0; i < Model.DocReviewList.Count; i++)
                 {
                     @Html.Hidden("Model.DocReviewList[" + i + "].DocReviewTitle", Model.DocReviewList[i].DocReviewTitle)
+                    @Html.Hidden("Model.DocReviewList[" + i + "].Id", Model.DocReviewList[i].Id)
                     <div class="row clearfix CommitContentRow">
 
                         <div class="col-sm-12">
@@ -225,7 +226,7 @@
                     </div>
                     <div class="row clearfix CommitContentRow">
                         <div class="col-sm-5 Margin-b">
-                            @foreach (DocReviewAnswer Answersub in Enum.GetValues(typeof(ProjectInfo)))
+                            @foreach (DocReviewAnswer Answersub in Enum.GetValues(typeof(DocReviewAnswer)))
                             {
 
                                 var _id = "DocReviewList_" + i + "_Answersub" + (int)Answersub;
@@ -256,7 +257,7 @@
                                     @*<input asp-for="@Model.DocReviewList[i].Description" class="form-control" />*@
 
 
-                                    @Html.Editor("Model.DocReviewList[" + i + "].Description", new { HtmlAttributes = new { @class = "form-control" } })
+                                    @Html.Editor("Model.DocReviewList[" + i + "].Description", new { HtmlAttributes = new { @class = "form-control", @Value = Model.DocReviewList[i].Description } })
                                 </div>
                             </div>
                         </div>
@@ -264,8 +265,10 @@
 
                 }
 
-
-                <div class="row clearfix">
+                <br />
+                <br />
+                <br />
+                <div class="row clearfix CommitAction">
                     <div class="form-group">
                         <input type="submit" value="ویرایش تحلیل" class="btn bg-green waves-effect SubmitBtn" />
                     </div>
@@ -397,8 +400,10 @@
                 success: function(result) {
                     if (result.succeed) {
                         toastr["success"](result.Message);
+                        window.location.href = "@Url.Action("DocReview", "ProjectInfo")?";
                     } else {
                         toastr["error"](result.Message);
+                        window.location.href = "@Url.Action("DocReview", "ProjectInfo")";
                     }
                 }
             });

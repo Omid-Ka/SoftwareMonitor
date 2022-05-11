@@ -3,7 +3,7 @@
 @using Core.Helper
 @using Domain.Models.Enum
 
-@model List<Core.ViewModels.DocReviewVM>
+@model Core.ViewModels.AllReportInformationVM
 
 <style>
     #container {
@@ -103,7 +103,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.DocReviewList)
                         {
                             <tr>
                                 <th class="align-right">@item.DocReviewTitle.ToDescription() </th>
@@ -136,7 +136,7 @@
     </div>
 </div>
 
-<input type="hidden" value="@ViewBag.Accurate" id="Accurate" />
+@*<input type="hidden" value="@ViewBag.Accurate" id="Accurate" />
 <input type="hidden" value="@ViewBag.High" id="High" />
 <input type="hidden" value="@ViewBag.Normal" id="Normal" />
 <input type="hidden" value="@ViewBag.Poor" id="Poor" />
@@ -144,7 +144,7 @@
 <input type="hidden" value="@ViewBag.PercentAccurate" id="PercentAccurate" />
 <input type="hidden" value="@ViewBag.PercentHigh" id="PercentHigh" />
 <input type="hidden" value="@ViewBag.PercentNormal" id="PercentNormal" />
-<input type="hidden" value="@ViewBag.PercentPoor" id="PercentPoor" />
+<input type="hidden" value="@ViewBag.PercentPoor" id="PercentPoor" />*@
 
 <script src="~/js/HighChart/highcharts.js"></script>
 <script src="~/js/HighChart/accessibility.js"></script>
@@ -198,23 +198,23 @@
             name: 'تطابق',
             data: [{
                 name: 'تطابق دقیق',
-                y: parseInt($("#Accurate").val()), //Match($("#ProjectId").val(),'Accurate'),
-                z: parseFloat($("#PercentAccurate").val()), //MatchPercent($("#ProjectId").val(), 'Accurate'),
+                y: @Model.CodeReview.AccurateMatch, //Match($("#ProjectId").val(),'Accurate'),
+                z: @Model.CodeReview.PercentAccurate, //MatchPercent($("#ProjectId").val(), 'Accurate'),
                 color: '#24C8F1'
             }, {
                 name: 'تطابق زیاد',
-                y: parseInt($("#High").val()), // Match($("#ProjectId").val(), 'High'),
-                z: parseFloat($("#PercentHigh").val()), //MatchPercent($("#ProjectId").val(), 'High'),
+                y: @Model.CodeReview.HighMatch, // Match($("#ProjectId").val(), 'High'),
+                z: @Model.CodeReview.PercentHigh, //MatchPercent($("#ProjectId").val(), 'High'),
                 color: '#F58F22'
             }, {
                 name: 'تطابق معمولی',
-                y: parseInt($("#Normal").val()), //Match($("#ProjectId").val(), 'Normal'),
-                z: parseFloat($("#PercentNormal").val()), //MatchPercent($("#ProjectId").val(), 'Normal'),
+                y: @Model.CodeReview.NormalMatch, //Match($("#ProjectId").val(), 'Normal'),
+                z: @Model.CodeReview.PercentNormal, //MatchPercent($("#ProjectId").val(), 'Normal'),
                 color: '#BBB8AC'
             }, {
                 name: 'تطابق ضعیف',
-                y: parseInt($("#Poor").val()), //Match($("#ProjectId").val(), 'Poor'),
-                z: parseFloat($("#PercentPoor").val()) , //MatchPercent($("#ProjectId").val(), 'Poor'),
+                y: @Model.CodeReview.PoorMatch, //Match($("#ProjectId").val(), 'Poor'),
+                z: @Model.CodeReview.PercentPoor , //MatchPercent($("#ProjectId").val(), 'Poor'),
                 color: '#FAAE30'
             }]
         }]

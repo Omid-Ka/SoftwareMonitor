@@ -65,22 +65,27 @@ namespace SM.MVC.Web.Controllers
             var ReportTypes = _testHeaderService.GetTestListByProjectId(ProjectId, Version).Select(x => x.EntityType).Distinct().ToArray();
             ViewBag.ProjectId = ProjectId;
 
+            var AllReport = new AllReportInformationVM();
+
+            AllReport.ProjectId = ProjectId;
+            AllReport.VersionId = Version;
             //// بررسی کد
 
             if (ReportTypes.Contains("CodeReview"))
             {
+                ViewBag.hasCode = true;
 
+                AllReport.CodeReview = new CodeReviewVM();
 
-                ViewBag.hasCode = ReportTypes.Contains("CodeReview");
-                ViewBag.Accurate = CodeReviewMatch(ProjectId, "Accurate", Version);
-                ViewBag.High = CodeReviewMatch(ProjectId, "High", Version);
-                ViewBag.Normal = CodeReviewMatch(ProjectId, "Normal", Version);
-                ViewBag.Poor = CodeReviewMatch(ProjectId, "Poor", Version);
+                AllReport.CodeReview.AccurateMatch = CodeReviewMatch(ProjectId, "Accurate", Version);
+                AllReport.CodeReview.HighMatch = CodeReviewMatch(ProjectId, "High", Version);
+                AllReport.CodeReview.NormalMatch = CodeReviewMatch(ProjectId, "Normal", Version);
+                AllReport.CodeReview.PoorMatch = CodeReviewMatch(ProjectId, "Poor", Version);
 
-                ViewBag.PercentAccurate = CodeReviewMatchPercent(ProjectId, "Accurate", Version);
-                ViewBag.PercentHigh = CodeReviewMatchPercent(ProjectId, "High", Version);
-                ViewBag.PercentNormal = CodeReviewMatchPercent(ProjectId, "Normal", Version);
-                ViewBag.PercentPoor = CodeReviewMatchPercent(ProjectId, "Poor", Version);
+                AllReport.CodeReview.PercentAccurate = CodeReviewMatchPercent(ProjectId, "Accurate", Version);
+                AllReport.CodeReview.PercentHigh = CodeReviewMatchPercent(ProjectId, "High", Version);
+                AllReport.CodeReview.PercentNormal = CodeReviewMatchPercent(ProjectId, "Normal", Version);
+                AllReport.CodeReview.PercentPoor = CodeReviewMatchPercent(ProjectId, "Poor", Version);
 
             }
 
@@ -91,10 +96,9 @@ namespace SM.MVC.Web.Controllers
 
             var TestHeader = _testHeaderService.GetTestListByProjectId(ProjectId, Version)
                 .Where(x => x.EntityType == "DocReview").ToList();
-            var model = new List<DocReviewVM>();
             if (TestHeader.Any())
             {
-                model = _docReviewService.GetDocReviewsByDocId(TestHeader.FirstOrDefault().Id);
+                AllReport.DocReviewList = _docReviewService.GetDocReviewsByDocId(TestHeader.FirstOrDefault().Id);
             }
 
             /// تست بار و استرس
@@ -104,7 +108,7 @@ namespace SM.MVC.Web.Controllers
 
 
 
-            return PartialView("_ShowProjectInfo", model);
+            return PartialView("_ShowProjectInfo", AllReport);
         }
 
         private int CodeReviewMatch(int ProjectId, string Type, int Version)

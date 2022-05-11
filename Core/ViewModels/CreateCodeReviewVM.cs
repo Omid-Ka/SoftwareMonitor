@@ -59,6 +59,18 @@ namespace Core.ViewModels
         public string Offers { get; set; }
         [Display(Name = "نظرات کارشناسان")]
         public string ExpertComment { get; set; }
+        public List<CodeReviewDetailVM> CodeReviewDetailList { get; set; }
+
+
+        public decimal? PercentAccurate { get; set; }
+        public decimal? PercentHigh { get; set; }
+        public decimal? PercentNormal { get; set; }
+        public decimal? PercentPoor { get; set; }
+
+            
+
+
+
     }
 
 

@@ -11,7 +11,7 @@ namespace SM.MVC.Web.Controllers
     public class AdminController : BaseController
     {
 
-        [Authorize]
+        //[Authorize]
         public IActionResult Index()
         {
             return View();
