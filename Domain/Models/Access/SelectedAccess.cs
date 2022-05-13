@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Models.Access
 {
-    public class SelectedAccess
+    public class SelectedAccess:BaseEntity
     {
         public int UserId { get; set; }
         public string Access { get; set; }
