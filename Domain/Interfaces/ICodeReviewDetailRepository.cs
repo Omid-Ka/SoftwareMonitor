@@ -16,5 +16,6 @@ namespace Domain.Interfaces
         List<CodeReviewDetail> GetCodeReviewDetailByCodeId(int codeId);
         CodeReviewDetail GetByPK(int itemId);
         void UpdateCodeReviewDetail(CodeReviewDetail detail, ClaimsPrincipal user);
+        List<CodeReviewDetail> GetCodeReviewDetailByProjectIdAndVersionId(int projectId, int version);
     }
 }

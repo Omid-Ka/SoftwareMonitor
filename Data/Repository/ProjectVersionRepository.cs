@@ -87,5 +87,13 @@ namespace Data.Repository
             return data;
 
         }
+
+        public string GetByTestHeaderId(int testHeaderId)
+        {
+            var Header = _SMContext.TestHeaders.Find(testHeaderId);
+            var version = _SMContext.ProjectVersion.Find(Header.ProjectVersionId);
+
+            return version.Name;
+        }
     }
 }

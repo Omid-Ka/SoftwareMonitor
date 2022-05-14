@@ -43,6 +43,7 @@ namespace Core.ViewModels
 
     public class DocReviewVM
     {
+        public string version { get; set; } 
         public int  Id { get; set; }
         public int  HeaderId { get; set; }
         public DocReviewTitle DocReviewTitle { get; set; }

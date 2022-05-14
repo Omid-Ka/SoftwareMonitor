@@ -58,6 +58,25 @@ namespace Data.Repository
             return _SMContext.LoadAndStersses.Find(testId);
         }
 
+        public List<LoadAndSterss> GetByProjectId(int projectId)
+        {
+            var Header = _SMContext.TestHeaders.Where(x =>
+                x.IsActive && x.ProjectId == projectId &&
+                x.EntityType == "StressAndLoad").Select(x=>x.Id).ToArray();
+
+            return _SMContext.LoadAndStersses.Where(x =>x.IsActive && Header.Contains(x.TestHeaderId)).ToList();
+        }
+
+        public LoadAndSterss GetByProjectIdAndVersionId(int projectId, int version)
+        {
+            var Header = _SMContext.TestHeaders.FirstOrDefault(x =>
+                x.IsActive && x.ProjectVersionId == version && x.ProjectId == projectId &&
+                x.EntityType == "StressAndLoad");
+
+            return _SMContext.LoadAndStersses.FirstOrDefault(x => x.TestHeaderId == Header.Id);
+
+        }
+
         public void UpdateloadAndSterss(LoadAndSterss test, ClaimsPrincipal user)
         {
             test.IsActive = true;

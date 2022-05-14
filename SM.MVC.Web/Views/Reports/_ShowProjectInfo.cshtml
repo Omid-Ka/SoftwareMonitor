@@ -52,16 +52,16 @@
     .highcharts-data-table tr:hover {
         background: #f1f7ff;
     }
-    
+
     .Showcenter {
-         text-align: center !important;
-         /*background-color: aliceblue !important;*/
-         font-size: 24px !important;
-     }
+        text-align: center !important;
+        /*background-color: aliceblue !important;*/
+        font-size: 24px !important;
+    }
 </style>
 
 
-<input id="ProjectId" type="hidden" value="@ViewBag.ProjectId" />
+@*<input id="ProjectId" type="hidden" value="@ViewBag.ProjectId" />*@
 
 <div class="card">
     <div class="header">
@@ -73,7 +73,7 @@
         {
 
             <div class="row clearfix">
-                <div class="Showcenter"> گزارشات بررسی کد</div>
+                <div class="Showcenter"> گزارش بررسی کد</div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -91,7 +91,7 @@
         @if (ViewBag.hasDoc == true)
         {
             <div class="row clearfix">
-                <div class="Showcenter"> گزارشات بررسی سند</div>
+                <div class="Showcenter"> گزارش بررسی سند</div>
             </div>
             <div class="row clearfix">
                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
@@ -118,17 +118,36 @@
         @if (ViewBag.HasLoad == true)
         {
             <div class="row clearfix">
-                <div class="center-align"> گزارشات تست بار و فشار</div>
+                <div class="Showcenter"> گزارش تست بار و فشار</div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <figure class="highcharts-figure">
-                        <div id="LoadPieChart"></div>
-                    </figure>
+                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <thead style=" background: cornflowerblue;">
+                            <tr>
+                                <th class="align-right">پارامتر مورد ارزیابی</th>
+                                <th class="align-right">وضعیت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="align-right">زمان پاسخگویی </th>
+                                <th class="align-right">@Model.LoadOrStrssTestsList.AveTime </th>
+                            </tr>
+                            <tr>
+                                <th class="align-right">توانایی سرور </th>
+                                <th class="align-right">@Model.LoadOrStrssTestsList.Throughput </th>
+                            </tr>
+                            <tr>
+                                <th class="align-right">انحراف </th>
+                                <th class="align-right">@Model.LoadOrStrssTestsList.Deviation </th>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <figure class="highcharts-figure">
-                        <div id="BarChart"></div>
+                        <div id="LoadBarChart"></div>
                     </figure>
                 </div>
             </div>
@@ -136,47 +155,8 @@
     </div>
 </div>
 
-@*<input type="hidden" value="@ViewBag.Accurate" id="Accurate" />
-<input type="hidden" value="@ViewBag.High" id="High" />
-<input type="hidden" value="@ViewBag.Normal" id="Normal" />
-<input type="hidden" value="@ViewBag.Poor" id="Poor" />
-
-<input type="hidden" value="@ViewBag.PercentAccurate" id="PercentAccurate" />
-<input type="hidden" value="@ViewBag.PercentHigh" id="PercentHigh" />
-<input type="hidden" value="@ViewBag.PercentNormal" id="PercentNormal" />
-<input type="hidden" value="@ViewBag.PercentPoor" id="PercentPoor" />*@
-
-<script src="~/js/HighChart/highcharts.js"></script>
-<script src="~/js/HighChart/accessibility.js"></script>
-<script src="~/js/HighChart/export-data.js"></script>
-<script src="~/js/HighChart/exporting.js"></script>
-<script src="~/js/HighChart/variable-pie.js"></script>
-
-@*<script src="~/js/HighChart/data.js"></script>
-    <script src="~/js/HighChart/drilldown.js"></script>*@
 
 <script>
-
-    //var Accurate= Match($("#ProjectId").val(), 'Accurate');
-    //var High= Match($("#ProjectId").val(), 'High');
-    //var Normal= Match($("#ProjectId").val(), 'Normal');
-    //var Poor= Match($("#ProjectId").val(), 'Poor');
-
-    //var PercentAccurate= MatchPercent($("#ProjectId").val(), 'Accurate');
-    //var PercentHigh= MatchPercent($("#ProjectId").val(), 'High');
-    //var PercentNormal= MatchPercent($("#ProjectId").val(), 'Normal');
-    //var PercentPoor= MatchPercent($("#ProjectId").val(), 'Poor');
-
-    //console.log(Accurate);
-    //console.log(High);
-    //console.log(Normal);
-    //console.log(Poor);
-
-    //console.log(PercentAccurate);
-    //console.log(PercentHigh);
-    //console.log(PercentNormal);
-    //console.log(PercentPoor);
-
 
     Highcharts.chart('PieChart', {
         chart: {
@@ -220,109 +200,133 @@
         }]
     });
 
-    @*function Match(id , type) {
-        $.ajax({
-            url: "@Url.Action("CodeReviewMatch", "Reports")?ProjectId=" + id + "&Type=" + type  ,
-            type: "POST",
-            success: function (result) {
-                if (type == 'Accurate') {
-                    $("#Accurate").val(result);
-                } else if (type == 'High') {
-                    $("#High").val(result);
-                } else if (type == 'Normal') {
-                    $("#Normal").val(result);
-                } else if (type == 'Poor') {
-                    $("#Poor").val(result);
-                }
-            }
-        });
-    }
-
-    function MatchPercent(id, type) {
-        $.ajax({
-            url: "@Url.Action("CodeReviewMatchPercent", "Reports")?ProjectId=" + id + "&Type=" + type  ,
-            type: "POST",
-            success: function (result) {
-                if (type == 'Accurate') {
-                    $("#PercentAccurate").val(result);
-                } else if (type == 'High') {
-                    $("#PercentHigh").val(result);
-                } else if (type == 'Normal') {
-                    $("#PercentNormal").val(result);
-                } else if (type == 'Poor') {
-                    $("#PercentPoor").val(result);
-                }
-            }
-        });
-    }*@
-
 </script>
 
 <script>
-    Highcharts.chart('BarChart', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'شاخص های عملکرد'
-        },
-        xAxis: {
-            categories: [
-                'Jan'
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
+    Highcharts.chart('BarChart',
+        {
+            chart: {
+                type: 'column'
+            },
             title: {
-                text: 'نمره عملکرد'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'خوانایی کد',
-            data: [49.9],
-            color: '#24C8F1'
+                text: 'شاخص های عملکرد'
+            },
+            xAxis: {
+                categories: [
+                    'Jan'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'نمره عملکرد'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'خوانایی کد',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Readability).Sum(x=>x.Score)],
+                    color: '#24C8F1'
 
-        }, {
-            name: 'شی گرایی',
-            data: [83.6],
-            color: '#F58F22'
+                }, {
+                    name: 'شی گرایی',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.ObjectOriented).Sum(x=>x.Score)],
+                    color: '#F58F22'
 
-        }, {
-            name: 'ایمنی کد',
-            data: [48.9],
-            color: '#BBB8AC'
+                }, {
+                    name: 'ایمنی کد',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.CodeSecurity).Sum(x=>x.Score)],
+                    color: '#BBB8AC'
 
-        }, {
-            name: 'استفاده از منابع',
-            data: [42.4],
-            color: '#FAAE30'
+                }, {
+                    name: 'استفاده از منابع',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.UseOfResources).Sum(x=>x.Score)],
+                    color: '#FAAE30'
 
-        }, {
-            name: 'شاخص های پیچیدگی',
-            data: [42.4],
-            color: '#1D5DFA'
+                }, {
+                    name: 'شاخص های پیچیدگی',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Complexity).Sum(x=>x.Score)],
+                    color: '#1D5DFA'
 
-        }, {
-            name: 'هشدارهای IDE',
-            data: [42.4],
-            color: '#FAE029'
+                }, {
+                    name: 'هشدارهای IDE',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Warning).Sum(x=>x.Score)],
+                    color: '#FAE029'
 
-        }]
-    });
+                }
+            ]
+        });
 </script>
 
+<script>
+     Highcharts.chart('LoadBarChart',
+        {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'شاخص های عملکرد'
+            },
+            xAxis: {
+                categories: [
+                    'Jan'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'نمره عملکرد'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'کل درخواست ها',
+                    data: [@Model.LoadOrStrssTestsList.TotalRequest],
+                    color: '#80b3ff'
+
+                }, {
+                    name: 'درخواست های موفق',
+                    data: [@Model.LoadOrStrssTestsList.SuccessRequest],
+                    color: '#009933'
+
+                }, {
+                    name: 'درخواست های خطا',
+                    data: [@Model.LoadOrStrssTestsList.FailRequest],
+                    color: '#b30000'
+
+                }
+            ]
+         });
+
+
+</script>

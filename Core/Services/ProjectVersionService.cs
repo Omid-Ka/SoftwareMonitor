@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using Domain.Models.Enum;
 using Domain.Models.Projects;
 
@@ -94,6 +95,15 @@ namespace Core.Services
                 Status = x.Status,
                 ProjectName = _projectRepository.GetProjectById(x.ProjectId).ProjectName
             });
+        }
+
+        public string GetAllVersionNames(int[] versionList)
+        {
+            var Result = _projectVersionRepository.GetAllVertion().Where(x => versionList.Contains(x.Id))
+                .Select(x => x.Name).ToArray();
+
+            return string.Join(",", Result);
+
         }
     }
 }

@@ -55,5 +55,16 @@ namespace Data.Repository
             _SMContext.Update(detail);
             _SMContext.SaveChanges();
         }
+
+        public List<CodeReviewDetail> GetCodeReviewDetailByProjectIdAndVersionId(int projectId, int version)
+        {
+            var header = _SMContext.TestHeaders
+                .FirstOrDefault(x =>x.IsActive && x.ProjectId == projectId && x.ProjectVersionId == version && x.EntityType == "CodeReview");
+
+            var CodeReview = _SMContext.CodeReviews.FirstOrDefault(x => x.IsActive && x.TestHeaderId == header.Id);
+
+            return _SMContext.CodeReviewDetails.Where(x => x.IsActive && x.CodeReviewId == CodeReview.Id).ToList();
+
+        }
     }
 }

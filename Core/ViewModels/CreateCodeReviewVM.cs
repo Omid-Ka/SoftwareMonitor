@@ -42,6 +42,8 @@ namespace Core.ViewModels
         [Display(Name = "پروژه")]
         public int ProjectId { get; set; }
         [Display(Name = "نسخه")]
+        public string Version { get; set; }
+        [Display(Name = "نسخه")]
         public int VersionId { get; set; }
         [Display(Name = "تعداد کل خطوط")]
         public int AllCountRow { get; set; }

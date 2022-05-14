@@ -250,10 +250,15 @@ namespace UnitTestMonitoring
             var testHeaderService = new Mock<ITestHeaderService>();
             var docReviewService = new Mock<IDocReviewService>();
             var codeReviewService = new Mock<ICodeReviewService>();
+            var LoadAndSterssService = new Mock<ILoadAndSterssService>();
+            var CodeReviewDetailService = new Mock<ICodeReviewDetailService>();
+            var ProjectVersionService = new Mock<IProjectVersionService>();
+            
 
             //Arrange
-            ReportsController controller = new ReportsController( projectService.Object,
-                 codeReviewService.Object,  testHeaderService.Object, docReviewService.Object);
+            ReportsController controller = new ReportsController(projectService.Object,
+                codeReviewService.Object, LoadAndSterssService.Object, CodeReviewDetailService.Object,
+                testHeaderService.Object, docReviewService.Object, ProjectVersionService.Object);
 
             // Act
             ViewResult result = controller.FunctionalReport() as ViewResult;

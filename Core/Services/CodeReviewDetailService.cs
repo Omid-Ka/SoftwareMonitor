@@ -52,5 +52,28 @@ namespace Core.Services
         {
             _codeReviewDetailRepository.UpdateCodeReviewDetail(detail, user);
         }
+
+        public List<CodeReviewDetailVM> GetCodeReviewDetailByProjectIdAndVersionId(int projectId, int version)
+        {
+            return _codeReviewDetailRepository.GetCodeReviewDetailByProjectIdAndVersionId(projectId, version).Select(x=> new CodeReviewDetailVM ()
+            {
+                CodeReviewId = x.CodeReviewId,
+                Description = x.Description,
+                DetailType = x.DetailType,
+                Id = x.Id,
+                Score = x.Score
+            }).ToList();
+        }
+
+        public List<CodeReviewDetailVM> GetCodeReviewDetailByTestHeaderId(int id)
+        {
+            return _codeReviewDetailRepository.GetCodeReviewDetailByCodeId(id).Select(x=>new CodeReviewDetailVM()
+            {
+                DetailType = x.DetailType,
+                Score = x.Score,
+                Description = x.Description,
+                Id = x.Id
+            }).ToList();
+        }
     }
 }

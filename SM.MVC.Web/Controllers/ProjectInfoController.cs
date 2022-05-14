@@ -588,8 +588,11 @@ namespace SM.MVC.Web.Controllers
 
             try
             {
+                if (!string.IsNullOrEmpty(Comment))
+                {
+                    _projectCommentService.AddComment(ProjectId, VersionId, Comment, type, User);
+                }
 
-                _projectCommentService.AddComment(ProjectId, VersionId, Comment, type , User);
 
             }
             catch (Exception e)

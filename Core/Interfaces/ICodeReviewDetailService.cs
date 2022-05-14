@@ -16,5 +16,7 @@ namespace Core.Interfaces
         List<CodeReviewDetailVM> GetCodeReviewDetailByCodeId(int codeId);
         CodeReviewDetail GetByPK(int itemId);
         void UpdateCodeReviewDetail(CodeReviewDetail detail, ClaimsPrincipal user);
+        List<CodeReviewDetailVM> GetCodeReviewDetailByProjectIdAndVersionId(int projectId, int version);
+        List<CodeReviewDetailVM> GetCodeReviewDetailByTestHeaderId(int id);
     }
 }

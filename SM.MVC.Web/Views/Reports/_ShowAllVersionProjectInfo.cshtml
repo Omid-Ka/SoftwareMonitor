@@ -5,7 +5,7 @@
 @using Core.Helper
 @using Domain.Models.Enum
 
-@model List<Core.ViewModels.DocReviewVM>
+@model Core.ViewModels.AggregateReportVM
 
 <style>
     #container {
@@ -63,163 +63,240 @@
 </style>
 
 
-@*<input id="ProjectId" type="hidden" value="@ViewBag.ProjectId" />*@
-
 <div class="card">
     <div class="header">
         <h2>نمودارها</h2>
     </div>
     <div class="body">
 
-       
+        @if (ViewBag.hasCode == true)
+        {
 
             <div class="row clearfix">
-                <div class="Showcenter"> گزارشات کلیه نسخه ها</div>
+                <div class="Showcenter"> گزارشات بررسی کد</div>
             </div>
             <div class="row clearfix">
-                <div class="col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <figure class="highcharts-figure">
+                        <div id="MatchingBarChart"></div>
+                    </figure>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <figure class="highcharts-figure">
                         <div id="BarChart"></div>
                     </figure>
                 </div>
             </div>
-        
+        }
+        @if (ViewBag.hasDoc == true)
+        {
+            @*<div class="row clearfix">
+                <div class="Showcenter"> گزارشات بررسی سند</div>
+            </div>
+            <div class="row clearfix">
+                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <thead style=" background: cornflowerblue;">
+                        <tr>
+                            <th class="align-right">پارامتر مورد ارزیابی</th>
+                            <th class="align-right">وضعیت</th>
+                            <th class="align-right">توضیحات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.DocReviewList)
+                        {
+                            <tr>
+                                <th class="align-right">@item.DocReviewTitle.ToDescription() </th>
+                                <th class="align-right">@item.DocReviewAnswer.ToDescription()</th>
+                                <th class="align-right">@item.Description</th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>*@
+        }
+        @if (ViewBag.HasLoad == true)
+        {
+            @*<div class="row clearfix">
+                <div class="Showcenter"> گزارشات تست بار و فشار</div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                        <thead style=" background: cornflowerblue;">
+                            <tr>
+                                <th class="align-right">پارامتر مورد ارزیابی</th>
+                                <th class="align-right">وضعیت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="align-right">زمان پاسخگویی </th>
+                                <th class="align-right">@Model.LoadOrStrssTestsList.AveTime </th>
+                            </tr>
+                            <tr>
+                                <th class="align-right">توانایی سرور </th>
+                                <th class="align-right">@Model.LoadOrStrssTestsList.Throughput </th>
+                            </tr>
+                            <tr>
+                                <th class="align-right">انحراف </th>
+                                <th class="align-right">@Model.LoadOrStrssTestsList.Deviation </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <figure class="highcharts-figure">
+                        <div id="LoadBarChart"></div>
+                    </figure>
+                </div>
+            </div>*@
+        }
     </div>
 </div>
 
-@*<input type="hidden" value="@ViewBag.Accurate" id="Accurate" />
-<input type="hidden" value="@ViewBag.High" id="High" />
-<input type="hidden" value="@ViewBag.Normal" id="Normal" />
-<input type="hidden" value="@ViewBag.Poor" id="Poor" />
-
-<input type="hidden" value="@ViewBag.PercentAccurate" id="PercentAccurate" />
-<input type="hidden" value="@ViewBag.PercentHigh" id="PercentHigh" />
-<input type="hidden" value="@ViewBag.PercentNormal" id="PercentNormal" />
-<input type="hidden" value="@ViewBag.PercentPoor" id="PercentPoor" />*@
-
-<script src="~/js/HighChart/highcharts.js"></script>
-<script src="~/js/HighChart/accessibility.js"></script>
-<script src="~/js/HighChart/export-data.js"></script>
-<script src="~/js/HighChart/exporting.js"></script>
-<script src="~/js/HighChart/variable-pie.js"></script>
-
-@*<script src="~/js/HighChart/data.js"></script>
-    <script src="~/js/HighChart/drilldown.js"></script>*@
 
 <script>
-    
-    //Highcharts.chart('PieChart', {
-    //    chart: {
-    //        type: 'variablepie'
-    //    },
-    //    title: {
-    //        text: 'گزارش کلی خطوط برنامه.'
-    //    },
-    //    tooltip: {
-    //        headerFormat: '',
-    //        pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-    //            'خطوط منطبق: <b>{point.y}</b><br/>' +
-    //            'درصد تطابق: <b>{point.z}</b><br/>'
-    //    },
-    //    series: [{
-    //        minPointSize: 10,
-    //        innerSize: '20%',
-    //        zMin: 0,
-    //        name: 'تطابق',
-    //        data: [{
-    //            name: 'تطابق دقیق',
-    //            y: parseInt($("#Accurate").val()), //Match($("#ProjectId").val(),'Accurate'),
-    //            z: parseFloat($("#PercentAccurate").val()), //MatchPercent($("#ProjectId").val(), 'Accurate'),
-    //            color: '#24C8F1'
-    //        }, {
-    //            name: 'تطابق زیاد',
-    //            y: parseInt($("#High").val()), // Match($("#ProjectId").val(), 'High'),
-    //            z: parseFloat($("#PercentHigh").val()), //MatchPercent($("#ProjectId").val(), 'High'),
-    //            color: '#F58F22'
-    //        }, {
-    //            name: 'تطابق معمولی',
-    //            y: parseInt($("#Normal").val()), //Match($("#ProjectId").val(), 'Normal'),
-    //            z: parseFloat($("#PercentNormal").val()), //MatchPercent($("#ProjectId").val(), 'Normal'),
-    //            color: '#BBB8AC'
-    //        }, {
-    //            name: 'تطابق ضعیف',
-    //            y: parseInt($("#Poor").val()), //Match($("#ProjectId").val(), 'Poor'),
-    //            z: parseFloat($("#PercentPoor").val()) , //MatchPercent($("#ProjectId").val(), 'Poor'),
-    //            color: '#FAAE30'
-    //        }]
-    //    }]
-    //});
-    
-
-</script>
-
-<script>
-    Highcharts.chart('BarChart', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'شاخص های عملکرد'
-        },
-        xAxis: {
-            categories: [
-                'نسخه 1',
-                'نسخه 2',
-                'نسخه 3'
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
+    var chert = Highcharts.chart('MatchingBarChart',
+        {
+            chart: {
+                type: 'column'
+            },
             title: {
-                text: 'نمره عملکرد'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [{
-            name: 'خوانایی کد',
-            data: [15,18,20],
-            color: '#24C8F1'
+                text: 'شاخص های عملکرد'
+            },
+            xAxis: {
+                @*categories: [
+                   //@Model.CodeReviewVersions.Split(",")
+                    "1",
+                    "2"
+    ],*@
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'نمره عملکرد'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'تعداد کل خطوط',
+                    data :[22,55],
+                    @*data: @(Model.CodeReviewVersionsList.Select(x=>x.AllCountRow).ToArray()),*@
+                    color: '#24C8F1'
 
-        }, {
-            name: 'شی گرایی',
-            data: [20,18,15],
-            color: '#F58F22'
+                }, {
+                    name: 'تطابق دقیق',
+                    data: [22, 55],
+                    @*data: @(Model.CodeReviewVersionsList.Select(x=>x.AccurateMatch).ToArray()),*@
+                    color: '#F58F22'
 
-        }, {
-            name: 'ایمنی کد',
-            data: [14,15,17],
-            color: '#BBB8AC'
+                }, {
+                    name: 'تطابق زیاد',
+                    data: [22, 55],
+                    @*data: @(Model.CodeReviewVersionsList.Select(x=>x.HighMatch).ToArray()),*@
+                    color: '#BBB8AC'
 
-        }, {
-            name: 'استفاده از منابع',
-            data: [5,4,3],
-            color: '#FAAE30'
+                }, {
+                    name: 'تطابق معمولی',
+                    data: [22, 55],
+                    @*data: @(Model.CodeReviewVersionsList.Select(x=>x.NormalMatch).ToArray()),*@
+                    color: '#FAAE30'
 
-        }, {
-            name: 'شاخص های پیچیدگی',
-            data: [8,6,1],
-            color: '#1D5DFA'
+                }, {
+                    name: 'تطابق ضعیف',
+                    data: [22, 55],
+                    @*data: @(Model.CodeReviewVersionsList.Select(x=>x.PoorMatch).ToArray()),*@
+                    color: '#1D5DFA'
 
-        }, {
-            name: 'هشدارهای IDE',
-            data: [5,3,1],
-            color: '#FAE029'
+                }
+            ]
+        });
+    
 
-        }]
-    });
+
+     @*Highcharts.chart('BarChart',
+        {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'شاخص های عملکرد'
+            },
+            xAxis: {
+                categories: [
+                    'Jan'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'نمره عملکرد'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'خوانایی کد',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Readability).Sum(x=>x.Score)],
+                    color: '#24C8F1'
+
+                }, {
+                    name: 'شی گرایی',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.ObjectOriented).Sum(x=>x.Score)],
+                    color: '#F58F22'
+
+                }, {
+                    name: 'ایمنی کد',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.CodeSecurity).Sum(x=>x.Score)],
+                    color: '#BBB8AC'
+
+                }, {
+                    name: 'استفاده از منابع',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.UseOfResources).Sum(x=>x.Score)],
+                    color: '#FAAE30'
+
+                }, {
+                    name: 'شاخص های پیچیدگی',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Complexity).Sum(x=>x.Score)],
+                    color: '#1D5DFA'
+
+                }, {
+                    name: 'هشدارهای IDE',
+                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Warning).Sum(x=>x.Score)],
+                    color: '#FAE029'
+
+                }
+            ]
+        });*@
 </script>
 

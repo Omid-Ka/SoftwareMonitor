@@ -20,5 +20,6 @@ namespace Core.Interfaces
         void UpdateHeader(TestHeader testHeader, ClaimsPrincipal user);
         void DeleteStressTest(int testId, ClaimsPrincipal user);
         List<TestHeader> GetTestListByProjectId(int projectId, int version);
+        List<TestHeader> GetAllVertionTestListByProjectId(int projectId);
     }
 }

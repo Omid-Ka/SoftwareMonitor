@@ -17,5 +17,7 @@ namespace Domain.Interfaces
         LoadAndSterss GetByHeaderId(int testId);
         LoadAndSterss GetByPk(int testId);
         void UpdateloadAndSterss(LoadAndSterss test, ClaimsPrincipal user);
+        LoadAndSterss GetByProjectIdAndVersionId(int projectId, int version);
+        List<LoadAndSterss> GetByProjectId(int projectId);
     }
 }

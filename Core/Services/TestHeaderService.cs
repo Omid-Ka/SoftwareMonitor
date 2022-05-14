@@ -107,5 +107,9 @@ namespace Core.Services
             return _testHeaderRepository.GetTestListByProjectId(projectId).Where(x => x.ProjectVersionId == version).ToList();
         }
 
+        public List<TestHeader> GetAllVertionTestListByProjectId(int projectId)
+        {
+            return _testHeaderRepository.GetTestListByProjectId(projectId).ToList();
+        }
     }
 }

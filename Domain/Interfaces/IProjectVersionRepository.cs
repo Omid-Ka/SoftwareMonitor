@@ -17,5 +17,6 @@ namespace Domain.Interfaces
         ProjectVersion GetByPK(int versionId);
         void EditVersion(ProjectVersion model, ClaimsPrincipal user);
         IEnumerable<ProjectVersion> GetSearchedVertion(string comment);
+        string GetByTestHeaderId(int testHeaderId);
     }
 }

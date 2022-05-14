@@ -16,5 +16,7 @@ namespace Core.Interfaces
         LoadAndSterss GetByHeaderId(int testId);
         LoadAndSterss GetByPk(int testId);
         void UpdateloadAndSterss(LoadAndSterss test, ClaimsPrincipal user);
+        CreateLoadOrStrssTest GetByProjectIdAndVersionId(int projectId, int version);
+        List<CreateLoadOrStrssTest> GetAllVertionByProjectId(int projectId);
     }
 }

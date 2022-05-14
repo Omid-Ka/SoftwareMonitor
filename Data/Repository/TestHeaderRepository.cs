@@ -99,5 +99,11 @@ namespace Data.Repository
         {
             return _SMContext.TestHeaders.Where(x => x.IsActive && x.ProjectId == projectId).ToList();
         }
+
+        public List<TestHeader> GetByProjectIdAndVersionId(int projectId, int versionId)
+        {
+            return _SMContext.TestHeaders.Where(x =>x.IsActive && x.ProjectVersionId == versionId && x.ProjectId == projectId)
+                .ToList();
+        }
     }
 }
