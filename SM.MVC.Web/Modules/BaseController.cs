@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Core.AccessConst;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace SM.MVC.Web.Modules
 {
@@ -37,7 +41,14 @@ namespace SM.MVC.Web.Modules
 
         protected void SelectedSideBar(string Access)
         {
-            TempData["SelectedSidebar"] = Access;
+
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            //identity.RemoveClaim(identity.FindFirst("SelectedPage"));
+            //identity.AddClaim(new Claim("SelectedPage", Access));
+
+            HttpContext.Session.SetString("SelectedPage", Access);
+
         }
         
     }

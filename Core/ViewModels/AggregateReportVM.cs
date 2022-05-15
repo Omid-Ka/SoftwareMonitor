@@ -13,6 +13,17 @@ namespace Core.ViewModels
         public string CodeReviewVersions { get; set; }  
 
         public List<CodeReviewVersions> CodeReviewVersionsList { get; set; }
+        public int[] AllCountRow { get; set; }
+        public int[] AccurateMatch { get; set; }
+        public int[] HighMatch { get; set; }
+        public int[] NormalMatch { get; set; }
+        public int[] PoorMatch { get; set; }
+        public int[] Readability { get; set; }
+        public int[] ObjectOriented { get; set; }
+        public int[] CodeSecurity { get; set; }
+        public int[] UseOfResources { get; set; }
+        public int[] Complexity { get; set; }
+        public int[] Warning { get; set; }
 
         public List<DocReviewVersions> DocReviewVersionsList { get; set; }
 

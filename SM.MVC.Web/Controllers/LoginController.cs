@@ -121,6 +121,7 @@ namespace SM.MVC.Web.Controllers
                 new Claim(ClaimTypes.NameIdentifier,UserModel.Id.ToString()),
                 new Claim(ClaimTypes.Name,UserModel.Name.ToString()+" " + UserModel.Family.ToString()),
                 new Claim(ClaimTypes.Email,UserModel.Email.ToString()),
+                new Claim("SelectedPage","داشبورد"),
                 new Claim("IpAddress",IpAddress),
             };
 

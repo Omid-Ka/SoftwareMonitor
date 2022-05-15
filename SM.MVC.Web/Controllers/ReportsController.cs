@@ -108,24 +108,28 @@ namespace SM.MVC.Web.Controllers
             }
 
             //// بررسی سند
-
-
-            ViewBag.hasDoc = ReportTypes.Contains("DocReview");
-
-            var TestHeader = _testHeaderService.GetTestListByProjectId(ProjectId, Version)
-                .Where(x => x.EntityType == "DocReview").ToList();
-            if (TestHeader.Any())
+            if (ReportTypes.Contains("DocReview"))
             {
-                AllReport.DocReviewList = _docReviewService.GetDocReviewsByDocId(TestHeader.FirstOrDefault().Id);
+
+                ViewBag.hasDoc = ReportTypes.Contains("DocReview");
+
+                var TestHeader = _testHeaderService.GetTestListByProjectId(ProjectId, Version)
+                    .Where(x => x.EntityType == "DocReview").ToList();
+                if (TestHeader.Any())
+                {
+                    AllReport.DocReviewList = _docReviewService.GetDocReviewsByDocId(TestHeader.FirstOrDefault().Id);
+                }
             }
 
+
             /// تست بار و استرس
+            if (ReportTypes.Contains("StressAndLoad"))
+            {
+                ViewBag.HasLoad = ReportTypes.Contains("StressAndLoad");
 
-            ViewBag.HasLoad = ReportTypes.Contains("StressAndLoad");
 
-
-            AllReport.LoadOrStrssTestsList = _loadAndSterssService.GetByProjectIdAndVersionId(ProjectId, Version);
-
+                AllReport.LoadOrStrssTestsList = _loadAndSterssService.GetByProjectIdAndVersionId(ProjectId, Version);
+            }
 
 
             return PartialView("_ShowProjectInfo", AllReport);
@@ -222,7 +226,19 @@ namespace SM.MVC.Web.Controllers
                 model.CodeReviewVersionsList = GetAllCodeReviewVersion(versionList, ProjectId);
 
                 var x = model.CodeReviewVersionsList.Select(x => x.AccurateMatch).ToArray();
-                
+
+
+                model.AllCountRow = model.CodeReviewVersionsList.Select(x => x.AllCountRow).ToArray();
+                model.AccurateMatch = model.CodeReviewVersionsList.Select(x => x.AccurateMatch).ToArray();
+                model.HighMatch = model.CodeReviewVersionsList.Select(x => x.HighMatch).ToArray();
+                model.NormalMatch = model.CodeReviewVersionsList.Select(x => x.NormalMatch).ToArray();
+                model.PoorMatch = model.CodeReviewVersionsList.Select(x => x.PoorMatch).ToArray();
+                model.Readability = model.CodeReviewVersionsList.Select(x => x.Readability).ToArray();
+                model.ObjectOriented = model.CodeReviewVersionsList.Select(x => x.ObjectOriented).ToArray();
+                model.CodeSecurity = model.CodeReviewVersionsList.Select(x => x.CodeSecurity).ToArray();
+                model.UseOfResources = model.CodeReviewVersionsList.Select(x => x.UseOfResources).ToArray();
+                model.Complexity = model.CodeReviewVersionsList.Select(x => x.Complexity).ToArray();
+                model.Warning = model.CodeReviewVersionsList.Select(x => x.Warning).ToArray();
 
             }
 

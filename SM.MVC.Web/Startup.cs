@@ -61,6 +61,11 @@ namespace SM.MVC.Web
                     option.ExpireTimeSpan = TimeSpan.FromDays(10);
                 });
 
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +89,8 @@ namespace SM.MVC.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

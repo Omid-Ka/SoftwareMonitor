@@ -155,8 +155,15 @@
     </div>
 </div>
 
-
+@{
+    var CountJson = JsonConvert.SerializeObject(Model.AllCountRow);
+}
 <script>
+
+    var Counts = JSON.parse('@Html.Raw(CountJson)');
+
+    debugger;
+
     var chert = Highcharts.chart('MatchingBarChart',
         {
             chart: {
@@ -166,11 +173,7 @@
                 text: 'شاخص های عملکرد'
             },
             xAxis: {
-                @*categories: [
-                   //@Model.CodeReviewVersions.Split(",")
-                    "1",
-                    "2"
-    ],*@
+                categories:@Html.Raw(JsonConvert.SerializeObject(Model.CodeReviewVersions)),
                 crosshair: true
             },
             yAxis: {
@@ -196,41 +199,41 @@
             series: [
                 {
                     name: 'تعداد کل خطوط',
-                    data :[22,55],
+                    data : @Html.Raw(CountJson),
                     @*data: @(Model.CodeReviewVersionsList.Select(x=>x.AllCountRow).ToArray()),*@
                     color: '#24C8F1'
 
                 }, {
                     name: 'تطابق دقیق',
-                    data: [22, 55],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.AccurateMatch)),
                     @*data: @(Model.CodeReviewVersionsList.Select(x=>x.AccurateMatch).ToArray()),*@
                     color: '#F58F22'
 
                 }, {
                     name: 'تطابق زیاد',
-                    data: [22, 55],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.HighMatch)),
                     @*data: @(Model.CodeReviewVersionsList.Select(x=>x.HighMatch).ToArray()),*@
                     color: '#BBB8AC'
 
                 }, {
                     name: 'تطابق معمولی',
-                    data: [22, 55],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.NormalMatch)),
                     @*data: @(Model.CodeReviewVersionsList.Select(x=>x.NormalMatch).ToArray()),*@
                     color: '#FAAE30'
 
                 }, {
                     name: 'تطابق ضعیف',
-                    data: [22, 55],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.PoorMatch)),
                     @*data: @(Model.CodeReviewVersionsList.Select(x=>x.PoorMatch).ToArray()),*@
                     color: '#1D5DFA'
 
                 }
             ]
         });
-    
 
 
-     @*Highcharts.chart('BarChart',
+
+    Highcharts.chart('BarChart',
         {
             chart: {
                 type: 'column'
@@ -267,36 +270,36 @@
             series: [
                 {
                     name: 'خوانایی کد',
-                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Readability).Sum(x=>x.Score)],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.Readability)),
                     color: '#24C8F1'
 
                 }, {
                     name: 'شی گرایی',
-                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.ObjectOriented).Sum(x=>x.Score)],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.ObjectOriented)),
                     color: '#F58F22'
 
                 }, {
                     name: 'ایمنی کد',
-                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.CodeSecurity).Sum(x=>x.Score)],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.CodeSecurity)),
                     color: '#BBB8AC'
 
                 }, {
                     name: 'استفاده از منابع',
-                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.UseOfResources).Sum(x=>x.Score)],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.UseOfResources)),
                     color: '#FAAE30'
 
                 }, {
                     name: 'شاخص های پیچیدگی',
-                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Complexity).Sum(x=>x.Score)],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.Complexity)),
                     color: '#1D5DFA'
 
                 }, {
                     name: 'هشدارهای IDE',
-                    data: [@Model.CodeReview.CodeReviewDetailList.Where(x=>x.DetailType == CodeReviewDetailType.Warning).Sum(x=>x.Score)],
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.Warning)),
                     color: '#FAE029'
 
                 }
             ]
-        });*@
+        });
 </script>
 

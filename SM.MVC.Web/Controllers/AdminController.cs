@@ -14,6 +14,7 @@ namespace SM.MVC.Web.Controllers
         //[Authorize]
         public IActionResult Index()
         {
+            SelectedSideBar("");
             return View();
         }
 

@@ -19,7 +19,7 @@
 </style>
 
 <script>
-    
+
     var roles = JSON.parse('@Html.Raw(rolesJson)');
 
     var Selected = JSON.parse('@Html.Raw(SelectedItem)');
@@ -28,9 +28,10 @@
     $(document).ready(function () {
 
         var menu = $(".sidebar-menu");
-        console.log('***');
-        console.log(menu);
-        console.log('***');
+        //console.log('***');
+        //console.log(menu);
+        //console.log(Selected);
+        //console.log('***');
         menu.find("li[user-access]").each(function () {
             var access = $(this).attr("user-access").split(",");
             var hassAccess = false;
@@ -38,6 +39,7 @@
 
             for (var i = 0; i < access.length; i++) {
                 if (roles.indexOf(access[i]) !== -1) {
+
                     hassAccess = true;
                     break;
                 }
@@ -46,7 +48,9 @@
                 $(this).remove();
             }
 
-            $(this).parents('li').andSelf().removeClass();
+            //$(this).parents('li').andSelf().removeClass();
+            //$(this).parents('ul').removeStyle();
+            //$(this).parents('ul').addStyle('display: none;');
 
             //console.log('---');
             //console.log(access);
@@ -54,21 +58,43 @@
             //console.log('---');
 
         });
-        
+
         menu.find("li[user-access]").each(function () {
             var access = $(this).attr("user-access").split(",");
-            
+
+            //console.log(access);
+
             for (var i = 0; i < access.length; i++) {
+                
+
                 if (Selected === access[i]) {
-                    $(this).parents('li').andSelf().addClass('active');
-                } 
+
+                    //console.log('888888888888');
+                    $(this).parents('li').andSelf().addClass("active");
+
+                }
             }
-            
+
         });
 
-        console.log('***');
-        console.log(menu);
-        console.log('***');
+        $(".active").each(function () {
+
+        //    console.log('11111111111');
+        //    console.log($(this).parent("ul").html());
+        //    console.log('22222222222');
+            //if ($(this).children("a[href^=javascript]").length > 0) {
+
+            $(this).children("a").addClass("toggled");
+            $(this).parent("ul").css("display","block");
+            //} else {
+
+            //}
+        });
+
+
+        //console.log('***');
+        //console.log(menu);
+        //console.log('***');
 
         menu.find("li:not([user-access])").each(function () {
             if ($(this).children("a[href^=javascript]").length > 0 && $(this).children("ul").children("li").length === 0) {
@@ -85,7 +111,17 @@
                 $(this).remove();
             }
         });
+
+
+
+        if (Selected === "") {
+            $('#firstLink').addClass('active');
+        }
+
+
     });
+
+
 
     @*function SideBarClick(Access) {
         debugger;
@@ -103,7 +139,7 @@
 
 <div class="menu">
     <ul class="list sidebar-menu">
-        <li>
+        <li id="firstLink">
             <a asp-controller="Admin" asp-action="Index">
                 <i class="material-icons">home</i>
                 <span>داشبورد</span>

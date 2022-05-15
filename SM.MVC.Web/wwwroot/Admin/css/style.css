@@ -10389,9 +10389,9 @@ fieldset[disabled] .form-control {
                 }
 
                     .sidebar .menu .list .ml-menu li.active a.toggled:not(.menu-toggle):before {
-                        content: '\E315';
-                        /*font-family: 'Material Icons';*/
-                        font-family: IRAN Sans Regular;
+                        content: '\E314';
+                        font-family: 'Material Icons';
+                        /*font-family: IRAN Sans Regular;*/
                         position: relative;
                         font-size: 21px;
                         height: 20px;

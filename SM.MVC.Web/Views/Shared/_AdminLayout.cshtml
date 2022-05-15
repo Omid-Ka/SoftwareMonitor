@@ -20,7 +20,7 @@
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
-            <div class="preloader">
+            <div class="preloader" style="direction: ltr !important" >
                 <div class="spinner-layer pl-red">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
@@ -65,7 +65,6 @@
                     @*<li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>*@
                     <!-- #END# Call Search -->
                     <!-- Notifications -->
-
                     @*@await Html.PartialAsync("_Notifications")*@
                     @await Component.InvokeAsync("Notifications")
 
@@ -89,9 +88,9 @@
             @*@await Html.PartialAsync("_Sidebar")*@
             @await Component.InvokeAsync("SideBar")
             @*, new
-            {
-                SelectedSidebar = ViewData["SelectedSidebar"].ToString();
-            });*@
+                {
+                    SelectedSidebar = ViewData["SelectedSidebar"].ToString();
+                });*@
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->
@@ -122,7 +121,7 @@
 
     @await RenderSectionAsync("Scripts", false)
 
-   
+
 
 
 </body>
