@@ -18,7 +18,7 @@ namespace SeleniumTest
         {
 
             var chromeOption = new ChromeOptions();
-            chromeOption.AddArgument("headless");
+            //chromeOption.AddArgument("headless");
 
             using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), chromeOption))
             {

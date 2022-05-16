@@ -10,7 +10,7 @@ namespace Core.ViewModels
     {
         public int ProjectId { get; set; }
 
-        public string CodeReviewVersions { get; set; }  
+        public string[] CodeReviewVersions { get; set; }  
 
         public List<CodeReviewVersions> CodeReviewVersionsList { get; set; }
         public int[] AllCountRow { get; set; }

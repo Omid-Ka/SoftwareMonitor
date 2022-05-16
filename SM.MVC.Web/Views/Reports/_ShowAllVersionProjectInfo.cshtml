@@ -90,34 +90,42 @@
         }
         @if (ViewBag.hasDoc == true)
         {
-            @*<div class="row clearfix">
+            <div class="row clearfix">
                 <div class="Showcenter"> گزارشات بررسی سند</div>
             </div>
             <div class="row clearfix">
                 <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                     <thead style=" background: cornflowerblue;">
                         <tr>
-                            <th class="align-right">پارامتر مورد ارزیابی</th>
-                            <th class="align-right">وضعیت</th>
-                            <th class="align-right">توضیحات</th>
+                            <th class="align-right">نسخه</th>
+                            <th class="align-right">وضعیت نمودار توالی</th>
+                            <th class="align-right">وضعیت نمودار فعالیت</th>
+                            <th class="align-right">وضعیت نمودار کاربرد</th>
+                            <th class="align-right">وضعیت نمودار کلاس</th>
+                            <th class="align-right">وضعیت ماژول ها</th>
+                            <th class="align-right">وضعیت شرح فعالیت</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.DocReviewList)
+                        @foreach (var item in Model.DocReviewVersionsList)
                         {
-                            <tr>
-                                <th class="align-right">@item.DocReviewTitle.ToDescription() </th>
-                                <th class="align-right">@item.DocReviewAnswer.ToDescription()</th>
-                                <th class="align-right">@item.Description</th>
-                            </tr>
+                        <tr>
+                            <th class="align-right">@item.Version </th>
+                            <th class="align-right">@item.SequenceDiagram.ToDescription() </th>
+                            <th class="align-right">@item.ActivityDiagram.ToDescription() </th>
+                            <th class="align-right">@item.ApplicationDiagram.ToDescription() </th>
+                            <th class="align-right">@item.ClassDiagram.ToDescription() </th>
+                            <th class="align-right">@item.Modules.ToDescription() </th>
+                            <th class="align-right">@item.ActivityDescription.ToDescription() </th>
+                        </tr>
                         }
                     </tbody>
                 </table>
-            </div>*@
+            </div>
         }
         @if (ViewBag.HasLoad == true)
         {
-            @*<div class="row clearfix">
+            <div class="row clearfix">
                 <div class="Showcenter"> گزارشات تست بار و فشار</div>
             </div>
             <div class="row clearfix">
@@ -125,23 +133,22 @@
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead style=" background: cornflowerblue;">
                             <tr>
-                                <th class="align-right">پارامتر مورد ارزیابی</th>
-                                <th class="align-right">وضعیت</th>
+                                <th class="align-right">نسخه</th>
+                                <th class="align-right">زمان پاسخگویی </th>
+                                <th class="align-right">توانایی سرور </th>
+                                <th class="align-right">انحراف </th>
                             </tr>
                         </thead>
                         <tbody>
+                        @foreach (var item in Model.CreateLoadOrStrssTests)
+                        {
                             <tr>
-                                <th class="align-right">زمان پاسخگویی </th>
-                                <th class="align-right">@Model.LoadOrStrssTestsList.AveTime </th>
+                                <th class="align-right">@item.Version </th>
+                                <th class="align-right">@item.AveTime </th>
+                                <th class="align-right">@item.Throughput </th>
+                                <th class="align-right">@item.Deviation </th>
                             </tr>
-                            <tr>
-                                <th class="align-right">توانایی سرور </th>
-                                <th class="align-right">@Model.LoadOrStrssTestsList.Throughput </th>
-                            </tr>
-                            <tr>
-                                <th class="align-right">انحراف </th>
-                                <th class="align-right">@Model.LoadOrStrssTestsList.Deviation </th>
-                            </tr>
+                        }
                         </tbody>
                     </table>
                 </div>
@@ -150,7 +157,7 @@
                         <div id="LoadBarChart"></div>
                     </figure>
                 </div>
-            </div>*@
+            </div>
         }
     </div>
 </div>
@@ -173,7 +180,9 @@
                 text: 'شاخص های عملکرد'
             },
             xAxis: {
-                categories:@Html.Raw(JsonConvert.SerializeObject(Model.CodeReviewVersions)),
+                categories:
+                    @Html.Raw(JsonConvert.SerializeObject(Model.CodeReviewVersions))
+                ,
                 crosshair: true
             },
             yAxis: {
@@ -242,9 +251,9 @@
                 text: 'شاخص های عملکرد'
             },
             xAxis: {
-                categories: [
-                    'Jan'
-                ],
+                categories: 
+                    @Html.Raw(JsonConvert.SerializeObject(Model.CodeReviewVersions))
+                ,
                 crosshair: true
             },
             yAxis: {
@@ -301,5 +310,63 @@
                 }
             ]
         });
+</script>
+
+
+<script>
+    Highcharts.chart('LoadBarChart',
+        {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'شاخص های عملکرد'
+            },
+            xAxis: {
+                categories: @Html.Raw(JsonConvert.SerializeObject(Model.CreateLoadOrStrssTests.Select(x=>x.Version).ToArray()))
+                ,
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'نمره عملکرد'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'کل درخواست ها',
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.CreateLoadOrStrssTests.Select(x=>x.TotalRequest).ToArray())),
+                    color: '#80b3ff'
+
+                }, {
+                    name: 'درخواست های موفق',
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.CreateLoadOrStrssTests.Select(x => x.SuccessRequest).ToArray())),
+                    color: '#009933'
+
+                }, {
+                    name: 'درخواست های خطا',
+                    data: @Html.Raw(JsonConvert.SerializeObject(Model.CreateLoadOrStrssTests.Select(x => x.FailRequest).ToArray())),
+                    color: '#b30000'
+
+                }
+            ]
+        });
+
+
 </script>
 

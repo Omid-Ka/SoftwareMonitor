@@ -161,7 +161,7 @@ namespace SM.MVC.Web.Controllers
 
             _usersService.EditUser(model, User);
 
-            NotifyError("با موفقیت ویرایش شد");
+            NotifySuccess("با موفقیت ویرایش شد");
             return RedirectToAction("Index");
         }
 

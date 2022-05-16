@@ -97,12 +97,12 @@ namespace Core.Services
             });
         }
 
-        public string GetAllVersionNames(int[] versionList)
+        public string[] GetAllVersionNames(int[] versionList)
         {
             var Result = _projectVersionRepository.GetAllVertion().Where(x => versionList.Contains(x.Id))
-                .Select(x => x.Name).ToArray();
+                .Select(x =>  x.Name+ "نسخه").ToArray();
 
-            return string.Join(",", Result);
+            return  Result;
 
         }
     }

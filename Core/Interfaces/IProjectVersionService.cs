@@ -21,6 +21,6 @@ namespace Core.Interfaces
         IEnumerable<ProjectVersion> GetAllVertionByProjectId(int projectId);
         bool VersionHasValid(int projectId, int versionId);
         IEnumerable<ProjectVersionDTO> GetSearchedVertion(string comment);
-        string GetAllVersionNames(int[] versionList);
+        string[] GetAllVersionNames(int[] versionList);
     }
 }
