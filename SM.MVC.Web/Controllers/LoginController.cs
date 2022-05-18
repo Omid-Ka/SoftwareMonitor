@@ -54,40 +54,40 @@ namespace SM.MVC.Web.Controllers
         [HttpPost]
         public ActionResult Login(LoginVM model , IFormCollection form)
         {
-            string urlToPost = "https://www.google.com/recaptcha/api/siteverify";
-            string secretKey = "6LfxrN0cAAAAAGWL3Li9D7wz6lEj3zp2dsterGJT"; // change this
-            string gRecaptchaResponse = form["g-recaptcha-response"];
+            //string urlToPost = "https://www.google.com/recaptcha/api/siteverify";
+            //string secretKey = "6LfxrN0cAAAAAGWL3Li9D7wz6lEj3zp2dsterGJT"; // change this
+            //string gRecaptchaResponse = form["g-recaptcha-response"];
 
-            var postData = "secret=" + secretKey + "&response=" + gRecaptchaResponse;
+            //var postData = "secret=" + secretKey + "&response=" + gRecaptchaResponse;
 
-            // send post data
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlToPost);
-            request.Method = "POST";
-            request.ContentLength = postData.Length;
-            request.ContentType = "application/x-www-form-urlencoded";
+            //// send post data
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlToPost);
+            //request.Method = "POST";
+            //request.ContentLength = postData.Length;
+            //request.ContentType = "application/x-www-form-urlencoded";
 
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(postData);
-            }
+            //using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            //{
+            //    streamWriter.Write(postData);
+            //}
 
-            // receive the response now
-            string result = string.Empty;
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            {
-                using (var reader = new StreamReader(response.GetResponseStream()))
-                {
-                    result = reader.ReadToEnd();
-                }
-            }
+            //// receive the response now
+            //string result = string.Empty;
+            //using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            //{
+            //    using (var reader = new StreamReader(response.GetResponseStream()))
+            //    {
+            //        result = reader.ReadToEnd();
+            //    }
+            //}
 
-            // validate the response from Google reCaptcha
-            var captChaesponse = JsonConvert.DeserializeObject<reCaptchaResponse>(result);
-            if (!captChaesponse.Success)
-            {
-                ViewBag.Message = "لطفاً reCAPTCHA را تأیید کنید";
-                return View("Index");
-            }
+            //// validate the response from Google reCaptcha
+            //var captChaesponse = JsonConvert.DeserializeObject<reCaptchaResponse>(result);
+            //if (!captChaesponse.Success)
+            //{
+            //    ViewBag.Message = "لطفاً reCAPTCHA را تأیید کنید";
+            //    return View("Index");
+            //}
 
             // go ahead and write code to validate username password against database
 
