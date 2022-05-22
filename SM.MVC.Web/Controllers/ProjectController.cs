@@ -30,9 +30,10 @@ namespace SM.MVC.Web.Controllers
         private IPartnersService _partnersService;
         private IAttachmentService _attachmentService;
         private IProjectVersionService _projectVersionService;
+        private IProjectUsersRelationService _projectUsersRelationService;
 
 
-        public ProjectController(IProjectService projectService, IUsersService usersService, ITeamService teamService, IPartnersService partnersService, IAttachmentService attachmentService, IProjectVersionService projectVersionService)
+        public ProjectController(IProjectService projectService, IUsersService usersService, ITeamService teamService, IPartnersService partnersService, IAttachmentService attachmentService, IProjectVersionService projectVersionService, IProjectUsersRelationService projectUsersRelationService)
         {
             _projectService = projectService;
             _usersService = usersService;
@@ -40,6 +41,7 @@ namespace SM.MVC.Web.Controllers
             _partnersService = partnersService;
             _attachmentService = attachmentService;
             _projectVersionService = projectVersionService;
+            _projectUsersRelationService = projectUsersRelationService;
         }
 
         // GET: /<controller>/
@@ -71,21 +73,23 @@ namespace SM.MVC.Web.Controllers
         public IActionResult CreateProject(CreateProjectVM model)
         {
 
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(model.Project.ProjectName))
             {
                 NotifyError("خطا در ثبت اطلاعات");
-                return View("CreateProject");
+                return View("CreateProject", model);
             }
 
             bool HasProject = _projectService.HasProjectWithName(model.Project.ProjectName);
             if (HasProject)
             {
                 NotifyError("اطلاعات کاربر تکراری می باشد");
-                return View("CreateProject");
+                return View("CreateProject", model);
             }
 
 
-            _projectService.AddProject(model.Project, User);
+            var project = _projectService.AddProject(model.Project, User);
+
+            _projectUsersRelationService.AddProjectAccess(project, User);
 
 
             if (model.Partners.Count > 0)
@@ -131,7 +135,7 @@ namespace SM.MVC.Web.Controllers
                 }
             }
 
-            NotifyError("با موفقیت ثبت شد");
+            NotifySuccess("با موفقیت ثبت شد");
             return RedirectToAction("Index");
         }
 

@@ -12,7 +12,7 @@ namespace Core.Interfaces
     {
         IEnumerable<ProjectDTO> GetAllProject(ClaimsPrincipal user);
         bool HasProjectWithName(string projectName);
-        void AddProject(Project model, ClaimsPrincipal user);
+        Project AddProject(Project model, ClaimsPrincipal user);
         void DeleteProject(int ProjectId, ClaimsPrincipal user);
         Project GetProjectById(int projectId);
         void EditProject(Project model, ClaimsPrincipal user);

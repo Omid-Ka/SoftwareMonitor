@@ -9,6 +9,7 @@ using System.Text;
 using Domain.Models.Log;
 using Domain.Models.Enum;
 using System.Security.Claims;
+using Domain.Models;
 
 namespace Core.Services
 {
@@ -19,6 +20,11 @@ namespace Core.Services
         public ProjectUsersRelationService(IProjectUsersRelationRepository projectUsersRelationRepository)
         {
             _projectUsersRelationRepository = projectUsersRelationRepository;
+        }
+
+        public void AddProjectAccess(Project project, ClaimsPrincipal user)
+        {
+            _projectUsersRelationRepository.AddProjectAccess(project, user);
         }
 
         public bool ChangeUserprojectRelations(int[] Ids, int userid, ClaimsPrincipal user)

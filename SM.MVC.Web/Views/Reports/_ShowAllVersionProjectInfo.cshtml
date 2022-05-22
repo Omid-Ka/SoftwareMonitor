@@ -109,15 +109,93 @@
                     <tbody>
                         @foreach (var item in Model.DocReviewVersionsList)
                         {
-                        <tr>
-                            <th class="align-right">@item.Version </th>
-                            <th class="align-right">@item.SequenceDiagram.ToDescription() </th>
-                            <th class="align-right">@item.ActivityDiagram.ToDescription() </th>
-                            <th class="align-right">@item.ApplicationDiagram.ToDescription() </th>
-                            <th class="align-right">@item.ClassDiagram.ToDescription() </th>
-                            <th class="align-right">@item.Modules.ToDescription() </th>
-                            <th class="align-right">@item.ActivityDescription.ToDescription() </th>
-                        </tr>
+                            <tr>
+                                <th class="align-right">@item.Version </th>
+                                @if (item.SequenceDiagram == DocReviewAnswer.Less)
+                                {
+                                    <th style="background-color: red" class="align-right">@item.SequenceDiagram.ToDescription() </th>
+                                }
+                                else if (item.SequenceDiagram == DocReviewAnswer.Incomplete)
+                                {
+                                    <th style="background-color: orange" class="align-right">@item.SequenceDiagram.ToDescription() </th>
+                                }
+                                else
+                                {
+                                    <th style="background-color: green" class="align-right">@item.SequenceDiagram.ToDescription() </th>
+                                }
+
+
+                                @if (item.ActivityDiagram == DocReviewAnswer.Less)
+                                {
+                                    <th style="background-color: red" class="align-right">@item.ActivityDiagram.ToDescription() </th>
+                                }
+                                else if (item.ActivityDiagram == DocReviewAnswer.Incomplete)
+                                {
+                                    <th style="background-color: orange" class="align-right">@item.ActivityDiagram.ToDescription() </th>
+                                }
+                                else
+                                {
+                                    <th style="background-color: green" class="align-right">@item.ActivityDiagram.ToDescription() </th>
+                                }
+
+
+                                @if (item.ApplicationDiagram == DocReviewAnswer.Less)
+                                {
+                                    <th style="background-color: red" class="align-right">@item.ApplicationDiagram.ToDescription() </th>
+                                }
+                                else if (item.ApplicationDiagram == DocReviewAnswer.Incomplete)
+                                {
+                                    <th style="background-color: orange" class="align-right">@item.ApplicationDiagram.ToDescription() </th>
+                                }
+                                else
+                                {
+                                    <th style="background-color: green" class="align-right">@item.ApplicationDiagram.ToDescription() </th>
+                                }
+
+
+                                @if (item.ClassDiagram == DocReviewAnswer.Less)
+                                {
+                                    <th style="background-color: red" class="align-right">@item.ClassDiagram.ToDescription() </th>
+                                }
+                                else if (item.ClassDiagram == DocReviewAnswer.Incomplete)
+                                {
+                                    <th style="background-color: orange" class="align-right">@item.ClassDiagram.ToDescription() </th>
+                                }
+                                else
+                                {
+                                    <th style="background-color: green" class="align-right">@item.ClassDiagram.ToDescription() </th>
+                                }
+
+
+                                @if (item.Modules == DocReviewAnswer.Less)
+                                {
+                                    <th style="background-color: red" class="align-right">@item.Modules.ToDescription() </th>
+                                }
+                                else if (item.Modules == DocReviewAnswer.Incomplete)
+                                {
+                                    <th style="background-color: orange" class="align-right">@item.Modules.ToDescription() </th>
+                                }
+                                else
+                                {
+                                    <th style="background-color: green" class="align-right">@item.Modules.ToDescription() </th>
+                                }
+
+
+                                @if (item.ActivityDescription == DocReviewAnswer.Less)
+                                {
+                                    <th style="background-color: red" class="align-right">@item.ActivityDescription.ToDescription() </th>
+                                }
+                                else if (item.ActivityDescription == DocReviewAnswer.Incomplete)
+                                {
+                                    <th style="background-color: orange" class="align-right">@item.ActivityDescription.ToDescription() </th>
+                                }
+                                else
+                                {
+                                    <th style="background-color: green" class="align-right">@item.ActivityDescription.ToDescription() </th>
+                                }
+
+
+                            </tr>
                         }
                     </tbody>
                 </table>

@@ -26,7 +26,7 @@ namespace Data.Repository
             return _SMContext.Projects.Any(x => x.ProjectName == projectName && x.IsActive);
         }
 
-        public void AddProject(Project model, ClaimsPrincipal user)
+        public Project AddProject(Project model, ClaimsPrincipal user)
         {
             model.IsActive = true;
             model.CreatorID = Convert.ToInt32(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Select(x => x.Value)
@@ -38,6 +38,8 @@ namespace Data.Repository
 
             _SMContext.Add(model);
             _SMContext.SaveChanges();
+
+            return model;
         }
 
         public void DeleteUser(int projectId, ClaimsPrincipal user)

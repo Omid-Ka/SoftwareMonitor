@@ -49,9 +49,9 @@ namespace Core.Services
             return _projectRepository.HasProjectWithName(projectName);
         }
 
-        public void AddProject(Project model, ClaimsPrincipal user)
+        public Project AddProject(Project model, ClaimsPrincipal user)
         {
-            _projectRepository.AddProject(model, user);
+           return _projectRepository.AddProject(model, user);
         }
 
         public void DeleteProject(int ProjectId, ClaimsPrincipal user)

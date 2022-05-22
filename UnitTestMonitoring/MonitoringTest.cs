@@ -195,11 +195,12 @@ namespace UnitTestMonitoring
             var teamService = new Mock<ITeamService>();
             var partnersService = new Mock<IPartnersService>();
             var attachmentService = new Mock<IAttachmentService>();
-            var projectVersionService = new Mock<IProjectVersionService>();
+            var projectVersionService = new Mock<IProjectVersionService>(); 
+            var ProjectUsersRelationService = new Mock<IProjectUsersRelationService>(); 
 
             //Arrange
-            ProjectController controller = new ProjectController(projectService.Object, usersService.Object,
-                teamService.Object, partnersService.Object, attachmentService.Object, projectVersionService.Object);
+             ProjectController controller = new ProjectController(projectService.Object, usersService.Object,
+                teamService.Object, partnersService.Object, attachmentService.Object, projectVersionService.Object, ProjectUsersRelationService.Object);
 
             // Act
             ViewResult result = controller.CreateProject() as ViewResult;
