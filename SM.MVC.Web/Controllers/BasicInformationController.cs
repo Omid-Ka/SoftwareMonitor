@@ -212,6 +212,7 @@ namespace SM.MVC.Web.Controllers
         {
             _teamService.DeleteTeam(TeamId, User);
 
+
             var data = _teamService.GetAll();
 
             return PartialView("_TeamGrid", data);

@@ -44,7 +44,7 @@ namespace Data.Repository
                 .FirstOrDefault());
 
             var model = _SMContext.Teams.Find(teamId);
-            var Detail = _SMContext.TeamDetails.Where(x => x.IsActive && x.TeamId == teamId);
+            var Detail = _SMContext.TeamDetails.Where(x => x.IsActive && x.TeamId == teamId).ToList();
             foreach (var item in Detail)
             {
                 item.IsActive = false;

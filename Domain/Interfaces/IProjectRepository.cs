@@ -10,7 +10,7 @@ namespace Domain.Interfaces
     {
         IEnumerable<Project> GetAllProject();
         bool HasProjectWithName(string projectName);
-        void AddProject(Project model, ClaimsPrincipal user);
+        Project AddProject(Project model, ClaimsPrincipal user);
         void DeleteUser(int projectId, ClaimsPrincipal user);
         Project GetProjectById(int projectId);
         void EditProject(Project model, ClaimsPrincipal user);
