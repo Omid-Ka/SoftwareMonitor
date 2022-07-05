@@ -48,7 +48,10 @@ namespace SM.MVC.Web.Controllers
             var data = _accessGroupService.GetAllGroups();
             return View(data);
         }
-
+        /// <summary>
+        /// انتقال به صفحه ایجاد دسته بندی دسترسی ها
+        /// </summary>
+        /// <returns> صفحه ثبت گروه بندی </returns>
         public IActionResult CreateAccessGroup()
         {
             var model = new CreateAccesGroupVM();
@@ -67,6 +70,11 @@ namespace SM.MVC.Web.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// ثبت دسته بندی دسترسی ها در پایگاه داده
+        /// </summary>
+        /// <param name="model"> مدل شامل دسترسی ها و نام دسته بندی </param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult CreateAccessGroup(CreateAccesGroupVM model)
         {

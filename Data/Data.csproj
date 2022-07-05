@@ -19,6 +19,12 @@
     <Compile Remove="Migrations\20211205100039_AddVertion.Designer.cs" />
     <Compile Remove="Migrations\20211205100407_AddVertion.cs" />
     <Compile Remove="Migrations\20211205100407_AddVertion.Designer.cs" />
+    <Compile Remove="Migrations\20220705052707_Sync14010414.cs" />
+    <Compile Remove="Migrations\20220705052707_Sync14010414.Designer.cs" />
+    <Compile Remove="Migrations\20220705054526_SyncDatabase14010414.cs" />
+    <Compile Remove="Migrations\20220705054526_SyncDatabase14010414.Designer.cs" />
+    <Compile Remove="Migrations\20220705055108_SyncDatabase14010414Gender.cs" />
+    <Compile Remove="Migrations\20220705055108_SyncDatabase14010414Gender.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

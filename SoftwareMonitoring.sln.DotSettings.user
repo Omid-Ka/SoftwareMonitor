@@ -1,0 +1,26 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersToSkip/=132628F0_002D1219_002D4C4E_002DB265_002D9B045D2B4B8C_002Fd_003Awwwroot_002Fd_003Alib_002Fd_003Ajquery_002Dvalidation_002Fd_003Adist_002Ff_003Ajquery_002Evalidate_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersToSkip/=132628F0_002D1219_002D4C4E_002DB265_002D9B045D2B4B8C_002Fd_003Awwwroot_002Fd_003Alib_002Fd_003Ajquery_002Fd_003Adist_002Ff_003Ajquery_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersToSkip/=132628F0_002D1219_002D4C4E_002DB265_002D9B045D2B4B8C_002Fd_003Awwwroot_002Fd_003Alib_002Fd_003Ajquery_002Dvalidation_002Fd_003Adist_002Ff_003Aadditional_002Dmethods_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersToSkip/=132628F0_002D1219_002D4C4E_002DB265_002D9B045D2B4B8C_002Fd_003Awwwroot_002Fd_003Alib_002Fd_003Ajquery_002Dvalidation_002Dunobtrusive_002Ff_003Ajquery_002Evalidate_002Eunobtrusive_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersToSkip/=132628F0_002D1219_002D4C4E_002DB265_002D9B045D2B4B8C_002Fd_003Awwwroot_002Fd_003Alib_002Fd_003Abootstrap_002Fd_003Adist_002Fd_003Ajs_002Ff_003Abootstrap_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersToSkip/=132628F0_002D1219_002D4C4E_002DB265_002D9B045D2B4B8C_002Fd_003Awwwroot_002Fd_003Alib_002Fd_003Abootstrap_002Fd_003Adist_002Fd_003Ajs_002Ff_003Abootstrap_002Ebundle_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/ExcludedFiles/FilesAndFoldersToSkip/=132628F0_002D1219_002D4C4E_002DB265_002D9B045D2B4B8C_002Fd_003Awwwroot_002Fd_003Ajs_002Ff_003Ajquery_002EfullPage_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=411301f9_002D3acd_002D415c_002D93a6_002D95051ddd6099/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ProjectVersion" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;MSTest::CB33A158-D1FA-41C6-82AE-6B753D6D24F3::.NETCoreApp,Version=v3.1::SeleniumTest.LoginSelenium.ProjectVersion&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::CB33A158-D1FA-41C6-82AE-6B753D6D24F3::.NETCoreApp,Version=v3.1::SeleniumTest.LoginSelenium.ProjectLists&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::CB33A158-D1FA-41C6-82AE-6B753D6D24F3::.NETCoreApp,Version=v3.1::SeleniumTest.LoginSelenium.DocReview&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::CB33A158-D1FA-41C6-82AE-6B753D6D24F3::.NETCoreApp,Version=v3.1::SeleniumTest.LoginSelenium.CodeReview&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::CB33A158-D1FA-41C6-82AE-6B753D6D24F3::.NETCoreApp,Version=v3.1::SeleniumTest.LoginSelenium.LoadAndStressTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::CB33A158-D1FA-41C6-82AE-6B753D6D24F3::.NETCoreApp,Version=v3.1::SeleniumTest.LoginSelenium.Reports&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestRunner/HangingTestRunnerResponse/@EntryValue">KillProcess</s:String></wpf:ResourceDictionary>

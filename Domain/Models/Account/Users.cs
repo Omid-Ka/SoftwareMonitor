@@ -32,7 +32,7 @@ namespace Domain.Models.Account
         [Display(Name = "جنسیت")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public int GenderId { get; set; }
-        public virtual Lookup Gender { get; set; }
+        //public virtual Lookup Gender { get; set; }
         [Display(Name = "پست سازمانی")]
         public int? PostId { get; set; }
         public virtual Lookup Post { get; set; }

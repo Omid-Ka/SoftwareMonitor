@@ -1,0 +1,30 @@
+services:
+  monitoring_app:
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      SA_PASSWORD: Omid3883
+    image: mcr.microsoft.com/mssql/server:2019-CU16-ubuntu-20.04
+    ports:
+    - published: 1433
+      target: 1433
+  sm.mvc.web:
+    build:
+      context: D:\Omid\Project\SoftwareMonitor\SoftwareMonitor
+      dockerfile: SM.MVC.Web/Dockerfile
+    depends_on:
+      monitoring_app:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: monitoring/app
+    ports:
+    - published: 7070
+      target: 80
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\internet\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\internet\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'

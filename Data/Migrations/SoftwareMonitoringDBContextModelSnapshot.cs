@@ -272,8 +272,6 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GenderId");
-
                     b.HasIndex("PostId");
 
                     b.ToTable("Users");
@@ -999,12 +997,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.Models.Account.Users", b =>
                 {
-                    b.HasOne("Domain.Models.BaseInformation.Lookup", "Gender")
-                        .WithMany()
-                        .HasForeignKey("GenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Models.BaseInformation.Lookup", "Post")
                         .WithMany()
                         .HasForeignKey("PostId");
