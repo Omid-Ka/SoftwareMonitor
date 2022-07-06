@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,11 +42,25 @@ namespace SM.MVC.Web
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            //services.AddDbContext<SoftwareMonitoringDBContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration.GetConnectionString("SoftwareMonitoringDBContext"));
+            //});
+
+
+            var server = Configuration["DatabaseServer"] ?? "";
+            var port = Configuration["DatabasePort"] ?? "";
+            var user = Configuration["DatabaseUser"] ?? "";
+            var password = Configuration["DatabasePassword"] ?? "";
+            var database = Configuration["DatabaseName"] ?? "";
+
+            var connectionString =
+                $"Server={server}, {port}; Initial Catalog={database}; User ID={user}; Password={password}";
+
             services.AddDbContext<SoftwareMonitoringDBContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("SoftwareMonitoringDBContext"));
+                options.UseSqlServer(connectionString);
             });
-            
 
             services.AddControllersWithViews();
             RegisterServices(services);

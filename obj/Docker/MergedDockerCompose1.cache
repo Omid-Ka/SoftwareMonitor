@@ -1,0 +1,16 @@
+services:
+  sm.mvc.web:
+    build:
+      context: D:\Omid\Project\SoftwareMonitor\SoftwareMonitor
+      dockerfile: SM.MVC.Web/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: smmvcweb
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\internet\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\internet\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'
