@@ -19,11 +19,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:443;http://+:80
-      DatabaseName: SoftwareMonitorDB
-      DatabasePassword: Omid3883
-      DatabasePort: '14331'
-      DatabaseServer: SqlDocker
-      DatabaseUser: SA
+      DATABASE_PUBLIC_URL: db
     image: monitoring/api
     ports:
     - published: 15422

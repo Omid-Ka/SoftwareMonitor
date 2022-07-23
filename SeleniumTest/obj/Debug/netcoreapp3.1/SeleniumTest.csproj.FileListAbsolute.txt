@@ -97,3 +97,4 @@ D:\Omid\Project\SoftwareMonitor\SoftwareMonitor\SeleniumTest\obj\Debug\netcoreap
 D:\Omid\Project\SoftwareMonitor\SoftwareMonitor\SeleniumTest\obj\Debug\netcoreapp3.1\SeleniumTest.dll
 D:\Omid\Project\SoftwareMonitor\SoftwareMonitor\SeleniumTest\obj\Debug\netcoreapp3.1\SeleniumTest.pdb
 D:\Omid\Project\SoftwareMonitor\SoftwareMonitor\SeleniumTest\obj\Debug\netcoreapp3.1\SeleniumTest.genruntimeconfig.cache
+D:\Omid\Project\SoftwareMonitor\SoftwareMonitor\SeleniumTest\obj\Debug\netcoreapp3.1\SeleniumTest.csproj.AssemblyReference.cache

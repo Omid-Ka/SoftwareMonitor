@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Domain.Models;
 
-namespace Domain.Models
+namespace Domain.Models.Projects
 {
     public class Project : BaseEntity
     {

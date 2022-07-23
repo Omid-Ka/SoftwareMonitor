@@ -39,6 +39,7 @@ namespace SM.MVC.Web
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("SoftwareMonitorIdentityDBConnection")));
+
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -55,11 +56,11 @@ namespace SM.MVC.Web
             //var database = Configuration["DatabaseName"] ?? "";
 
             //var connectionString =
-            //    $"Server={server}, {port}; Initial Catalog={database}; User ID={user}; Password={password}";
+            //    $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}";
 
             //services.AddDbContext<SoftwareMonitoringDBContext>(options =>
             //{
-            //    options.UseSqlServer(connectionString);
+            //    options.UseSqlServer(connectionString, sqlServer => sqlServer.MigrationsAssembly("Sql.API"));
             //});
 
             services.AddControllersWithViews();
